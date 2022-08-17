@@ -18,38 +18,36 @@ class TextFieldComponent extends StatelessWidget {
     return ComponentWrapper(
       title: props.title,
       description: props.description,
-      child: Material(
-        child: TextField(
-          keyboardType: TextInputType.multiline,
-          minLines: props.minLines,
-          maxLines: props.maxLines,
-          style: TextStyle(
-            color: c,
-            fontSize: 18.0,
-          ),
-          cursorColor: c,
-          decoration: InputDecoration(
-            hintText: props.placeholder,
-            labelText: props.label,
-            border: props.showBorder
-                ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
-                  )
-                : null,
-            enabledBorder: props.showBorder
-                ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
-                  )
-                : null,
-            focusedBorder: props.showBorder
-                ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
-                  )
-                : null,
-          ),
+      child: TextField(
+        keyboardType: TextInputType.multiline,
+        minLines: props.minLines,
+        maxLines: props.maxLines,
+        style: TextStyle(
+          color: c,
+          fontSize: 18.0,
+        ),
+        cursorColor: c,
+        decoration: InputDecoration(
+          hintText: props.placeholder,
+          labelText: props.label,
+          border: props.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide(color: c),
+                )
+              : null,
+          enabledBorder: props.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide(color: c),
+                )
+              : null,
+          focusedBorder: props.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide(color: c),
+                )
+              : null,
         ),
       ),
     );

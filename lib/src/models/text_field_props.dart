@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_dynamic_forms/src/constants/constants.dart';
 import 'package:flutter_dynamic_forms/src/models/base_component.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'text_field_props.g.dart';
@@ -84,9 +85,9 @@ class TextComponentProps implements BaseComponent {
   /// Creates a TextComponentProps object from given map.
   /// Checks the given map with `TextComponentProps.textFieldPropsChecker` before creating object.
   /// Will throw error with specific message if any invalid value found for valid props.
-  /// `type` and `name` are mandatory props. Excluding these will lead to check failing.
+  /// `name` is a mandatory props. Excluding it will lead to check failing.
   factory TextComponentProps.fromMap(Map<String, dynamic> map) {
-    var check = TextComponentProps.textFieldPropsChecker(map);
+    var check = TextComponentProps.textFieldPropsChecker(map, isMap: true);
     if (check is String) throw check;
     return _$TextComponentPropsFromJson(map);
   }
@@ -104,21 +105,21 @@ class TextComponentProps implements BaseComponent {
     return _$TextComponentPropsToJson(object);
   }
 
-  static dynamic textFieldPropsChecker(Map<String, dynamic> props) {
+  static dynamic textFieldPropsChecker(Map<String, dynamic> props, {bool isMap = false}) {
     // print(" json to check : $json");
-    if (props[_tfTypeKey] is! String || props[_tfTypeKey] != "text") {
-      return "bad value for `$_tfTypeKey`.Expected 'text' but got `${props[_tfTypeKey]}`.";
+    if (!isMap && props[_tfTypeKey] is! String || props[_tfTypeKey] != textComponentName) {
+      return "bad value for `$_tfTypeKey`.Expected $textComponentName but got `${props[_tfTypeKey]}`.";
     }
     if (props[_tfNameKey] is! String) {
       return "bad value for `$_tfNameKey`.Expected a String but got `${props[_tfNameKey]}`.";
     }
     for (var key in props.keys) {
-      if (key == _tfTypeKey && (props[key] is! String)) {
-        return "bad value for $_tfTypeKey: `${props[key]}` expected a String.";
-      }
-      if (key == _tfNameKey && (props[key] is! String)) {
-        return "bad value for $_tfNameKey: `${props[key]}` expected a String.";
-      }
+      // if (key == _tfTypeKey && (props[key] is! String)) {
+      //   return "bad value for $_tfTypeKey: `${props[key]}` expected a String.";
+      // }
+      // if (key == _tfNameKey && (props[key] is! String)) {
+      //   return "bad value for $_tfNameKey: `${props[key]}` expected a String.";
+      // }
       if (key == _tfTitleKey && (props[key] is! String)) {
         return "bad value for $_tfTitleKey: `${props[key]}` expected a String.";
       }
@@ -172,5 +173,5 @@ class TextComponentProps implements BaseComponent {
   /// Type parameter for the dynamic component for internal use.
   /// This should be explicitly mentioned in the json if `TextComponentProps.fromJson` is to be used.
   @override
-  String get type => "text";
+  String get type => textComponentName;
 }

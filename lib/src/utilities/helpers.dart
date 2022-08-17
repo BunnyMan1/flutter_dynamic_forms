@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-hexStringToColorConverter(String s) {
+Color hexStringToColorConverter(String s) {
   if (s.length != 6) {
     throw "Badly formatted hex color code. Length of the hex code should be 6.";
   }

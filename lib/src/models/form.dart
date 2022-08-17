@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_forms/src/utilities/key_to_module_mapper.dart';
 
-import 'base_component.dart';
 import 'form_props.dart';
 
 class FlutterDynamicFormData {
