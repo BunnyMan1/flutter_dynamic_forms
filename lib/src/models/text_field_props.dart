@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_component.dart';
+import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'text_field_props.g.dart';
 
 @JsonSerializable()
-class TextComponentProps implements BaseComponent {
+class TextComponentProps implements BaseModel {
   //!=======================================================//
   //    Json Keys of the props used by TextFieldComponent
   //!=======================================================//
@@ -20,8 +20,18 @@ class TextComponentProps implements BaseComponent {
   static const String _tfShowBorderKey = "show_border";
   static const String _tfMaxLinesKey = "max_lines";
   static const String _tfMinLinesKey = "min_lines";
+  static const String _tfMaxLength = "max_length";
+  static const String _tfRequired = "required";
+  static const String _tfTrimWhiteSpace = "trim_white_space";
+  static const String _tfRegexMatch = "regex_match";
   //!=======================================================//
   //!=======================================================//
+
+  /// Name of the component for dev use. (Should be set to the key of the json being used to store this component's value in your DB.)
+  /// Mandatory parameter, throws error if not specified.
+  @override
+  @JsonKey(name: _tfNameKey)
+  final String name;
 
   /// Title of the component. (To be displayed in UI)
   /// defaults to ""
@@ -63,11 +73,24 @@ class TextComponentProps implements BaseComponent {
   @JsonKey(name: _tfMinLinesKey)
   final int minLines;
 
-  /// Name of the component for dev use. (Should be set to the key of the json being used to store this component's value in your DB.)
-  /// Mandatory parameter, throws error if not specified.
-  @override
-  @JsonKey(name: _tfNameKey)
-  final String name;
+  /// Max Length of for the text field. (If specified, the length will be enforced.)
+  /// Defaults to null (no max length set).
+  @JsonKey(name: _tfMaxLength)
+  final int? maxLength;
+
+  // Validation props.
+
+  //TODO: use this prop.
+  @JsonKey(name: _tfRequired)
+  final bool required;
+
+  //TODO: use this prop.
+  @JsonKey(name: _tfTrimWhiteSpace)
+  final bool trimWhiteSpace;
+
+  //TODO: use this prop.
+  @JsonKey(name: _tfRegexMatch)
+  final String? regexMatch;
 
   TextComponentProps({
     this.title = "",
@@ -78,7 +101,11 @@ class TextComponentProps implements BaseComponent {
     this.showBorder = true,
     this.maxLines = 1,
     this.minLines = 1,
+    this.maxLength,
     required this.name,
+    this.regexMatch,
+    this.required = false,
+    this.trimWhiteSpace = false,
   });
 
   //Factory constructor.

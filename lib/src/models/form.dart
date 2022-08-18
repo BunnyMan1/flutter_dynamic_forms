@@ -2,14 +2,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/utilities/key_to_module_mapper.dart';
+import 'package:flutter_dynamic_forms/src/models/base_model.dart';
+import 'package:flutter_dynamic_forms/src/utilities/name_to_props_mapper.dart';
 
 import 'form_props.dart';
 
 class FlutterDynamicFormData {
   final FormProps? props;
 
-  final List<Widget> components;
+  final List<BaseModel> components;
   FlutterDynamicFormData({
     this.props,
     required this.components,
@@ -20,7 +21,7 @@ class FlutterDynamicFormData {
 
     var propsToSet = FormProps.fromJson(map['props']);
 
-    List<Widget> componentsToSet = [];
+    List<BaseModel> componentsToSet = [];
 
     var comps = map['components'];
     if (comps is! List) {
@@ -35,13 +36,8 @@ class FlutterDynamicFormData {
         throw "Invalid value of 'type' for component '$name'. Expected a String but got ${type.runtimeType}";
       }
 
-      var mod = keyToModuleMapper(type, map);
-
-      if (mod is String) {
-        throw mod;
-      } else {
-        componentsToSet.add(mod);
-      }
+      var mod = nameToPropsMapper(type, map);
+      componentsToSet.add(mod);
     }
 
     return FlutterDynamicFormData(
