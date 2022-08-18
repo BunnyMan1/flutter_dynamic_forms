@@ -5,6 +5,7 @@ var form_options = {
   // Title of the form
   "title": "",
 
+  // Description of the form
   "title_alignment": "left,right",
 
   // Description for the form.
@@ -69,10 +70,13 @@ var text_field_props = {
   // To show border for the text field or not.
   "show_border": true,
 
+  // Border color for the text field.
   "border_color": "0000ff",
 
+  // Border width for the text field.
   "border_width": 1,
 
+  // Border radius for the text field.
   "border_radius": 1,
 
   // Min number of lines for text field. (min lines < max lines)
@@ -84,17 +88,25 @@ var text_field_props = {
   // If this field is required. (validation)
   "required": true,
 
+  // If this field is disabled.
   "read_only": false,
 
+  // If this field is disabled.
   "can_create": true,
+
+  // If this field is disabled.
   "can_update": true,
 
+  // If this field is disabled.
   "auto_focus": false,
 
+  // If this field is disabled.
   "on_focus_lost_validate": false,
 
+  // If this field is disabled.
   "auto_correct": false,
 
+  // If this field is disabled.
   "obscure_text": false,
 
   // "keyboard_type": [
@@ -104,10 +116,11 @@ var text_field_props = {
   // Whether to trim whitespaces in entered text.
   "trim_white_space": true,
 
+  // Min number of characters that can be entered. (null = no limit)
+  "min_length": null,
+
   // Max number of characters that can be entered. (null = no limit)
   "max_length": null,
-
-  "min_length": null,
 
   // To display errors. (overwrites the value from form options)
   "show_error": true,
@@ -115,14 +128,19 @@ var text_field_props = {
   // Custom Error text to show.
   "custom_error_text": "",
 
+  // Custom Error text to show.
   "show_text_counter": true,
 
   // Page of form this component to be displayed at
   "form_page_number": 1,
 
+  // To show error at the fields or not.
   "regex_match": "",
 
+  // To show error at the fields or not.
   "prefix_icon": "icon-name",
+
+  // To show error at the fields or not.
   "suffix_icon": "icon-name",
 };
 
@@ -133,7 +151,7 @@ var radio_field_props = {
   // Description of the field.
   "description": "",
 
-  // Primary color for this field, overwrites color from form options.
+  // Pri  mary color for this field, overwrites color from form options.
   "color": "00ff00",
 
   // To show border for the text field or not.

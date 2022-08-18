@@ -11,21 +11,50 @@ class TextComponentProps implements BaseModel {
   //    Json Keys of the props used by TextFieldComponent
   //!=======================================================//
   static const String _tfTypeKey = "type";
+  // static const String _tfTitleKey = "title";
+  // static const String _tfDescriptionKey = "description";
   static const String _tfNameKey = "name";
-  static const String _tfTitleKey = "title";
-  static const String _tfDescriptionKey = "description";
+  static const String _tfHelperTextKey = "helper_text";
   static const String _tfLabelKey = "label";
   static const String _tfPlaceholderKey = "placeholder";
-  static const String _tfColorKey = "color";
+  static const String _tfTextColorKey = "text_color";
   static const String _tfShowBorderKey = "show_border";
-  static const String _tfMaxLinesKey = "max_lines";
+  static const String _tfBorderColorKey = "border_color";
+  static const String _tfBorderWidthKey = "border_width";
+  static const String _tfBorderRadiusKey = "border_radius";
   static const String _tfMinLinesKey = "min_lines";
-  static const String _tfMaxLength = "max_length";
-  static const String _tfRequired = "required";
-  static const String _tfTrimWhiteSpace = "trim_white_space";
-  static const String _tfRegexMatch = "regex_match";
+  static const String _tfMaxLinesKey = "max_lines";
+  static const String _tfRequiredKey = "required";
+  static const String _tfReadOnlyKey = "read_only";
+  static const String _tfCanCreateKey = "can_create";
+  static const String _tfCanUpdateKey = "can_update";
+  static const String _tfAutoFocusKey = "auto_focus";
+  static const String _tfOnFocusLostValidateKey = "on_focus_lost_validate";
+  static const String _tfAutoCorrectKey = "auto_correct";
+  static const String _tfObscureTextKey = "obscure_text";
+  static const String _tfTrimWhiteSpaceKey = "trim_white_space";
+  static const String _tfMinLengthKey = "min_length";
+  static const String _tfMaxLengthKey = "max_length";
+  static const String _tfShowErrorKey = "show_error";
+  static const String _tfCustomErrorTextKey = "custom_error_text";
+  static const String _tfShowTextCounterKey = "show_text_counter";
+  static const String _tfFormPageNumberKey = "form_page_number";
+  static const String _tfRegexMatchKey = "regex_match";
+  static const String _tfPrefixIconKey = "prefix_icon";
+  static const String _tfSuffixIconKey = "suffix_icon";
+
   //!=======================================================//
   //!=======================================================//
+
+  /// Title of the component. (To be displayed in UI)
+  /// defaults to ""
+  // @JsonKey(name: _tfTitleKey)
+  // final String title;
+
+  /// Description of the component (To be displayed in UI)
+  /// defaults to ""
+  // @JsonKey(name: _tfDescriptionKey)
+  // final String description;
 
   /// Name of the component for dev use. (Should be set to the key of the json being used to store this component's value in your DB.)
   /// Mandatory parameter, throws error if not specified.
@@ -33,80 +62,175 @@ class TextComponentProps implements BaseModel {
   @JsonKey(name: _tfNameKey)
   final String name;
 
-  /// Title of the component. (To be displayed in UI)
+  /// Helper text to be displayed below the component.
   /// defaults to ""
-  @JsonKey(name: _tfTitleKey)
-  final String title;
-
-  /// Description of the component (To be displayed in UI)
-  /// defaults to ""
-  @JsonKey(name: _tfDescriptionKey)
-  final String description;
+  @JsonKey(name: _tfHelperTextKey)
+  final String helperText;
 
   /// Label for the text field. (To be displayed in UI as a floating text field label)
   /// defaults to ""
   @JsonKey(name: _tfLabelKey)
   final String label;
 
-  /// Placeholder for the text field (To be displayed in UI as a placeholder or hint)
+  /// Placeholder of the component (To be displayed in UI)
   /// defaults to ""
   @JsonKey(name: _tfPlaceholderKey)
   final String placeholder;
 
-  /// Primaty color for the text field. (Should be a 6 character hex string without preceeding `#`)
-  /// defaults to Black (000000)
-  @JsonKey(name: _tfColorKey)
-  final String color;
+  /// Color of the text in the text field.
+  /// defaults to ""
+  @JsonKey(name: _tfTextColorKey)
+  final String textColor;
 
   /// Boolean value determining whether the text field will have a border or not.
   /// Defaults to true.
   @JsonKey(name: _tfShowBorderKey)
   final bool showBorder;
 
-  /// Maximum number of lines allowed in textfield. (Should always be greater than min_lines if specified.)
-  /// Defaults to 1.
-  @JsonKey(name: _tfMaxLinesKey)
-  final int maxLines;
+  /// Color of the border of the text field.
+  /// defaults to ""
+  @JsonKey(name: _tfBorderColorKey)
+  final String borderColor;
+
+  /// Width of the border of the text field.
+  /// defaults to 1.0
+  @JsonKey(name: _tfBorderWidthKey)
+  final double borderWidth;
+
+  /// Radius of the border of the text field.
+  /// defaults to 1.0
+  @JsonKey(name: _tfBorderRadiusKey)
+  final double borderRadius;
 
   /// Minimum number of lines allowed in textfield. (Should always be less than max_lines if specified.)
   /// Defaults to 1.
   @JsonKey(name: _tfMinLinesKey)
   final int minLines;
 
+  /// Maximum number of lines allowed in textfield. (Should always be greater than min_lines if specified.)
+  /// Defaults to 1.
+  @JsonKey(name: _tfMaxLinesKey)
+  final int maxLines;
+
+  /// Boolean value determining whether the text field is read only or not.
+  /// Defaults to false.
+  @JsonKey(name: _tfReadOnlyKey)
+  final bool readOnly;
+
+  /// Boolean value determining whether the text field can be created or not.
+  /// Defaults to true.
+  @JsonKey(name: _tfCanCreateKey)
+  final bool canCreate;
+
+  /// Boolean value determining whether the text field can be updated or not.
+  /// Defaults to true.
+  @JsonKey(name: _tfCanUpdateKey)
+  final bool canUpdate;
+
+  /// Boolean value determining whether the text field will be focused on when the form is loaded or not.
+  /// Defaults to false.
+  @JsonKey(name: _tfAutoFocusKey)
+  final bool autoFocus;
+
+  /// Boolean value determining whether the text field will be validated on focus lost or not.
+  /// Defaults to false.
+  @JsonKey(name: _tfOnFocusLostValidateKey)
+  final bool onFocusLostValidate;
+
+  /// Boolean value determining whether the text field will have auto correction or not.
+  /// Defaults to false.
+  @JsonKey(name: _tfAutoCorrectKey)
+  final bool autoCorrect;
+
+  /// Boolean value determining whether the text field will have obscured text or not.
+  /// Defaults to false.
+  @JsonKey(name: _tfObscureTextKey)
+  final bool obscureText;
+
   /// Max Length of for the text field. (If specified, the length will be enforced.)
   /// Defaults to null (no max length set).
-  @JsonKey(name: _tfMaxLength)
+  @JsonKey(name: _tfMinLengthKey)
+  final int? minLength;
+
+  /// Max Length of for the text field. (If specified, the length will be enforced.)
+  /// Defaults to null (no max length set).
+  @JsonKey(name: _tfMaxLengthKey)
   final int? maxLength;
+
+  /// Boolean value determining whether the text field will have a border or not.
+  /// Defaults to true.
+  @JsonKey(name: _tfShowErrorKey)
+  final bool showError;
+
+  /// Custom error text to be displayed in the text field.
+  @JsonKey(name: _tfCustomErrorTextKey)
+  final String customErrorText;
+
+  /// Boolean value determining whether the text field will have a border or not.
+  /// Defaults to true.
+  @JsonKey(name: _tfShowTextCounterKey)
+  final bool showTextCounter;
+
+  /// Page number of the form in which the text field is present.
+  /// Defaults to 1.
+  @JsonKey(name: _tfFormPageNumberKey)
+  final int formPageNumber;
 
   // Validation props.
 
   //TODO: use this prop.
-  @JsonKey(name: _tfRequired)
+  @JsonKey(name: _tfRequiredKey)
   final bool required;
 
   //TODO: use this prop.
-  @JsonKey(name: _tfTrimWhiteSpace)
+  @JsonKey(name: _tfTrimWhiteSpaceKey)
   final bool trimWhiteSpace;
 
   //TODO: use this prop.
-  @JsonKey(name: _tfRegexMatch)
+  @JsonKey(name: _tfRegexMatchKey)
   final String? regexMatch;
 
+  //TODO: use this prop.
+  @JsonKey(name: _tfPrefixIconKey)
+  final String? prefixIcon;
+
+  //TODO: use this prop.
+  @JsonKey(name: _tfSuffixIconKey)
+  final String? suffixIcon;
+
   TextComponentProps({
-    this.title = "",
-    this.description = "",
+    // this.title = "",
+    // this.description = "",
+    required this.name,
+    this.helperText = "",
     this.label = "",
     this.placeholder = "",
-    this.color = "000000",
+    this.textColor = "",
     this.showBorder = true,
-    this.maxLines = 1,
+    this.borderColor = "",
+    this.borderWidth = 1.0,
+    this.borderRadius = 1.0,
     this.minLines = 1,
+    this.maxLines = 1,
+    this.readOnly = false,
+    this.canCreate = true,
+    this.canUpdate = true,
+    this.autoFocus = false,
+    this.onFocusLostValidate = false,
+    this.autoCorrect = false,
+    this.obscureText = false,
+    this.minLength,
     this.maxLength,
-    required this.name,
-    this.regexMatch,
+    this.showError = true,
+    this.customErrorText = "",
+    this.showTextCounter = true,
+    this.formPageNumber = 1,
     this.required = false,
     this.trimWhiteSpace = false,
-  });
+    this.regexMatch,
+    this.prefixIcon,
+    this.suffixIcon,
+  }); 
 
   //Factory constructor.
   /// Creates a TextComponentProps object from given map.
@@ -132,9 +256,11 @@ class TextComponentProps implements BaseModel {
     return _$TextComponentPropsToJson(object);
   }
 
-  static dynamic textFieldPropsChecker(Map<String, dynamic> props, {bool isMap = false}) {
+  static dynamic textFieldPropsChecker(Map<String, dynamic> props,
+      {bool isMap = false}) {
     // print(" json to check : $json");
-    if (!isMap && props[_tfTypeKey] is! String || props[_tfTypeKey] != textComponentName) {
+    if (!isMap && props[_tfTypeKey] is! String ||
+        props[_tfTypeKey] != textComponentName) {
       return "bad value for `$_tfTypeKey`.Expected $textComponentName but got `${props[_tfTypeKey]}`.";
     }
     if (props[_tfNameKey] is! String) {
@@ -147,26 +273,26 @@ class TextComponentProps implements BaseModel {
       // if (key == _tfNameKey && (props[key] is! String)) {
       //   return "bad value for $_tfNameKey: `${props[key]}` expected a String.";
       // }
-      if (key == _tfTitleKey && (props[key] is! String)) {
-        return "bad value for $_tfTitleKey: `${props[key]}` expected a String.";
-      }
-      if (key == _tfDescriptionKey && (props[key] is! String)) {
-        return "bad value for $_tfDescriptionKey: `${props[key]}` expected a String.";
-      }
+      // if (key == _tfTitleKey && (props[key] is! String)) {
+      //   return "bad value for $_tfTitleKey: `${props[key]}` expected a String.";
+      // }
+      // if (key == _tfDescriptionKey && (props[key] is! String)) {
+      //   return "bad value for $_tfDescriptionKey: `${props[key]}` expected a String.";
+      // }
       if (key == _tfLabelKey && (props[key] is! String)) {
         return "bad value for $_tfLabelKey: `${props[key]}` expected a String.";
       }
       if (key == _tfPlaceholderKey && (props[key] is! String)) {
         return "bad value for $_tfPlaceholderKey: `${props[key]}` expected a String.";
       }
-      if (key == _tfColorKey) {
+      if (key == _tfTextColorKey) {
         // check if colorKey is a string.
         if (props[key] is! String) {
-          return "bad value for $_tfColorKey: `${props[key]}` expected a String of length 6.";
+          return "bad value for $_tfTextColorKey: `${props[key]}` expected a String of length 6.";
         }
         // if it IS a string, check if the length is exactly 6
         if (props[key].toString().length != 6) {
-          return "bad value for $_tfColorKey: `${props[key]}` expected a String of length 6.";
+          return "bad value for $_tfTextColorKey: `${props[key]}` expected a String of length 6.";
         }
       }
       if (key == _tfShowBorderKey && (props[key] is! bool)) {

@@ -16,10 +16,10 @@ class TextFieldComponent extends StatelessWidget {
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Color c = hexStringToColorConverter(props.color);
+    Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
-      title: props.title,
-      description: props.description,
+      title: props.name,
+      description: props.helperText,
       child: TextField(
         
         controller: controller,
