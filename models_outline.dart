@@ -127,3 +127,31 @@ var radio_field_props = {
 
   "label_style": ["enum containing  `normal`, `bold`, `italic`"]
 };
+
+
+/// `ValidationError`
+var validation_error = {
+  // Error message.
+  "message": "",
+
+
+};
+
+/*
+**Notes:**
+
+Submission options:
+Include dio
+    If dio is included then
+      submission_url
+      on_submit() 
+      should be added in the form options.
+
+
+## Documentation points
+
+* Wrap the form widget inside a theme widget. And we should mention that we are using
+  the particualar styles for corresponding fields.
+  
+  > Example: We should mention that we are using inbuilt h1 style for title, h2 for description, etc.
+*/
