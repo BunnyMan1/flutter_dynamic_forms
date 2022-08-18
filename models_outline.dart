@@ -5,36 +5,57 @@ var form_options = {
   // Title of the form
   "title": "",
 
+  "title_alignment": "left,right",
+
   // Description for the form.
-  "description": "",
+  "description": null,
 
   // Number of form pages
   "number_of_pages": 1,
-
-  // Number of fields per page.
-  "items_per_page": 10,
 
   // Primary color for all fields.
   "primary_color": "0000ff",
 
   "background_color": "0000ff",
 
+  // top: 12, bottom 12
+  "form_item_margin_vertical": 12.0,
+
   // Size of field items ( icons, text and everything else )
-  "size": ["enum containing  `s`, `m`, `l`, `xl`"],
+  "size": ["enum containing  `mini`, `small`, `medium`, `default(large)`"],
 
   // To show error at the fields or not.
   "auto_show_errors": true,
 
+  "show_reset_button": true,
+
+  "on_reset": "void Function onReset(Map<String,dynamic> values)",
+
+  // Only to be present in dart or map
+  "custom_reset_button": "",
+
   // Locale of the whole form.
-  "locale": "en"
+  "locale": "en",
+
+  "label_position": "left, right, top, bottom ",
+
+  "label_alignment": "left, right",
+
+  // "submission_url": "",
+
+  // "before_submit": "bool Function onSubmit(Map<String,dynamic> values)",
+
+  "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
+
+  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
-  // Title of the text field.
-  "title": "",
+  // http name
+  "name": "",
 
   // Description of the text field.
-  "description": "",
+  "helper_text": "",
 
   // Label of the text field.
   "label": "",
@@ -43,7 +64,7 @@ var text_field_props = {
   "placeholder": "",
 
   // Primary color for this field, overwrites color from form options.
-  "color": "00ff00",
+  "text_color": "00ff00",
 
   // To show border for the text field or not.
   "show_border": true,
@@ -65,17 +86,20 @@ var text_field_props = {
 
   "read_only": false,
 
+  "can_create": true,
+  "can_update": true,
+
   "auto_focus": false,
 
-  "auto_validate": false,
+  "on_focus_lost_validate": false,
 
   "auto_correct": false,
 
   "obscure_text": false,
 
-  "keyboard_type": [
-    "enum containing  `text`, `number`, `phone`, `email`, `url`, `datetime`, `multiline`"
-  ],
+  // "keyboard_type": [
+  //   "enum containing  `text`, `number`, `phone`, `email`, `url`, `datetime`, `multiline`"
+  // ],
 
   // Whether to trim whitespaces in entered text.
   "trim_white_space": true,
@@ -83,11 +107,23 @@ var text_field_props = {
   // Max number of characters that can be entered. (null = no limit)
   "max_length": null,
 
+  "min_length": null,
+
   // To display errors. (overwrites the value from form options)
   "show_error": true,
 
   // Custom Error text to show.
-  "custom_error_text": ""
+  "custom_error_text": "",
+
+  "show_text_counter": true,
+
+  // Page of form this component to be displayed at
+  "form_page_number": 1,
+
+  "regex_match": "",
+
+  "prefix_icon": "icon-name",
+  "suffix_icon": "icon-name",
 };
 
 var radio_field_props = {
