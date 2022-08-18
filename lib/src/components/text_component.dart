@@ -5,13 +5,15 @@ import '../common/component_wrapper.dart';
 import '../utilities/helpers.dart';
 
 class TextFieldComponent extends StatelessWidget {
-  const TextFieldComponent({
+  TextFieldComponent({
     Key? key,
     required this.props,
+    this.onChange,
   }) : super(key: key);
 
   final TextComponentProps props;
-
+  final Function(String s)? onChange;
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Color c = hexStringToColorConverter(props.color);
@@ -19,9 +21,14 @@ class TextFieldComponent extends StatelessWidget {
       title: props.title,
       description: props.description,
       child: TextField(
-        keyboardType: TextInputType.multiline,
+        controller: controller,
+        onChanged: (s) {
+          onChange != null ? onChange!(s) : null;
+        },
+        // keyboardType: TextInputType.,
         minLines: props.minLines,
         maxLines: props.maxLines,
+        maxLength: props.maxLength,
         style: TextStyle(
           color: c,
           fontSize: 18.0,
@@ -30,6 +37,9 @@ class TextFieldComponent extends StatelessWidget {
         decoration: InputDecoration(
           hintText: props.placeholder,
           labelText: props.label,
+          labelStyle: TextStyle(
+            color: c.withOpacity(0.8),
+          ),
           border: props.showBorder
               ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),

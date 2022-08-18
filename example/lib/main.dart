@@ -38,23 +38,21 @@ class _MyHomePageState extends State<MyHomePage> {
         body: FlutterDynamicForm(
           formData: FlutterDynamicFormData(
             components: [
-              TextFieldComponent(
-                  props: TextComponentProps.fromMap(
-                {
-                  'type': 'text',
-                  'name': 'employee_name',
-                },
-              )
-                  //  TextComponentProps(
-                  //   name: 'employee_name',
-                  //   title: "Some Title",
-                  //   label: "Employee Name",
-                  //   placeholder: "Enter employee's name",
-                  //   color: "ff0000",
-                  // ),
-                  )
+              TextComponentProps.fromMap(
+                {'type': 'text', 'name': 'employee_name', 'title': 'Emp Name'},
+              ),
+              TextComponentProps(
+                name: 'employee_email',
+                title: "Emp Email",
+                label: "Employee Email",
+                maxLength: 5,
+                placeholder: "Enter employee's name",
+              ),
             ],
           ),
+          onSubmit: (var map) {
+            print(map);
+          },
         )
         // This trailing comma makes auto-formatting nicer for build methods.
         );
