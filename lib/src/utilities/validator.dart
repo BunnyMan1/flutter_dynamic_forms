@@ -6,24 +6,40 @@ ValidationResult textComponentValidator(TextComponentProperties props, String va
   ValidationResult validationResult =
       ValidationResult(componentName: props.name, type: props.type, value: value, errors: []);
   if (props.isRequired && value == "") {
-    validationResult.errors.add(
-      {"Required": "This field is required."},
-    );
+    if (props.customErrorText != null) {
+      validationResult.errors.add(
+        {"Required": props.customErrorText},
+      );
+    } else {
+      validationResult.errors.add(
+        {"Required": "This field is required."},
+      );
+    }
   }
 
   if (props.regexMatch != null) {
     try {
-      var match = RegExp(string2Raw(props.regexMatch!)).hasMatch(value);
+      var match = RegExp(props.regexMatch!).hasMatch(value);
       if (!match) {
-        validationResult.errors
-            .add({"Regex": "Invalid or badly formatted value encountered : $value"});
+        if (props.customErrorText != null) {
+          validationResult.errors.add({"Regex": props.customErrorText});
+        } else {
+          validationResult.errors.add({"Regex": "Invalid input : $value"});
+        }
       }
     } catch (e) {
-      throw "Exception while matching regex ${props.regexMatch} : $e";
+      throw "Invalid regex ${props.regexMatch} : $e";
+    }
+  }
+
+  if (props.minLength != null && value.length < props.minLength!) {
+    if (props.customErrorText != null) {
+      validationResult.errors.add({"MinLength": props.customErrorText});
+    } else {
+      validationResult.errors
+          .add({"MinLength": "Should be minimum ${props.minLength} characters long."});
     }
   }
 
   return validationResult;
 }
-
-String string2Raw(String x) => '\r$x';

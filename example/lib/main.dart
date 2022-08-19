@@ -52,12 +52,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 label: "Employee Email",
                 isRequired: true,
                 placeholder: "Enter employee's name",
+                maxLength: 100,
+                showTextCounter: true,
+                customErrorText: "Invalid Value",
                 regexMatch: "[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
               ),
             ],
           ),
           onSubmit: (var map) {
-            print(map);
+            debugPrint(map.toString());
           },
         )
         // This trailing comma makes auto-formatting nicer for build methods.

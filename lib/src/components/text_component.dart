@@ -22,12 +22,14 @@ class TextFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color c = hexStringToColorConverter(props.textColor);
+    Color borderColor = hexStringToColorConverter(props.borderColor);
     return ComponentWrapper(
-      title: props.name,
       description: props.helperText,
       child: Focus(
         onFocusChange: ((value) {
-          onFocusLost != null ? onFocusLost!(controller.text) : null;
+          if (!value) {
+            onFocusLost != null ? onFocusLost!(controller.text) : null;
+          }
         }),
         child: TextField(
           controller: controller,
@@ -45,28 +47,41 @@ class TextFieldComponent extends StatelessWidget {
           cursorColor: c,
 
           decoration: InputDecoration(
+            helperText: props.helperText,
             errorText: error,
             hintText: props.placeholder,
             labelText: props.label,
             labelStyle: TextStyle(
               color: c.withOpacity(0.8),
             ),
+            counter: props.showTextCounter ? null : Container(),
             border: props.showBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
+                    borderRadius: BorderRadius.circular(props.borderRadius),
+                    borderSide: BorderSide(
+                      color: borderColor,
+                      width: props.borderWidth,
+                    ),
                   )
                 : null,
             enabledBorder: props.showBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
+                    borderRadius: BorderRadius.circular(
+                      props.borderRadius,
+                    ),
+                    borderSide: BorderSide(
+                      color: borderColor,
+                      width: props.borderWidth,
+                    ),
                   )
                 : null,
             focusedBorder: props.showBorder
                 ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: c),
+                    borderRadius: BorderRadius.circular(props.borderRadius),
+                    borderSide: BorderSide(
+                      color: borderColor,
+                      width: props.borderWidth,
+                    ),
                   )
                 : null,
           ),

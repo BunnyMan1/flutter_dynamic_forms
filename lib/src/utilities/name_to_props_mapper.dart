@@ -10,6 +10,5 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     }
     return TextComponentProperties.fromMap(map);
   }
-
   throw 'Unkown component with name $map.';
 }
