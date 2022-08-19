@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'type': 'text',
                   'name': 'employee_name',
                   'title': 'Emp Name',
-                  "regex_match": "[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                  "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
                 },
               ),
               TextComponentProperties(
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxLength: 100,
                 showTextCounter: true,
                 customErrorText: "Invalid Value",
-                regexMatch: "[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
               ),
             ],
           ),
