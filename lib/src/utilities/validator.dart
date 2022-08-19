@@ -1,28 +1,48 @@
 import '../../flutter_dynamic_forms.dart';
 import '../models/validation_result.dart';
 
-ValidationResult textComponentValidator(TextComponentProperties props, String value) {
-  ValidationResult validationResult =
-      ValidationResult(componentName: props.name, type: props.type, value: value, errors: []);
-  if (props.isRequired && value == "") {
-    validationResult.errors.add(
-      {"Required": "This field is required."},
-    );
+ValidationResult textComponentValidator({
+  required TextComponentProperties properties,
+  required String value,
+}) {
+  ValidationResult validationResult = ValidationResult(
+      componentName: properties.name, type: properties.type, value: value, errors: []);
+  if (properties.isRequired && value == "") {
+    if (properties.customErrorText != null) {
+      validationResult.errors.add(
+        {"Required": properties.customErrorText},
+      );
+    } else {
+      validationResult.errors.add(
+        {"Required": "This field is required."},
+      );
+    }
   }
 
-  if (props.regexMatch != null) {
+  if (properties.regexMatch != null) {
     try {
-      var match = RegExp(string2Raw(props.regexMatch!)).hasMatch(value);
+      var match = RegExp(properties.regexMatch!).hasMatch(value);
       if (!match) {
-        validationResult.errors
-            .add({"Regex": "Invalid or badly formatted value encountered : $value"});
+        if (properties.customErrorText != null) {
+          validationResult.errors.add({"Regex": properties.customErrorText});
+        } else {
+          validationResult.errors.add({"Regex": "Invalid input : $value"});
+        }
       }
     } catch (e) {
-      throw "Exception while matching regex ${props.regexMatch} : $e";
+      throw "Invalid regex ${properties.regexMatch} : $e";
+    }
+  }
+
+  if (properties.minLength != null && value.length < properties.minLength!) {
+    if (properties.customErrorText != null) {
+      validationResult.errors.add({"MinLength": properties.customErrorText});
+    } else {
+      validationResult.errors.add({
+        "MinLength": "Should be minimum ${properties.minLength} characters long."
+      });
     }
   }
 
   return validationResult;
 }
-
-String string2Raw(String x) => '\r$x';

@@ -26,7 +26,7 @@ class TextComponentProperties implements BaseModel {
   static const String _tfBorderRadiusKey = "border_radius";
   static const String _tfMinLinesKey = "min_lines";
   static const String _tfMaxLinesKey = "max_lines";
-  static const String _tfRequiredKey = "is_required";
+  static const String _tfIsRequiredKey = "is_required";
   static const String _tfReadOnlyKey = "read_only";
   static const String _tfCanCreateKey = "can_create";
   static const String _tfCanUpdateKey = "can_update";
@@ -100,7 +100,7 @@ class TextComponentProperties implements BaseModel {
   final double borderWidth;
 
   /// Radius of the border of the text field.
-  /// defaults to 1.0
+  /// defaults to 8.0
   @JsonKey(name: _tfBorderRadiusKey)
   final double borderRadius;
 
@@ -165,9 +165,8 @@ class TextComponentProperties implements BaseModel {
   final bool showError;
 
   /// Custom error text to be displayed in the text field.
-  /// Defaults to ""
   @JsonKey(name: _tfCustomErrorTextKey)
-  final String customErrorText;
+  final String? customErrorText;
 
   /// Boolean value determining whether the text field will have a border or not.
   /// Defaults to true.
@@ -179,17 +178,12 @@ class TextComponentProperties implements BaseModel {
   @JsonKey(name: _tfFormPageNumberKey)
   final int formPageNumber;
 
-  // Validation props.
-
-  //TODO: use this prop.
-  @JsonKey(name: _tfRequiredKey)
+  @JsonKey(name: _tfIsRequiredKey)
   final bool isRequired;
 
-  //TODO: use this prop.
   @JsonKey(name: _tfTrimWhiteSpaceKey)
   final bool trimWhiteSpace;
 
-  //TODO: use this prop.
   @JsonKey(name: _tfRegexMatchKey)
   final String? regexMatch;
 
@@ -212,7 +206,7 @@ class TextComponentProperties implements BaseModel {
     this.showBorder = true,
     this.borderColor = "000000",
     this.borderWidth = 1.0,
-    this.borderRadius = 1.0,
+    this.borderRadius = 8.0,
     this.minLines = 1,
     this.maxLines = 1,
     this.readOnly = false,
@@ -225,7 +219,7 @@ class TextComponentProperties implements BaseModel {
     this.minLength,
     this.maxLength,
     this.showError = true,
-    this.customErrorText = "",
+    this.customErrorText,
     this.showTextCounter = true,
     this.formPageNumber = 1,
     this.isRequired = false,
@@ -268,37 +262,32 @@ class TextComponentProperties implements BaseModel {
       return "bad value for `$_tfNameKey`.Expected a String but got `${props[_tfNameKey]}`.";
     }
     for (var key in props.keys) {
-      // if (key == _tfTypeKey && (props[key] is! String)) {
-      //   return "bad value for $_tfTypeKey: `${props[key]}` expected a String.";
-      // }
-      // if (key == _tfNameKey && (props[key] is! String)) {
-      //   return "bad value for $_tfNameKey: `${props[key]}` expected a String.";
-      // }
-      // if (key == _tfTitleKey && (props[key] is! String)) {
-      //   return "bad value for $_tfTitleKey: `${props[key]}` expected a String.";
-      // }
-      // if (key == _tfDescriptionKey && (props[key] is! String)) {
-      //   return "bad value for $_tfDescriptionKey: `${props[key]}` expected a String.";
-      // }
-      if (key == _tfLabelKey && (props[key] is! String)) {
-        return "bad value for $_tfLabelKey: `${props[key]}` expected a String.";
+      if ((key == _tfLabelKey ||
+              key == _tfPlaceholderKey ||
+              key == _tfHelperTextKey ||
+              key == _tfRegexMatchKey ||
+              key == _tfPrefixIconKey ||
+              key == _tfSuffixIconKey ||
+              key == _tfCustomErrorTextKey) &&
+          (props[key] is! String)) {
+        return "bad value for $key: `${props[key]}` expected a String.";
       }
-      if (key == _tfPlaceholderKey && (props[key] is! String)) {
-        return "bad value for $_tfPlaceholderKey: `${props[key]}` expected a String.";
-      }
-      if (key == _tfTextColorKey) {
+
+      if ((key == _tfTextColorKey || key == _tfBorderColorKey)) {
         // check if colorKey is a string.
         if (props[key] is! String) {
-          return "bad value for $_tfTextColorKey: `${props[key]}` expected a String of length 6.";
+          return "bad value for $key: `${props[key]}` expected a String of length 6.";
         }
         // if it IS a string, check if the length is exactly 6
         if (props[key].toString().length != 6) {
-          return "bad value for $_tfTextColorKey: `${props[key]}` expected a String of length 6.";
+          return "bad value for $key: `${props[key]}` expected a String of length 6.";
         }
       }
-      if (key == _tfShowBorderKey && (props[key] is! bool)) {
-        return "bad value for $_tfShowBorderKey: `${props[key]}` expected a Boolean.";
+
+      if ((key == _tfBorderWidthKey || key == _tfBorderRadiusKey) && (props[key] is! double)) {
+        return "bad value for $key: ${props[key]} expected a Double.";
       }
+
       if (key == _tfMaxLinesKey) {
         if (props[key] is! int) {
           return "bad value for $_tfMaxLinesKey: `${props[key]}` expected an Integer >= 1.";
@@ -318,6 +307,22 @@ class TextComponentProperties implements BaseModel {
             (props[_tfMaxLinesKey] as int) < (props[_tfMinLinesKey])) {
           return "bad value for $_tfMinLinesKey: `${props[key]}`. $_tfMaxLinesKey should be greater than $_tfMinLinesKey";
         }
+      }
+      if (key == _tfFormPageNumberKey && (props[key] is! int)) {
+        return "bad value for $key: `${props[key]}` expected a String.";
+      }
+      if ((key == _tfReadOnlyKey ||
+              key == _tfCanCreateKey ||
+              key == _tfCanUpdateKey ||
+              key == _tfAutoFocusKey ||
+              key == _tfOnFocusLostValidateKey ||
+              key == _tfObscureTextKey ||
+              key == _tfShowErrorKey ||
+              key == _tfShowBorderKey ||
+              key == _tfIsRequiredKey ||
+              key == _tfTrimWhiteSpaceKey) &&
+          (props[key] is! bool)) {
+        return "bad value for $key: ${props[key]} expected a Boolean.";
       }
     }
 

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../flutter_dynamic_forms.dart';
 import '../components/radio_component.dart';
-import '../components/text_component.dart';
-import '../constants/constants.dart';
-import '../models/base_model.dart';
+import '../utilities/prop_to_component_mapper.dart';
 import '../utilities/validator.dart';
 
 /// Flutter dynamic form. This is the main form widget of this package.
@@ -62,7 +60,13 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
                 .map(
                   (c) => Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: _propsToComponentMapper(c),
+                    child: propsToComponentMapper(
+                      properties: c,
+                      setValue: _setValues,
+                      setValidation: _setValidation,
+                      values: _values,
+                      validations: _validations,
+                    ),
                   ),
                 )
                 .toList(),
@@ -102,48 +106,17 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
     );
   }
 
+  /// This method will be called by the component when the value of a component is changed.
+  /// This method will update the `_values` map with the new value.
   void _setValues(var name, var value) {
     setState(() {
       _values[name] = value;
     });
   }
 
-  /// `propsToComponentMapper` is a function that maps the properties of a component to the
-  /// corresponding component widget. This is done by checking the type of the component
-  /// and then returning the corresponding widget.
-  Widget _propsToComponentMapper(BaseModel props) {
-    if (props.type == textComponentName) {
-      // If the property name is [textComponentName] then return a [TextFieldComponent]
-      var p = props as TextComponentProperties;
-      return TextFieldComponent(
-        onChange: ((s) {
-          _values[props.name] = s;
-        }),
-        onFocusLost: (s) {
-          var res = textComponentValidator(p, s);
-          if (res.errors.isNotEmpty) {
-            _validations[props.name] = res.errors.first.values.first.toString();
-          } else {
-            _validations[props.name] = null;
-          }
-          setState(() {});
-        },
-        error: _validations[p.name],
-        props: p,
-        controller: TextEditingController(text: _values[p.name] ?? "")
-          ..selection = TextSelection.collapsed(offset: (_values[p.name] ?? "").length),
-      );
-    } else if (props.type == radioComponentName) {
-      // If the property name is [radioComponentName] then return a [RadioFieldComponent]
-      return RadioFieldComponent(
-        onChange: ((s) {
-          _values[props.name] = s;
-          setState(() {});
-        }),
-        value: _values[props.name],
-        properties: props as RadioComponentProperties,
-      );
-    }
-    throw 'Unknown component.';
+  void _setValidation(var name, var value) {
+    setState(() {
+      _validations[name] = value;
+    });
   }
 }

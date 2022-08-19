@@ -28,6 +28,5 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     // Create a RadioComponentProps object from the map.
     return RadioComponentProperties.fromMap(map);
   }
-
   throw 'Unkown component with name $map.';
 }
