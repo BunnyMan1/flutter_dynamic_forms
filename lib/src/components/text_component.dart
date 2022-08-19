@@ -8,58 +8,68 @@ class TextFieldComponent extends StatelessWidget {
   TextFieldComponent({
     Key? key,
     required this.props,
+    this.error,
+    this.onFocusLost,
     this.onChange,
+    required this.controller,
   }) : super(key: key);
 
-  final TextComponentProps props;
+  final TextComponentProperties props;
   final Function(String s)? onChange;
-  final TextEditingController controller = TextEditingController();
+  final Function(String s)? onFocusLost;
+  final String? error;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
       title: props.name,
       description: props.helperText,
-      child: TextField(
-        
-        controller: controller,
-        onChanged: (s) {
-          onChange != null ? onChange!(s) : null;
-        },
-        // keyboardType: TextInputType.,
-        minLines: props.minLines,
-        maxLines: props.maxLines,
-        maxLength: props.maxLength,
-        style: TextStyle(
-          color: c,
-          fontSize: 18.0,
-        ),
-        cursorColor: c,
-        decoration: InputDecoration(
-
-          hintText: props.placeholder,
-          labelText: props.label,
-          labelStyle: TextStyle(
-            color: c.withOpacity(0.8),
+      child: Focus(
+        onFocusChange: ((value) {
+          onFocusLost != null ? onFocusLost!(controller.text) : null;
+        }),
+        child: TextField(
+          controller: controller,
+          onChanged: (s) {
+            onChange != null ? onChange!(s) : null;
+          },
+          // keyboardType: TextInputType.,
+          minLines: props.minLines,
+          maxLines: props.maxLines,
+          maxLength: props.maxLength,
+          style: TextStyle(
+            color: c,
+            fontSize: 18.0,
           ),
-          border: props.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: c),
-                )
-              : null,
-          enabledBorder: props.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: c),
-                )
-              : null,
-          focusedBorder: props.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: c),
-                )
-              : null,
+          cursorColor: c,
+
+          decoration: InputDecoration(
+            errorText: error,
+            hintText: props.placeholder,
+            labelText: props.label,
+            labelStyle: TextStyle(
+              color: c.withOpacity(0.8),
+            ),
+            border: props.showBorder
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: c),
+                  )
+                : null,
+            enabledBorder: props.showBorder
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: c),
+                  )
+                : null,
+            focusedBorder: props.showBorder
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: c),
+                  )
+                : null,
+          ),
         ),
       ),
     );

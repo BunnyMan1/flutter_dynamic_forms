@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_forms/src/utilities/validator.dart';
 
 import '../../flutter_dynamic_forms.dart';
+import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 
@@ -43,61 +45,87 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
 
   final Map<String, dynamic> _values = {};
 
+  final Map<String, dynamic> _validations = {};
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ...widget.formData.components
-              .map(
-                (c) => Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: _propsToComponentMapper(c),
-                ),
-              )
-              .toList(),
-          Row(
-            children: [
-              // If show reset button is true  AND
-              // if custom reset button is not given (null)
-              // --> SHOW default reset button
-              if (widget.formData.props?.showResetButton == true &&
-                  widget.formData.props?.customResetButton == null)
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ...widget.formData.components
+                .map(
+                  (c) => Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: _propsToComponentMapper(c),
+                  ),
+                )
+                .toList(),
+            Row(
+              children: [
+                // If show reset button is true  AND
+                // if custom reset button is not given (null)
+                // --> SHOW default reset button
+                if (widget.formData.props?.showResetButton == true &&
+                    widget.formData.props?.customResetButton == null)
+                  ElevatedButton(
+                    onPressed: () {
+                      if (widget.onSubmit != null) widget.onSubmit!(_values);
+                    },
+                    child: const Text("Reset"),
+                  ),
+
+                // If show reset button is true  AND
+                // if custom reset button is given (not null)
+                // --> SHOW passed in custom reset button
+                if (widget.formData.props?.showResetButton == true &&
+                    widget.formData.props?.customResetButton != null)
+                  widget.formData.props!.customResetButton!,
+
+                // Submit button
                 ElevatedButton(
                   onPressed: () {
                     if (widget.onSubmit != null) widget.onSubmit!(_values);
                   },
-                  child: const Text("Reset"),
+                  child: const Text("Submit"),
                 ),
-
-              // If show reset button is true  AND
-              // if custom reset button is given (not null)
-              // --> SHOW passed in custom reset button
-              if (widget.formData.props?.showResetButton == true &&
-                  widget.formData.props?.customResetButton != null)
-                widget.formData.props!.customResetButton!,
-
-              // Submit button
-              ElevatedButton(
-                onPressed: () {
-                  if (widget.onSubmit != null) widget.onSubmit!(_values);
-                },
-                child: const Text("Submit"),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  void _setValues(var name, var value) {
+    setState(() {
+      _values[name] = value;
+    });
+  }
+
   Widget _propsToComponentMapper(BaseModel props) {
     if (props.type == textComponentName) {
+      var p = props as TextComponentProperties;
       return TextFieldComponent(
         onChange: ((s) {
           _values[props.name] = s;
         }),
-        props: props as TextComponentProps,
+        onFocusLost: (s) {
+          var res = textComponentValidator(p, s);
+          if (res.errors.isNotEmpty) {
+            _validations[props.name] = res.errors.first.values.first.toString();
+          } else {
+            _validations[props.name] = null;
+          }
+          setState(() {});
+        },
+        error: _validations[p.name],
+        props: p,
+        controller: TextEditingController(text: _values[p.name] ?? "")
+          ..selection = TextSelection.collapsed(offset: (_values[p.name] ?? "").length),
       );
     }
     throw 'Unknown component.';

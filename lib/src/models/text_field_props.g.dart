@@ -6,15 +6,16 @@ part of 'text_field_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TextComponentProps _$TextComponentPropsFromJson(Map<String, dynamic> json) =>
-    TextComponentProps(
+TextComponentProperties _$TextComponentPropertiesFromJson(
+        Map<String, dynamic> json) =>
+    TextComponentProperties(
       name: json['name'] as String,
       helperText: json['helper_text'] as String? ?? "",
       label: json['label'] as String? ?? "",
       placeholder: json['placeholder'] as String? ?? "",
-      textColor: json['text_color'] as String? ?? "",
+      textColor: json['text_color'] as String? ?? "000000",
       showBorder: json['show_border'] as bool? ?? true,
-      borderColor: json['border_color'] as String? ?? "",
+      borderColor: json['border_color'] as String? ?? "000000",
       borderWidth: (json['border_width'] as num?)?.toDouble() ?? 1.0,
       borderRadius: (json['border_radius'] as num?)?.toDouble() ?? 1.0,
       minLines: json['min_lines'] as int? ?? 1,
@@ -32,14 +33,15 @@ TextComponentProps _$TextComponentPropsFromJson(Map<String, dynamic> json) =>
       customErrorText: json['custom_error_text'] as String? ?? "",
       showTextCounter: json['show_text_counter'] as bool? ?? true,
       formPageNumber: json['form_page_number'] as int? ?? 1,
-      required: json['required'] as bool? ?? false,
+      isRequired: json['is_required'] as bool? ?? false,
       trimWhiteSpace: json['trim_white_space'] as bool? ?? false,
       regexMatch: json['regex_match'] as String?,
       prefixIcon: json['prefix_icon'] as String?,
       suffixIcon: json['suffix_icon'] as String?,
     );
 
-Map<String, dynamic> _$TextComponentPropsToJson(TextComponentProps instance) =>
+Map<String, dynamic> _$TextComponentPropertiesToJson(
+        TextComponentProperties instance) =>
     <String, dynamic>{
       'name': instance.name,
       'helper_text': instance.helperText,
@@ -65,7 +67,7 @@ Map<String, dynamic> _$TextComponentPropsToJson(TextComponentProps instance) =>
       'custom_error_text': instance.customErrorText,
       'show_text_counter': instance.showTextCounter,
       'form_page_number': instance.formPageNumber,
-      'required': instance.required,
+      'is_required': instance.isRequired,
       'trim_white_space': instance.trimWhiteSpace,
       'regex_match': instance.regexMatch,
       'prefix_icon': instance.prefixIcon,

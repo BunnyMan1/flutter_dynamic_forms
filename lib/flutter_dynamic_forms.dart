@@ -7,4 +7,3 @@ export 'src/models/form.dart';
 
 // Widgets
 export 'src/form/form_widget.dart';
-export 'src/components/text_component.dart';
