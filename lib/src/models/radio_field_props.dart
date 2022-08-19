@@ -144,7 +144,6 @@ class RadioComponentProperties implements BaseModel {
     Map<String, dynamic> properties, {
     bool isMap = false,
   }) {
-    print(" json to check : $json");
     return true;
   }
 }

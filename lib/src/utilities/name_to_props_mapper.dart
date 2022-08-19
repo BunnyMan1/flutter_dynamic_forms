@@ -7,7 +7,7 @@ import '../models/text_field_props.dart';
 BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
   if (key == textComponentName) {
     // If key is text component, then check for textfield properties validation.
-    var check = TextComponentProps.textFieldPropsChecker(map);
+    var check = TextComponentProperties.textFieldPropsChecker(map);
     if (check is String) {
       // If the check is string, then it is an error message.
       // Throw the error message.
@@ -15,7 +15,7 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     }
     // If the check is not string, then it is a valid map.
     // Create a TextComponentProps object from the map.
-    return TextComponentProps.fromMap(map);
+    return TextComponentProperties.fromMap(map);
   } else if (key == radioComponentName) {
     // If key is radio component, then check for radiofield properties validation.
     var check = RadioComponentProperties.radioFieldPropertiesChecker(map);

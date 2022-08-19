@@ -8,7 +8,7 @@ import 'base_model.dart';
 part 'text_field_props.g.dart';
 
 @JsonSerializable()
-class TextComponentProps implements BaseModel {
+class TextComponentProperties implements BaseModel {
   //!=======================================================//
   //    Json Keys of the props used by TextFieldComponent
   //!=======================================================//
@@ -26,7 +26,7 @@ class TextComponentProps implements BaseModel {
   static const String _tfBorderRadiusKey = "border_radius";
   static const String _tfMinLinesKey = "min_lines";
   static const String _tfMaxLinesKey = "max_lines";
-  static const String _tfRequiredKey = "required";
+  static const String _tfRequiredKey = "is_required";
   static const String _tfReadOnlyKey = "read_only";
   static const String _tfCanCreateKey = "can_create";
   static const String _tfCanUpdateKey = "can_update";
@@ -183,7 +183,7 @@ class TextComponentProps implements BaseModel {
 
   //TODO: use this prop.
   @JsonKey(name: _tfRequiredKey)
-  final bool required;
+  final bool isRequired;
 
   //TODO: use this prop.
   @JsonKey(name: _tfTrimWhiteSpaceKey)
@@ -201,7 +201,7 @@ class TextComponentProps implements BaseModel {
   @JsonKey(name: _tfSuffixIconKey)
   final String? suffixIcon;
 
-  TextComponentProps({
+  TextComponentProperties({
     // this.title = "",
     // this.description = "",
     required this.name,
@@ -228,42 +228,40 @@ class TextComponentProps implements BaseModel {
     this.customErrorText = "",
     this.showTextCounter = true,
     this.formPageNumber = 1,
-    this.required = false,
+    this.isRequired = false,
     this.trimWhiteSpace = false,
     this.regexMatch,
     this.prefixIcon,
     this.suffixIcon,
-  }); 
+  });
 
   //Factory constructor.
   /// Creates a TextComponentProps object from given map.
   /// Checks the given map with `TextComponentProps.textFieldPropsChecker` before creating object.
   /// Will throw error with specific message if any invalid value found for valid props.
   /// `name` is a mandatory props. Excluding it will lead to check failing.
-  factory TextComponentProps.fromMap(Map<String, dynamic> map) {
-    var check = TextComponentProps.textFieldPropsChecker(map, isMap: true);
+  factory TextComponentProperties.fromMap(Map<String, dynamic> map) {
+    var check = TextComponentProperties.textFieldPropsChecker(map, isMap: true);
     if (check is String) throw check;
-    return _$TextComponentPropsFromJson(map);
+    return _$TextComponentPropertiesFromJson(map);
   }
 
   //Factory constructor.
-  factory TextComponentProps.fromJson(String json) {
+  factory TextComponentProperties.fromJson(String json) {
     Map<String, dynamic> parsed = jsonDecode(json);
-    var check = TextComponentProps.textFieldPropsChecker(parsed);
+    var check = TextComponentProperties.textFieldPropsChecker(parsed);
     if (check is String) throw check;
-    return _$TextComponentPropsFromJson(parsed);
+    return _$TextComponentPropertiesFromJson(parsed);
   }
 
   // Serializer to convert Wellness Object to map.
   static Map<String, dynamic> toJson(object) {
-    return _$TextComponentPropsToJson(object);
+    return _$TextComponentPropertiesToJson(object);
   }
 
-  static dynamic textFieldPropsChecker(Map<String, dynamic> props,
-      {bool isMap = false}) {
+  static dynamic textFieldPropsChecker(Map<String, dynamic> props, {bool isMap = false}) {
     // print(" json to check : $json");
-    if (!isMap && props[_tfTypeKey] is! String ||
-        props[_tfTypeKey] != textComponentName) {
+    if (!isMap && props[_tfTypeKey] is! String || props[_tfTypeKey] != textComponentName) {
       return "bad value for `$_tfTypeKey`.Expected $textComponentName but got `${props[_tfTypeKey]}`.";
     }
     if (props[_tfNameKey] is! String) {

@@ -5,7 +5,7 @@ import '../models/radio_field_props.dart';
 
 /// `RadioFieldComponent` is a component that renders a radio field.
 class RadioFieldComponent extends StatelessWidget {
-  RadioFieldComponent({
+  const RadioFieldComponent({
     Key? key,
     required this.props,
     required this.value,

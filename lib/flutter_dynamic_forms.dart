@@ -8,4 +8,3 @@ export 'src/models/radio_field_props.dart';
 
 // Widgets
 export 'src/form/form_widget.dart';
-export 'src/components/text_component.dart';
