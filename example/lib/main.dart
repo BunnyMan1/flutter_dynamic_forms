@@ -39,15 +39,20 @@ class _MyHomePageState extends State<MyHomePage> {
           formData: FlutterDynamicFormData(
             components: [
               TextComponentProperties.fromMap(
-                {'type': 'text', 'name': 'employee_name', 'title': 'Emp Name'},
+                {
+                  'type': 'text',
+                  'name': 'employee_name',
+                  'title': 'Emp Name',
+                  "regex_match": "[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                },
               ),
               TextComponentProperties(
                 name: 'employee_email',
                 // name: "Emp Email",
                 label: "Employee Email",
                 isRequired: true,
-                maxLength: 5,
                 placeholder: "Enter employee's name",
+                regexMatch: "[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
               ),
             ],
           ),
