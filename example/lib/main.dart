@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TextComponentProps(
                 name: 'employee_email',
-                title: "Emp Email",
+                // name: "Emp Email",
                 label: "Employee Email",
                 maxLength: 5,
                 placeholder: "Enter employee's name",

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
 
+import '../../flutter_dynamic_forms.dart';
+import '../constants/constants.dart';
 import '../models/base_model.dart';
 
 class FlutterDynamicForm extends StatefulWidget {

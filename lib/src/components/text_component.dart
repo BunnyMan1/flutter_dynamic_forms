@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
 
+import '../../flutter_dynamic_forms.dart';
 import '../common/component_wrapper.dart';
 import '../utilities/helpers.dart';
 
@@ -16,10 +16,10 @@ class TextFieldComponent extends StatelessWidget {
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Color c = hexStringToColorConverter(props.color);
+    Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
-      title: props.title,
-      description: props.description,
+      title: props.name,
+      description: props.helperText,
       child: TextField(
         
         controller: controller,
