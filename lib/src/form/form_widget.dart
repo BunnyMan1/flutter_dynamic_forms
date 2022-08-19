@@ -6,7 +6,7 @@ import '../models/base_model.dart';
 
 class FlutterDynamicForm extends StatefulWidget {
   final FlutterDynamicFormData formData;
-  final Function(Map<String, dynamic>)? onSubmit;
+  final void Function(Map<String, dynamic>)? onSubmit;
   const FlutterDynamicForm({
     Key? key,
     required this.formData,
@@ -20,10 +20,16 @@ class FlutterDynamicForm extends StatefulWidget {
 class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
   @override
   void initState() {
+    // Check the list of components before the form is rendered.
     _componentsChecker();
     super.initState();
   }
 
+  /// This method will check the list of components for any duplicate name being used.
+  /// Since the `name` being passed is used as unique key, duplicate names will cause
+  /// undesired effects like values of one or more fields being overwritten. So this
+  /// check is required to avoid such scenarios. This method will throw an error with
+  /// the name of the duplicated key if found.
   _componentsChecker() {
     var checkMap = {};
     for (var i in widget.formData.components) {
@@ -36,7 +42,6 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
   }
 
   final Map<String, dynamic> _values = {};
-  final Map<String, bool> _validations = {};
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +56,35 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
                 ),
               )
               .toList(),
-          ElevatedButton(
-            onPressed: () {
-              if (widget.onSubmit != null) widget.onSubmit!(_values);
-            },
-            child: const Text("Submit"),
+          Row(
+            children: [
+              // If show reset button is true  AND
+              // if custom reset button is not given (null)
+              // --> SHOW default reset button
+              if (widget.formData.props?.showResetButton == true &&
+                  widget.formData.props?.customResetButton == null)
+                ElevatedButton(
+                  onPressed: () {
+                    if (widget.onSubmit != null) widget.onSubmit!(_values);
+                  },
+                  child: const Text("Reset"),
+                ),
+
+              // If show reset button is true  AND
+              // if custom reset button is given (not null)
+              // --> SHOW passed in custom reset button
+              if (widget.formData.props?.showResetButton == true &&
+                  widget.formData.props?.customResetButton != null)
+                widget.formData.props!.customResetButton!,
+
+              // Submit button
+              ElevatedButton(
+                onPressed: () {
+                  if (widget.onSubmit != null) widget.onSubmit!(_values);
+                },
+                child: const Text("Submit"),
+              ),
+            ],
           ),
         ],
       ),

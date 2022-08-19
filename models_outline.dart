@@ -29,8 +29,6 @@ var form_options = {
 
   "show_reset_button": true,
 
-  "on_reset": "void Function onReset(Map<String,dynamic> values)",
-
   // Only to be present in dart or map
   "custom_reset_button": "",
 
@@ -44,6 +42,8 @@ var form_options = {
   // "submission_url": "",
 
   // "before_submit": "bool Function onSubmit(Map<String,dynamic> values)",
+
+  "on_reset": "void Function onReset(Map<String,dynamic> values)",
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
