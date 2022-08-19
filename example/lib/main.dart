@@ -48,6 +48,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxLength: 5,
                 placeholder: "Enter employee's name",
               ),
+              RadioComponentProperties(
+                name: 'Gender',
+                labels: ['male', 'female'],
+                values: ['value1', 'value2', 'value3'],
+              )
             ],
           ),
           onSubmit: (var map) {

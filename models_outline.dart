@@ -48,7 +48,8 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail":
+      "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -146,24 +147,33 @@ var text_field_props = {
 
 var radio_field_props = {
   // Title of the field
-  "title": "",
+  "name": "",
 
   // Description of the field.
-  "description": "",
+  "helperTextKey": "",
 
-  // Pri  mary color for this field, overwrites color from form options.
-  "color": "00ff00",
+  // To align vertically or horizontally.
+  "alignment": "horizontal", // can be `vertical`
+
+  // Different labels radio can have. (show be in order of and as many as values.)
+  "labels": ["label1", "label2", "label3"],
+
+  // label positioning for the radio field.
+  "label_position": ["enum containing  `left`, `right`"],
+
+  // radio can have 3 label styles "normal", "bold", "italic"
+  "label_style": ["enum containing  `normal`, `bold`, `italic`"],
+
+  // different values that radio can have, in order.
+  "values": ["val1", "val2", "val3"],
+  
+  // Primary color for this field, overwrites color from form options.
+  "primary_color": "00ff00",
 
   // To show border for the text field or not.
   "show_border": true,
 
   "border_color": "0000ff",
-
-  // different values that radio can have, in order.
-  "values": ["val1", "val2", "val3"],
-
-  // Different labels radio can have. (show be in order of and as many as values.)
-  "labels": ["label1", "label2", "label3"],
 
   // If this field is required. (validation)
   "required": true,
@@ -173,22 +183,12 @@ var radio_field_props = {
 
   // Custom Error text to show.
   "custom_error_text": "",
-
-  // To align vertically or horizontally.
-  "align": "horizontal", // can be `vertical`
-
-  "label_position": ["enum containing  `left`, `right`"],
-
-  "label_style": ["enum containing  `normal`, `bold`, `italic`"]
 };
-
 
 /// `ValidationError`
 var validation_error = {
   // Error message.
   "message": "",
-
-
 };
 
 /*

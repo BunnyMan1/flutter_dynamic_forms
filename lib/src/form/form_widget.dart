@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_forms/src/models/radio_field_props.dart';
 
 import '../../flutter_dynamic_forms.dart';
+import '../components/radio_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 
+/// Flutter dynamic form. This is the main form widget of this package.
 class FlutterDynamicForm extends StatefulWidget {
   final FlutterDynamicFormData formData;
   final void Function(Map<String, dynamic>)? onSubmit;
@@ -30,7 +33,7 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
   /// undesired effects like values of one or more fields being overwritten. So this
   /// check is required to avoid such scenarios. This method will throw an error with
   /// the name of the duplicated key if found.
-  _componentsChecker() {
+  void _componentsChecker() {
     var checkMap = {};
     for (var i in widget.formData.components) {
       if (checkMap[i.name] == null) {
@@ -91,13 +94,27 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
     );
   }
 
+  /// `propsToComponentMapper` is a function that maps the properties of a component to the
+  /// corresponding component widget. This is done by checking the type of the component
+  /// and then returning the corresponding widget.
   Widget _propsToComponentMapper(BaseModel props) {
     if (props.type == textComponentName) {
+      // If the property name is [textComponentName] then return a [TextFieldComponent]
       return TextFieldComponent(
         onChange: ((s) {
           _values[props.name] = s;
         }),
         props: props as TextComponentProps,
+      );
+    } else if (props.type == radioComponentName) {
+      // If the property name is [radioComponentName] then return a [RadioFieldComponent]
+      return RadioFieldComponent(
+        onChange: ((s) {
+          _values[props.name] = s;
+          setState(() {});
+        }),
+        value: _values[props.name],
+        props: props as RadioComponentProperties,
       );
     }
     throw 'Unknown component.';

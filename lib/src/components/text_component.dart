@@ -21,7 +21,6 @@ class TextFieldComponent extends StatelessWidget {
       title: props.name,
       description: props.helperText,
       child: TextField(
-        
         controller: controller,
         onChanged: (s) {
           onChange != null ? onChange!(s) : null;
@@ -36,7 +35,6 @@ class TextFieldComponent extends StatelessWidget {
         ),
         cursorColor: c,
         decoration: InputDecoration(
-
           hintText: props.placeholder,
           labelText: props.label,
           labelStyle: TextStyle(
