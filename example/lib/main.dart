@@ -38,13 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
         body: FlutterDynamicForm(
           formData: FlutterDynamicFormData(
             components: [
-              TextComponentProps.fromMap(
+              TextComponentProperties.fromMap(
                 {'type': 'text', 'name': 'employee_name', 'title': 'Emp Name'},
               ),
-              TextComponentProps(
+              TextComponentProperties(
                 name: 'employee_email',
                 // name: "Emp Email",
                 label: "Employee Email",
+                isRequired: true,
                 maxLength: 5,
                 placeholder: "Enter employee's name",
               ),
