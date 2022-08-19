@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/utilities/validator.dart';
 
 import '../../flutter_dynamic_forms.dart';
-import '../components/text_component.dart';
-import '../constants/constants.dart';
-import '../models/base_model.dart';
 import '../utilities/prop_to_component_mapper.dart';
 
 class FlutterDynamicForm extends StatefulWidget {

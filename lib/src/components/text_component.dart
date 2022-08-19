@@ -5,7 +5,7 @@ import '../common/component_wrapper.dart';
 import '../utilities/helpers.dart';
 
 class TextFieldComponent extends StatelessWidget {
-  TextFieldComponent({
+  const TextFieldComponent({
     Key? key,
     required this.props,
     this.error,
