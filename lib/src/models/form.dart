@@ -1,10 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
-import 'package:flutter_dynamic_forms/src/utilities/name_to_props_mapper.dart';
-
+import '../utilities/name_to_props_mapper.dart';
+import 'base_model.dart';
 import 'form_props.dart';
 
 class FlutterDynamicFormData {

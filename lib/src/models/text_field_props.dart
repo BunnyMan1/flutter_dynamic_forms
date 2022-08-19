@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../constants/constants.dart';
+import 'base_model.dart';
+
 part 'text_field_props.g.dart';
 
 @JsonSerializable()
@@ -78,7 +80,7 @@ class TextComponentProps implements BaseModel {
   final String placeholder;
 
   /// Color of the text in the text field.
-  /// defaults to ""
+  /// defaults to "000000"
   @JsonKey(name: _tfTextColorKey)
   final String textColor;
 
@@ -88,7 +90,7 @@ class TextComponentProps implements BaseModel {
   final bool showBorder;
 
   /// Color of the border of the text field.
-  /// defaults to ""
+  /// defaults to "000000"
   @JsonKey(name: _tfBorderColorKey)
   final String borderColor;
 
@@ -148,7 +150,7 @@ class TextComponentProps implements BaseModel {
   final bool obscureText;
 
   /// Max Length of for the text field. (If specified, the length will be enforced.)
-  /// Defaults to null (no max length set).
+  /// Defaults to null (no min length set).
   @JsonKey(name: _tfMinLengthKey)
   final int? minLength;
 
@@ -163,6 +165,7 @@ class TextComponentProps implements BaseModel {
   final bool showError;
 
   /// Custom error text to be displayed in the text field.
+  /// Defaults to ""
   @JsonKey(name: _tfCustomErrorTextKey)
   final String customErrorText;
 
@@ -205,9 +208,9 @@ class TextComponentProps implements BaseModel {
     this.helperText = "",
     this.label = "",
     this.placeholder = "",
-    this.textColor = "",
+    this.textColor = "000000",
     this.showBorder = true,
-    this.borderColor = "",
+    this.borderColor = "000000",
     this.borderWidth = 1.0,
     this.borderRadius = 1.0,
     this.minLines = 1,

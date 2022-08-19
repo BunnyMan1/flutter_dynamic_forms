@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
 
+import '../../flutter_dynamic_forms.dart';
 import '../common/component_wrapper.dart';
 import '../utilities/helpers.dart';
 
