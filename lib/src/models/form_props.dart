@@ -81,8 +81,13 @@ class FormProps {
   static Map<String, dynamic> toJson(object) {
     return _$FormPropsToJson(object);
   }
+
+  //TODO: complete props checker function.
+
+  _propsChecker(FormProps props) {}
 }
 
+//TODO: add conversion functions for these enums.
 enum Size { mini, small, medium, defaultLarge }
 
 enum Position { left, right, top, bottom }
