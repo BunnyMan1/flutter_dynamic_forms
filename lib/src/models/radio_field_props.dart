@@ -7,11 +7,17 @@ import 'base_model.dart';
 
 part 'radio_field_props.g.dart';
 
+/// `RadioComponentProperties` is a class that holds the properties of the
+/// `RadioComponent`. It implements the `BaseModel` class.
+///
+/// It is used to serialize or deserialize the properties of the
+/// `RadioComponent`.
 @JsonSerializable()
 class RadioComponentProperties implements BaseModel {
   //!=======================================================//
   //    Json Keys of the props used by RadioComponent
   //!=======================================================//
+  static const String _rfTypeKey = 'type';
   static const String _rfNameKey = 'name';
   static const String _rfHelperTextKey = 'helper_text';
   static const String _rfAlignmentKey = 'alignment';
@@ -21,6 +27,7 @@ class RadioComponentProperties implements BaseModel {
   static const String _rfValuesKey = 'values';
   static const String _rfPrimaryColorKey = 'primary_color';
   static const String _rfShowBorderKey = 'show_border';
+  //TODO: Check whether border color is required or not
   static const String _rfBorderColorKey = 'border_color';
   static const String _rfRequiredKey = 'required';
   static const String _rfShowErrorKey = 'show_error';
@@ -63,7 +70,7 @@ class RadioComponentProperties implements BaseModel {
   /// different values that radio can have, in order.
   /// Defaults to empty list [].
   @JsonKey(name: _rfValuesKey)
-  final List<String> values;
+  final List values;
 
   /// Primary color for this field, overwrites color from form options.
   /// Defaults to `ffffff`.
@@ -99,10 +106,10 @@ class RadioComponentProperties implements BaseModel {
     required this.name,
     this.helperText = '',
     this.alignment = 'vertical',
-    this.labels = const [],
+    required this.labels,
     this.labelPosition = 'left',
     this.labelStyle = 'normal',
-    this.values = const [],
+    required this.values,
     this.primaryColor = 'ffffff',
     this.showBorder = true,
     this.borderColor = '000000',
@@ -115,8 +122,8 @@ class RadioComponentProperties implements BaseModel {
   String get type => radioComponentName;
 
   //Factory constructor.
-  /// Creates a TextComponentProps object from given map.
-  /// Checks the given map with `TextComponentProps.textFieldPropsChecker` before creating object.
+  /// Creates a RadioComponentProperties object from given map.
+  /// Checks the given map with `RadioComponentProperties.radioFieldPropertiesChecker` before creating object.
   /// Will throw error with specific message if any invalid value found for valid props.
   /// `name` is a mandatory props. Excluding it will lead to check failing.
   factory RadioComponentProperties.fromMap(Map<String, dynamic> map) {
@@ -144,6 +151,95 @@ class RadioComponentProperties implements BaseModel {
     Map<String, dynamic> properties, {
     bool isMap = false,
   }) {
+    if (!isMap && properties[_rfTypeKey] is! String ||
+        properties[_rfTypeKey] != radioComponentName) {
+      // If the type is not a string or is not a radio component type.
+      return 'bad value for "$_rfTypeKey".Expected "$radioComponentName" but got "${properties[_rfTypeKey]}".';
+    }
+    if (properties[_rfNameKey] is! String) {
+      // If the name is not a string.
+      return 'bad value for "$_rfNameKey".Expected a "String" but got "${properties[_rfNameKey]}".';
+    }
+
+    // -------- CHECKS FOR REQUIRED FIELDS --------
+
+    // Check if labels key exists or not.
+    // If exists then check if it is List<String> or not
+    if (!properties.keys.contains(_rfLabelsKey)) {
+      // If the labels key doesn't exist.
+      return '"labels" field is required';
+    }
+
+    if (properties[_rfLabelsKey] is! List<String>) {
+      // If the labels is not a list.
+      return 'bad value for "$_rfLabelsKey".Expected a "List" but got "$_rfLabelsKey".';
+    }
+
+    // Check if values key exists or not.
+    // If exists then check if it is List or not
+    if (!properties.keys.contains(_rfValuesKey)) {
+      // If the values key doesn't exist.
+      return '"values" field is required';
+    }
+
+    if (properties[_rfValuesKey] is! List) {
+      // If the values is not a list.
+      return 'bad value for "$_rfValuesKey".Expected a "List" but got "$_rfValuesKey".';
+    }
+
+    // Check for length of labels and values. They must be same.
+    if (properties[_rfLabelsKey].length != properties[_rfValuesKey].length) {
+      // If the labels and values are not of same length.
+      return 'The length of "$_rfLabelsKey" and "$_rfValuesKey" should be same.';
+    }
+
+    // -------- CHECKS FOR OPTIONAL FIELDS --------
+    for (var key in properties.keys) {
+      if (key == _rfHelperTextKey) {
+        if (properties[key] is! String) {
+          // If the helper text is same as the key in JSON but not a string, then throw error.
+          return 'bad value for "$key".Expected a String but got "${properties[key]}".';
+        }
+      }
+      if (key == _rfAlignmentKey) {
+        if (properties[key] is! String) {
+          // If the alignment is not a string.
+          return 'bad value for $_rfAlignmentKey: "${properties[key]}" expected a String.';
+        }
+        //TODO: Add a helper function to check whether it is a valid alignment type.
+      }
+
+      if (key == _rfLabelPositionKey) {
+        if ((properties[key] is! String)) {
+          // If the label position is not a string.
+          return 'bad value for $_rfLabelPositionKey: "${properties[key]}" expected a String.';
+        }
+        //TODO: Add a switch case for enums - left, right.
+      }
+
+      if (key == _rfLabelStyleKey) {
+        if (properties[key] is! String) {
+          // If the label style is not a string.
+          return 'bad value for $_rfLabelStyleKey: "${properties[key]}" expected a String.';
+        }
+        //TODO: Add a switch case for enums - normal, bold, italic.
+      }
+
+      if (key == _rfPrimaryColorKey) {
+        if (properties[key] is! String) {
+          // check if colorKey is a string.
+          return 'bad value for $_rfPrimaryColorKey: "${properties[key]}" expected a String of length 6.';
+        }
+        if (properties[key].toString().length != 6) {
+          // if it IS a string, check if the length is exactly 6
+          return 'bad value for $_rfPrimaryColorKey: "${properties[key]}" expected a String of length 6.';
+        }
+      }
+      if (key == _rfShowBorderKey && (properties[key] is! bool)) {
+        // If the show border is not a boolean.
+        return 'bad value for $_rfShowBorderKey: "${properties[key]}" expected a bool.';
+      }
+    }
     return true;
   }
 }

@@ -12,16 +12,11 @@ RadioComponentProperties _$RadioComponentPropertiesFromJson(
       name: json['name'] as String,
       helperText: json['helper_text'] as String? ?? '',
       alignment: json['alignment'] as String? ?? 'vertical',
-      labels: (json['labels'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      labels:
+          (json['labels'] as List<dynamic>).map((e) => e as String).toList(),
       labelPosition: json['label_position'] as String? ?? 'left',
       labelStyle: json['label_style'] as String? ?? 'normal',
-      values: (json['values'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      values: json['values'] as List<dynamic>,
       primaryColor: json['primary_color'] as String? ?? 'ffffff',
       showBorder: json['show_border'] as bool? ?? true,
       borderColor: json['border_color'] as String? ?? '000000',

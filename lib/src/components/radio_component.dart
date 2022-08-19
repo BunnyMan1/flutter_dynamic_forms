@@ -7,35 +7,37 @@ import '../models/radio_field_props.dart';
 class RadioFieldComponent extends StatelessWidget {
   const RadioFieldComponent({
     Key? key,
-    required this.props,
+    required this.properties,
     required this.value,
     this.onChange,
   }) : super(key: key);
 
-  /// `props` is a [RadioComponentProperties] object that contains all the properties of the component.
-  final RadioComponentProperties props;
+  /// `properties` is a [RadioComponentProperties] object that contains all the properties of the component.
+  final RadioComponentProperties properties;
 
+  /// `value` is the value of the radio field.
   final dynamic value;
 
   /// `onChange` is a function that is called when the value of the radio field is changed.
-  final Function(String s)? onChange;
+  final Function(dynamic s)? onChange;
 
   @override
   Widget build(BuildContext context) {
     // Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
-      title: props.name,
-      description: props.helperText,
+      title: properties.name,
+      description: properties.helperText,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          for (int i = 0; i < props.labels.length; i++)
-            RadioListTile<String>(
-              title: Text(props.labels[i]),
-              value: props.values[i],
-              selected: value == props.values[i],
+          for (int i = 0; i < properties.labels.length; i++)
+            RadioListTile<dynamic>(
+              contentPadding: const EdgeInsets.all(0),
+              title: Text(properties.labels[i]),
+              value: properties.values[i],
+              selected: value == properties.values[i],
               groupValue: value,
-              onChanged: (String? value) {
+              onChanged: (value) {
                 if (onChange != null) {
                   onChange!(value!);
                 }

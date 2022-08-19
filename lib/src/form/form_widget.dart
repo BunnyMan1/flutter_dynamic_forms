@@ -141,7 +141,7 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
           setState(() {});
         }),
         value: _values[props.name],
-        props: props as RadioComponentProperties,
+        properties: props as RadioComponentProperties,
       );
     }
     throw 'Unknown component.';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// `ComponentWrapper` is a wrapper component that wraps the component with a title and description.
 class ComponentWrapper extends StatelessWidget {
   const ComponentWrapper({
     Key? key,

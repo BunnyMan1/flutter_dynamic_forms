@@ -4,6 +4,7 @@ import '../../flutter_dynamic_forms.dart';
 import '../common/component_wrapper.dart';
 import '../utilities/helpers.dart';
 
+/// TextFieldComponent is a component that renders a text field.
 class TextFieldComponent extends StatelessWidget {
   const TextFieldComponent({
     Key? key,

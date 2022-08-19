@@ -146,9 +146,19 @@ var text_field_props = {
 };
 
 var radio_field_props = {
+  // type
+  "type": "radio",
+  
   // Title of the field
   "name": "",
 
+  //TODO: Check this legend property once and add it to the radio field props
+
+  // Title of the widget
+  "legend": "",
+
+  //TODO: Helper text maybe used as a description for the radio field section.
+  
   // Description of the field.
   "helperTextKey": "",
 

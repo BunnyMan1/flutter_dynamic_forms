@@ -14,7 +14,7 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
       throw check;
     }
     // If the check is not string, then it is a valid map.
-    // Create a TextComponentProps object from the map.
+    // Create a TextComponentProperties object from the map.
     return TextComponentProperties.fromMap(map);
   } else if (key == radioComponentName) {
     // If key is radio component, then check for radiofield properties validation.
