@@ -1,3 +1,4 @@
+/// `ValidationResult`
 class ValidationResult {
   final String componentName;
   final String type;

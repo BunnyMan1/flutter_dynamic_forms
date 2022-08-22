@@ -57,6 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 customErrorText: "Invalid Value",
                 regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
               ),
+              RadioComponentProperties.fromMap(
+                {
+                  'type': 'radio',
+                  'name': 'gender',
+                  'labels': ['male', 'female'],
+                  'values': [1, 2],
+                },
+              ),
+              // RadioComponentProperties(
+              //   name: 'Gender',
+              //   labels: ['male', 'female'],
+              //   values: ['value1', 'value2', 'value3'],
+              // )
             ],
           ),
           onSubmit: (var map) {

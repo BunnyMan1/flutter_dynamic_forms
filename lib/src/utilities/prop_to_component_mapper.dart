@@ -1,44 +1,69 @@
 import 'package:flutter/material.dart';
 
 import '../../flutter_dynamic_forms.dart';
+import '../components/radio_component.dart';
 import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import 'validator.dart';
 
-Widget propsToComponentMapper(
-  BaseModel props,
-  Function(dynamic name, dynamic value) setValues,
-  Function(dynamic name, dynamic value) setValidations,
-  Map<String, dynamic> values,
-  Map<String, dynamic> validations,
-) {
-  if (props.type == textComponentName) {
-    var p = props as TextComponentProperties;
+/// Takes a data class that extends [BaseModel] and returns a corresponding [Widget].
+Widget propsToComponentMapper({
+  required BaseModel properties,
+  required Function(dynamic name, dynamic value) setValue,
+  required Function(dynamic name, dynamic value) setValidation,
+  required Map<String, dynamic> values,
+  required Map<String, dynamic> validations,
+}) {
+  // Text Component
+  if (properties.type == textComponentName) {
+    var p = properties as TextComponentProperties;
     return TextFieldComponent(
       onChange: ((s) {
-        // _values[props.name] = s;
-        if (props.trimWhiteSpace) {
+        if (properties.trimWhiteSpace) {
           s = s.trim();
         }
-        setValues(props.name, s);
+
+        setValue(properties.name, s);
       }),
       onFocusLost: (s) {
-        if (props.trimWhiteSpace) {
+        if (properties.trimWhiteSpace) {
           s = s.trim();
         }
-        var res = textComponentValidator(p, s);
+        var res = textComponentValidator(
+          properties: p,
+          value: s,
+        );
+
         if (res.errors.isNotEmpty) {
-          setValidations(props.name, res.errors.first.values.first.toString());
+          setValidation(
+            properties.name,
+            res.errors.first.values.first.toString(),
+          );
         } else {
-          setValidations(props.name, null);
+          setValidation(properties.name, null);
         }
       },
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
+
+  // Radio Component
+  else if (properties.type == radioComponentName) {
+    // If the property name is [radioComponentName] then return a [RadioFieldComponent]
+    return RadioFieldComponent(
+      onChange: ((s) {
+        setValue(properties.name, s);
+      }),
+      value: values[properties.name],
+      properties: properties as RadioComponentProperties,
+    );
+  }
+
+  // If no proper component then throw this error.
   throw 'Unknown component.';
 }

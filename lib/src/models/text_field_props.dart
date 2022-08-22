@@ -230,8 +230,8 @@ class TextComponentProperties implements BaseModel {
   });
 
   //Factory constructor.
-  /// Creates a TextComponentProps object from given map.
-  /// Checks the given map with `TextComponentProps.textFieldPropsChecker` before creating object.
+  /// Creates a TextComponentProperties object from given map.
+  /// Checks the given map with `TextComponentProperties.textFieldPropsChecker` before creating object.
   /// Will throw error with specific message if any invalid value found for valid props.
   /// `name` is a mandatory props. Excluding it will lead to check failing.
   factory TextComponentProperties.fromMap(Map<String, dynamic> map) {
@@ -330,7 +330,7 @@ class TextComponentProperties implements BaseModel {
   }
 
   /// Type parameter for the dynamic component for internal use.
-  /// This should be explicitly mentioned in the json if `TextComponentProps.fromJson` is to be used.
+  /// This should be explicitly mentioned in the json if `TextComponentProperties.fromJson` is to be used.
   @override
   String get type => textComponentName;
 }

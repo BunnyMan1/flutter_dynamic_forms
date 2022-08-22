@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../flutter_dynamic_forms.dart';
+import '../components/radio_component.dart';
 import '../utilities/prop_to_component_mapper.dart';
+import '../utilities/validator.dart';
 
+/// Flutter dynamic form. This is the main form widget of this package.
 class FlutterDynamicForm extends StatefulWidget {
   final FlutterDynamicFormData formData;
   final void Function(Map<String, dynamic>)? onSubmit;
@@ -29,7 +32,7 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
   /// undesired effects like values of one or more fields being overwritten. So this
   /// check is required to avoid such scenarios. This method will throw an error with
   /// the name of the duplicated key if found.
-  _componentsChecker() {
+  void _componentsChecker() {
     var checkMap = {};
     for (var i in widget.formData.components) {
       if (checkMap[i.name] == null) {
@@ -58,11 +61,11 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
                   (c) => Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: propsToComponentMapper(
-                      c,
-                      _setValues,
-                      _setValidation,
-                      _values,
-                      _validations,
+                      properties: c,
+                      setValue: _setValues,
+                      setValidation: _setValidation,
+                      values: _values,
+                      validations: _validations,
                     ),
                   ),
                 )
@@ -103,6 +106,8 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
     );
   }
 
+  /// This method will be called by the component when the value of a component is changed.
+  /// This method will update the `_values` map with the new value.
   void _setValues(var name, var value) {
     setState(() {
       _values[name] = value;

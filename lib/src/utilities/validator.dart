@@ -1,14 +1,16 @@
-import 'package:flutter_dynamic_forms/src/models/text_field_props.dart';
-
+import '../../flutter_dynamic_forms.dart';
 import '../models/validation_result.dart';
 
-ValidationResult textComponentValidator(TextComponentProperties props, String value) {
-  ValidationResult validationResult =
-      ValidationResult(componentName: props.name, type: props.type, value: value, errors: []);
-  if (props.isRequired && value == "") {
-    if (props.customErrorText != null) {
+ValidationResult textComponentValidator({
+  required TextComponentProperties properties,
+  required String value,
+}) {
+  ValidationResult validationResult = ValidationResult(
+      componentName: properties.name, type: properties.type, value: value, errors: []);
+  if (properties.isRequired && value == "") {
+    if (properties.customErrorText != null) {
       validationResult.errors.add(
-        {"Required": props.customErrorText},
+        {"Required": properties.customErrorText},
       );
     } else {
       validationResult.errors.add(
@@ -17,27 +19,28 @@ ValidationResult textComponentValidator(TextComponentProperties props, String va
     }
   }
 
-  if (props.regexMatch != null) {
+  if (properties.regexMatch != null) {
     try {
-      var match = RegExp(props.regexMatch!).hasMatch(value);
+      var match = RegExp(properties.regexMatch!).hasMatch(value);
       if (!match) {
-        if (props.customErrorText != null) {
-          validationResult.errors.add({"Regex": props.customErrorText});
+        if (properties.customErrorText != null) {
+          validationResult.errors.add({"Regex": properties.customErrorText});
         } else {
           validationResult.errors.add({"Regex": "Invalid input : $value"});
         }
       }
     } catch (e) {
-      throw "Invalid regex ${props.regexMatch} : $e";
+      throw "Invalid regex ${properties.regexMatch} : $e";
     }
   }
 
-  if (props.minLength != null && value.length < props.minLength!) {
-    if (props.customErrorText != null) {
-      validationResult.errors.add({"MinLength": props.customErrorText});
+  if (properties.minLength != null && value.length < properties.minLength!) {
+    if (properties.customErrorText != null) {
+      validationResult.errors.add({"MinLength": properties.customErrorText});
     } else {
-      validationResult.errors
-          .add({"MinLength": "Should be minimum ${props.minLength} characters long."});
+      validationResult.errors.add({
+        "MinLength": "Should be minimum ${properties.minLength} characters long."
+      });
     }
   }
 
