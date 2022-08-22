@@ -63,10 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 prefixIconWidget: const Icon(
                   Icons.email,
                 ),
-
                 suffixIconWidget: const Icon(
                   Icons.alternate_email,
                 ),
+                inputType: InputType.number,
               ),
               RadioComponentProperties.fromMap(
                 {

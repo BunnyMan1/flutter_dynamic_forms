@@ -45,7 +45,7 @@ class TextComponentProperties implements BaseModel {
   static const String _tfRegexMatchKey = "regex_match";
   static const String _tfPrefixIconKey = "prefix_icon";
   static const String _tfSuffixIconKey = "suffix_icon";
-
+  static const String _tfInputTypeKey = "input_type";
   //!=======================================================//
   //!=======================================================//
 
@@ -208,6 +208,10 @@ class TextComponentProperties implements BaseModel {
   @JsonKey(ignore: true)
   final Icon? suffixIconWidget;
 
+  /// Input type of the text field, Should be a value from pre-defined enum.
+  /// defaults to "text".
+  final InputType? inputType;
+
   TextComponentProperties({
     // this.title = "",
     // this.description = "",
@@ -242,6 +246,7 @@ class TextComponentProperties implements BaseModel {
     this.suffixIcon,
     this.prefixIconWidget,
     this.suffixIconWidget,
+    this.inputType,
   });
 
   //Factory constructor.
@@ -351,4 +356,12 @@ class TextComponentProperties implements BaseModel {
   /// This should be explicitly mentioned in the json if `TextComponentProperties.fromJson` is to be used.
   @override
   String get type => textComponentName;
+}
+
+enum InputType {
+  name,
+  email,
+  url,
+  number,
+  numberFloat,
 }

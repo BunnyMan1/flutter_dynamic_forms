@@ -13,13 +13,42 @@ class TextFieldComponent extends StatelessWidget {
     this.onFocusLost,
     this.onChange,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final TextComponentProperties props;
   final Function(String s)? onChange;
   final Function(String s)? onFocusLost;
   final String? error;
   final TextEditingController controller;
+
+  TextInputType _inputTypeToKeyboardType(InputType? inputType) {
+    if (inputType == null) {
+      return TextInputType.text;
+    } else {
+      if (inputType == InputType.name) {
+        return TextInputType.name;
+      }
+
+      if (inputType == InputType.number) {
+        return TextInputType.number;
+      }
+
+      if (inputType == InputType.numberFloat) {
+        return const TextInputType.numberWithOptions(decimal: false);
+      }
+
+      if (inputType == InputType.email) {
+        return TextInputType.emailAddress;
+      }
+
+      if (inputType == InputType.url) {
+        return TextInputType.url;
+      }
+
+      return TextInputType.text;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Color c = hexStringToColorConverter(props.textColor);
@@ -46,6 +75,7 @@ class TextFieldComponent extends StatelessWidget {
             fontSize: 18.0,
           ),
           cursorColor: c,
+          keyboardType: _inputTypeToKeyboardType(props.inputType),
           decoration: InputDecoration(
             helperText: props.helperText,
             errorText: error,
