@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../flutter_dynamic_forms.dart';
-import '../components/radio_component.dart';
 import '../utilities/prop_to_component_mapper.dart';
-import '../utilities/validator.dart';
 
 /// Flutter dynamic form. This is the main form widget of this package.
 class FlutterDynamicForm extends StatefulWidget {

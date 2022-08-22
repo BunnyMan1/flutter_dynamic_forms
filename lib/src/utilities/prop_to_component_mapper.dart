@@ -30,7 +30,7 @@ Widget propsToComponentMapper({
         if (properties.trimWhiteSpace) {
           s = s.trim();
         }
-        var res = textComponentValidator(
+        var res = componentValidator(
           properties: p,
           value: s,
         );
@@ -47,8 +47,7 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection =
-            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
