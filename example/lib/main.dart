@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
 
+/// Starting point of the application.
 void main() {
   runApp(const MyApp());
 }
 
+/// `MyApp` is the root widget of the application.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -16,70 +18,88 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
+/// `MyHomePage` is the home page of the application.
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+/// `_MyHomePageState` is the state of the home page.
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: FlutterDynamicForm(
-          formData: FlutterDynamicFormData(
-            components: [
-              TextComponentProperties.fromMap(
-                {
-                  'type': 'text',
-                  'name': 'employee_name',
-                  'title': 'Emp Name',
-                  "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
-                },
-              ),
-              TextComponentProperties(
-                name: 'employee_email',
-                // name: "Emp Email",
-                label: "Employee Email",
-                isRequired: true,
-                placeholder: "Enter employee's name",
-                maxLength: 100,
-                showTextCounter: true,
-                customErrorText: "Invalid Value",
-                regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
-              ),
-              RadioComponentProperties.fromMap(
-                {
-                  'type': 'radio',
-                  'name': 'gender',
-                  'legend': 'Gender',
-                  'labels': ['male', 'female'],
-                  'values': [1, 2],
-                  'label_position': "right",
-                },
-              ),
-              RadioComponentProperties(
-                name: 'Gender',
-                legend: 'Gender',
-                labels: ['male', 'female'],
-                values: ['value1', 'value2', 'value3'],
-              )
-            ],
+      appBar: AppBar(),
+      body: FlutterDynamicForm(
+        formData: FlutterDynamicFormData(
+          props: FormProps(
+            showResetButton: true,
           ),
-          onSubmit: (var map) {
-            debugPrint(map.toString());
-          },
-        )
-        // This trailing comma makes auto-formatting nicer for build methods.
-        );
+          components: [
+            // Text Field Component rendered as a widget from the map provided.
+            TextComponentProperties.fromMap(
+              {
+                'type': 'text',
+                'name': 'employee_name',
+                'title': 'Emp Name',
+                "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                "prefix_icon": 0xe491,
+              },
+            ),
+
+            // Text Field Component rendered as a widget from the paramenters passed to this widget.
+            TextComponentProperties(
+              name: 'employee_email',
+              // name: "Emp Email",
+              label: "Employee Email",
+              isRequired: true,
+              placeholder: "Enter employee's name",
+              maxLength: 100,
+              showTextCounter: true,
+              customErrorText: "Invalid Value",
+              regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+              prefixIconWidget: const Icon(
+                Icons.email,
+              ),
+              suffixIconWidget: const Icon(
+                Icons.alternate_email,
+              ),
+              inputType: InputType.number,
+            ),
+
+            // Radio Field Component rendered as a widget from the map provided.
+            RadioComponentProperties.fromMap(
+              {
+                'type': 'radio',
+                'name': 'gender',
+                'legend': 'Gender',
+                'labels': ['male', 'female'],
+                'values': [1, 2],
+                'required': true,
+                'label_position': "right",
+              },
+            ),
+
+            // Radio Field Component rendered as a widget from the paramenters passed to this widget.
+            RadioComponentProperties(
+              name: 'Gender',
+              legend: 'Gender',
+              labels: ['male', 'female'],
+              values: ['value1', 'value2', 'value3'],
+            ),
+          ],
+        ),
+        onSubmit: (var map) {
+          debugPrint(map.toString());
+        },
+      ),
+    );
   }
 }

@@ -59,6 +59,7 @@ Widget propsToComponentMapper({
         setValue(properties.name, s);
       }),
       value: values[properties.name],
+      error: validations[properties.name],
       properties: properties as RadioComponentProperties,
     );
   }

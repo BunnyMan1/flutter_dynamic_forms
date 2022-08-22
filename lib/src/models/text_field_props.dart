@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../constants/constants.dart';
@@ -44,7 +45,7 @@ class TextComponentProperties implements BaseModel {
   static const String _tfRegexMatchKey = "regex_match";
   static const String _tfPrefixIconKey = "prefix_icon";
   static const String _tfSuffixIconKey = "suffix_icon";
-
+  static const String _tfInputTypeKey = "input_type";
   //!=======================================================//
   //!=======================================================//
 
@@ -187,13 +188,29 @@ class TextComponentProperties implements BaseModel {
   @JsonKey(name: _tfRegexMatchKey)
   final String? regexMatch;
 
-  //TODO: use this prop.
+  /// Prefix icon to be rendered for the text field. This property takes in an integer constant
+  /// defining the icon which can be found at [here](https://api.flutter.dev/flutter/material/Icons-class.html#constants).
+  ///
+  /// If `prefixIconWidget` is not null, this is ignored.
   @JsonKey(name: _tfPrefixIconKey)
-  final String? prefixIcon;
+  final int? prefixIcon;
 
-  //TODO: use this prop.
+  @JsonKey(ignore: true)
+  final Icon? prefixIconWidget;
+
+  /// Suffix icon to be rendered for the text field. This property takes in an integer constant
+  /// defining the icon which can be found at [here](https://api.flutter.dev/flutter/material/Icons-class.html#constants).
+  ///
+  /// If `suffixIconWidget` is not null, this is ignored.
   @JsonKey(name: _tfSuffixIconKey)
-  final String? suffixIcon;
+  final int? suffixIcon;
+
+  @JsonKey(ignore: true)
+  final Icon? suffixIconWidget;
+
+  /// Input type of the text field, Should be a value from pre-defined enum.
+  /// defaults to "text".
+  final InputType? inputType;
 
   TextComponentProperties({
     // this.title = "",
@@ -227,6 +244,9 @@ class TextComponentProperties implements BaseModel {
     this.regexMatch,
     this.prefixIcon,
     this.suffixIcon,
+    this.prefixIconWidget,
+    this.suffixIconWidget,
+    this.inputType,
   });
 
   //Factory constructor.
@@ -266,8 +286,6 @@ class TextComponentProperties implements BaseModel {
               key == _tfPlaceholderKey ||
               key == _tfHelperTextKey ||
               key == _tfRegexMatchKey ||
-              key == _tfPrefixIconKey ||
-              key == _tfSuffixIconKey ||
               key == _tfCustomErrorTextKey) &&
           (props[key] is! String)) {
         return "bad value for $key: `${props[key]}` expected a String.";
@@ -324,6 +342,11 @@ class TextComponentProperties implements BaseModel {
           (props[key] is! bool)) {
         return "bad value for $key: ${props[key]} expected a Boolean.";
       }
+      if (key == _tfPrefixIconKey || key == _tfSuffixIconKey) {
+        if (props[key] is! int) {
+          return "bad value for $key: ${props[key]} expected an Int";
+        }
+      }
     }
 
     return true;
@@ -333,4 +356,12 @@ class TextComponentProperties implements BaseModel {
   /// This should be explicitly mentioned in the json if `TextComponentProperties.fromJson` is to be used.
   @override
   String get type => textComponentName;
+}
+
+enum InputType {
+  name,
+  email,
+  url,
+  number,
+  numberFloat,
 }

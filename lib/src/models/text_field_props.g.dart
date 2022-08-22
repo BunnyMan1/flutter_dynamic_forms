@@ -36,8 +36,8 @@ TextComponentProperties _$TextComponentPropertiesFromJson(
       isRequired: json['is_required'] as bool? ?? false,
       trimWhiteSpace: json['trim_white_space'] as bool? ?? false,
       regexMatch: json['regex_match'] as String?,
-      prefixIcon: json['prefix_icon'] as String?,
-      suffixIcon: json['suffix_icon'] as String?,
+      prefixIcon: json['prefix_icon'] as int?,
+      suffixIcon: json['suffix_icon'] as int?,
     );
 
 Map<String, dynamic> _$TextComponentPropertiesToJson(
