@@ -28,23 +28,33 @@ class RadioFieldComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     // Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
+      title: properties.legend,
       description: properties.helperText,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           for (int i = 0; i < properties.labels.length; i++)
-            RadioListTile<dynamic>(
-              contentPadding: const EdgeInsets.all(0),
-              title: Text(properties.labels[i]),
-              value: properties.values[i],
-              selected: value == properties.values[i],
-              groupValue: value,
-              onChanged: (value) {
-                if (onChange != null) {
-                  onChange!(value!);
-                }
-              },
+            Row(
+              children: [
+                if (properties.labelPosition == RadioFieldLabelPosition.left)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(properties.labels[i]),
+                  ),
+                Radio<dynamic>(
+                  value: properties.values[i],
+                  groupValue: value,
+                  // selected: value == properties.values[i],
+                  onChanged: (value) {
+                    if (onChange != null) {
+                      onChange!(value!);
+                    }
+                  },
+                ),
+                if (properties.labelPosition == RadioFieldLabelPosition.right)
+                  Text(properties.labels[i]),
+              ],
             ),
           if (error != null)
             Padding(

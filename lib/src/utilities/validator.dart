@@ -1,7 +1,6 @@
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
-
 import '../../flutter_dynamic_forms.dart';
+import '../constants/constants.dart';
+import '../models/base_model.dart';
 import '../models/validation_result.dart';
 
 ValidationResult componentValidator({
@@ -15,7 +14,10 @@ ValidationResult componentValidator({
   if (properties.type == textComponentName) {
     properties = properties as TextComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+        componentName: properties.name,
+        type: properties.type,
+        value: value,
+        errors: []);
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null) {
         validationResult.errors.add(
@@ -47,8 +49,10 @@ ValidationResult componentValidator({
       if (properties.customErrorText != null) {
         validationResult.errors.add({"MinLength": properties.customErrorText});
       } else {
-        validationResult.errors
-            .add({"MinLength": "Should be minimum ${properties.minLength} characters long."});
+        validationResult.errors.add({
+          "MinLength":
+              "Should be minimum ${properties.minLength} characters long."
+        });
       }
     }
 
