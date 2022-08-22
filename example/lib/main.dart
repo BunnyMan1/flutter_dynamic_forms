@@ -37,6 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(),
         body: FlutterDynamicForm(
           formData: FlutterDynamicFormData(
+            props: FormProps(
+              showResetButton: true,
+            ),
             components: [
               TextComponentProperties.fromMap(
                 {
@@ -44,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'name': 'employee_name',
                   'title': 'Emp Name',
                   "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                  "prefix_icon": 0xe491,
                 },
               ),
               TextComponentProperties(
@@ -56,6 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 showTextCounter: true,
                 customErrorText: "Invalid Value",
                 regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                prefixIconWidget: const Icon(
+                  Icons.email,
+                ),
+
+                suffixIconWidget: const Icon(
+                  Icons.alternate_email,
+                ),
               ),
               RadioComponentProperties.fromMap(
                 {
@@ -63,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'name': 'gender',
                   'labels': ['male', 'female'],
                   'values': [1, 2],
+                  'required': true,
                 },
               ),
               // RadioComponentProperties(

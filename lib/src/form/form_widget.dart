@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../flutter_dynamic_forms.dart';
 import '../utilities/prop_to_component_mapper.dart';
+import '../utilities/validator.dart';
 
 /// Flutter dynamic form. This is the main form widget of this package.
 class FlutterDynamicForm extends StatefulWidget {
@@ -68,35 +69,57 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
                   ),
                 )
                 .toList(),
-            Row(
-              children: [
-                // If show reset button is true  AND
-                // if custom reset button is not given (null)
-                // --> SHOW default reset button
-                if (widget.formData.props?.showResetButton == true &&
-                    widget.formData.props?.customResetButton == null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // If show reset button is true  AND
+                  // if custom reset button is not given (null)
+                  // --> SHOW default reset button
+                  if (widget.formData.props?.showResetButton == true &&
+                      widget.formData.props?.customResetButton == null)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _values.clear();
+                          _validations.clear();
+                        });
+                      },
+                      child: const Text("Reset"),
+                    ),
+
+                  // If show reset button is true  AND
+                  // if custom reset button is given (not null)
+                  // --> SHOW passed in custom reset button
+                  if (widget.formData.props?.showResetButton == true &&
+                      widget.formData.props?.customResetButton != null)
+                    widget.formData.props!.customResetButton!,
+
+                  // Submit button
                   ElevatedButton(
                     onPressed: () {
+                      for (var i in widget.formData.components) {
+                        var res = componentValidator(
+                          properties: i,
+                          value: _values[i.name],
+                        );
+                        if (res.errors.isNotEmpty) {
+                          _setValidation(
+                            i.name,
+                            res.errors.first.values.first.toString(),
+                          );
+                        } else {
+                          _setValidation(i.name, null);
+                        }
+                      }
+
                       if (widget.onSubmit != null) widget.onSubmit!(_values);
                     },
-                    child: const Text("Reset"),
+                    child: const Text("Submit"),
                   ),
-
-                // If show reset button is true  AND
-                // if custom reset button is given (not null)
-                // --> SHOW passed in custom reset button
-                if (widget.formData.props?.showResetButton == true &&
-                    widget.formData.props?.customResetButton != null)
-                  widget.formData.props!.customResetButton!,
-
-                // Submit button
-                ElevatedButton(
-                  onPressed: () {
-                    if (widget.onSubmit != null) widget.onSubmit!(_values);
-                  },
-                  child: const Text("Submit"),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

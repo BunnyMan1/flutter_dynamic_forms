@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../constants/constants.dart';
@@ -187,13 +188,25 @@ class TextComponentProperties implements BaseModel {
   @JsonKey(name: _tfRegexMatchKey)
   final String? regexMatch;
 
-  //TODO: use this prop.
+  /// Prefix icon to be rendered for the text field. This property takes in an integer constant
+  /// defining the icon which can be found at [here](https://api.flutter.dev/flutter/material/Icons-class.html#constants).
+  ///
+  /// If `prefixIconWidget` is not null, this is ignored.
   @JsonKey(name: _tfPrefixIconKey)
-  final String? prefixIcon;
+  final int? prefixIcon;
 
-  //TODO: use this prop.
+  @JsonKey(ignore: true)
+  final Icon? prefixIconWidget;
+
+  /// Suffix icon to be rendered for the text field. This property takes in an integer constant
+  /// defining the icon which can be found at [here](https://api.flutter.dev/flutter/material/Icons-class.html#constants).
+  ///
+  /// If `suffixIconWidget` is not null, this is ignored.
   @JsonKey(name: _tfSuffixIconKey)
-  final String? suffixIcon;
+  final int? suffixIcon;
+
+  @JsonKey(ignore: true)
+  final Icon? suffixIconWidget;
 
   TextComponentProperties({
     // this.title = "",
@@ -227,6 +240,8 @@ class TextComponentProperties implements BaseModel {
     this.regexMatch,
     this.prefixIcon,
     this.suffixIcon,
+    this.prefixIconWidget,
+    this.suffixIconWidget,
   });
 
   //Factory constructor.
@@ -266,8 +281,6 @@ class TextComponentProperties implements BaseModel {
               key == _tfPlaceholderKey ||
               key == _tfHelperTextKey ||
               key == _tfRegexMatchKey ||
-              key == _tfPrefixIconKey ||
-              key == _tfSuffixIconKey ||
               key == _tfCustomErrorTextKey) &&
           (props[key] is! String)) {
         return "bad value for $key: `${props[key]}` expected a String.";
@@ -323,6 +336,11 @@ class TextComponentProperties implements BaseModel {
               key == _tfTrimWhiteSpaceKey) &&
           (props[key] is! bool)) {
         return "bad value for $key: ${props[key]} expected a Boolean.";
+      }
+      if (key == _tfPrefixIconKey || key == _tfSuffixIconKey) {
+        if (props[key] is! int) {
+          return "bad value for $key: ${props[key]} expected an Int";
+        }
       }
     }
 
