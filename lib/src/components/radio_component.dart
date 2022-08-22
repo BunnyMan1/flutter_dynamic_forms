@@ -9,6 +9,7 @@ class RadioFieldComponent extends StatelessWidget {
     Key? key,
     required this.properties,
     required this.value,
+    this.error,
     this.onChange,
   }) : super(key: key);
 
@@ -18,6 +19,8 @@ class RadioFieldComponent extends StatelessWidget {
   /// `value` is the value of the radio field.
   final dynamic value;
 
+  final String? error;
+
   /// `onChange` is a function that is called when the value of the radio field is changed.
   final Function(dynamic s)? onChange;
 
@@ -25,10 +28,10 @@ class RadioFieldComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     // Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
-      title: properties.name,
       description: properties.helperText,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           for (int i = 0; i < properties.labels.length; i++)
             RadioListTile<dynamic>(
@@ -43,6 +46,18 @@ class RadioFieldComponent extends StatelessWidget {
                 }
               },
             ),
+          if (error != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Text(
+                error!,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.red,
+                ),
+              ),
+            )
         ],
       ),
     );

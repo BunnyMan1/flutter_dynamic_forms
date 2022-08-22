@@ -8,12 +8,15 @@ ValidationResult componentValidator({
   required BaseModel properties,
   required dynamic value,
 }) {
+  // print(
+  // " #######################  \n  To validate comp : ${properties.type}  \n ##########################");
+
   // Validation logic for text component.
   if (properties.type == textComponentName) {
     properties = properties as TextComponentProperties;
     ValidationResult validationResult = ValidationResult(
         componentName: properties.name, type: properties.type, value: value, errors: []);
-    if (properties.isRequired && value == "") {
+    if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null) {
         validationResult.errors.add(
           {"Required": properties.customErrorText},
@@ -25,7 +28,7 @@ ValidationResult componentValidator({
       }
     }
 
-    if (properties.regexMatch != null) {
+    if (properties.regexMatch != null && value != null) {
       try {
         var match = RegExp(properties.regexMatch!).hasMatch(value);
         if (!match) {
@@ -40,7 +43,7 @@ ValidationResult componentValidator({
       }
     }
 
-    if (properties.minLength != null && value.length < properties.minLength!) {
+    if (properties.minLength != null && value != null && value.length < properties.minLength!) {
       if (properties.customErrorText != null) {
         validationResult.errors.add({"MinLength": properties.customErrorText});
       } else {
@@ -54,8 +57,16 @@ ValidationResult componentValidator({
 
   // validation logic for radio component.
   if (properties.type == radioComponentName) {
-    //TODO complete validation logic for radio component
+    // print(" radio's valuer : $value");
+    properties = properties as RadioComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+        componentName: properties.name, type: properties.type, value: value, errors: []);
 
+    if (properties.required && value == null) {
+      validationResult.errors.add({"Required": "This is a required field."});
+    }
+
+    return validationResult;
   }
 
   throw 'Unknown component cannot be validated';

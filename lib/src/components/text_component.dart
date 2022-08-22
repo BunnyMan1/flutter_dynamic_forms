@@ -46,7 +46,6 @@ class TextFieldComponent extends StatelessWidget {
             fontSize: 18.0,
           ),
           cursorColor: c,
-
           decoration: InputDecoration(
             helperText: props.helperText,
             errorText: error,
@@ -56,6 +55,14 @@ class TextFieldComponent extends StatelessWidget {
               color: c.withOpacity(0.8),
             ),
             counter: props.showTextCounter ? null : Container(),
+            prefixIcon: props.prefixIconWidget ??
+                (props.prefixIcon != null
+                    ? Icon(IconData(props.prefixIcon!, fontFamily: 'MaterialIcons'))
+                    : null),
+            suffixIcon: props.suffixIconWidget ??
+                (props.suffixIcon != null
+                    ? Icon(IconData(props.suffixIcon!, fontFamily: 'MaterialIcons'))
+                    : null),
             border: props.showBorder
                 ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(props.borderRadius),
