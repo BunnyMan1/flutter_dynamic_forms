@@ -81,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
               //   name: 'Gender',
               //   labels: ['male', 'female'],
               //   values: ['value1', 'value2', 'value3'],
-              // )
+              // ),
+              SliderComponentProperties(
+                name: "my_slider",
+              ),
             ],
           ),
           onSubmit: (var map) {
