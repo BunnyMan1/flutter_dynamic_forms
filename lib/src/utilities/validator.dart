@@ -12,7 +12,7 @@ ValidationResult componentValidator({
   // " #######################  \n  To validate comp : ${properties.type}  \n ##########################");
 
   // Validation logic for text component.
-  if (properties.type == textComponentName) {
+  if (properties.type == textComponentTypeName) {
     properties = properties as TextComponentProperties;
     ValidationResult validationResult = ValidationResult(
         componentName: properties.name, type: properties.type, value: value, errors: []);
@@ -56,7 +56,7 @@ ValidationResult componentValidator({
   }
 
   // validation logic for radio component.
-  if (properties.type == radioComponentName) {
+  if (properties.type == radioComponentTypeName) {
     // print(" radio's valuer : $value");
     properties = properties as RadioComponentProperties;
     ValidationResult validationResult = ValidationResult(
@@ -65,6 +65,13 @@ ValidationResult componentValidator({
     if (properties.required && value == null) {
       validationResult.errors.add({"Required": "This is a required field."});
     }
+
+    return validationResult;
+  }
+
+  if (properties.type == sliderComponentTypeName) {
+    ValidationResult validationResult = ValidationResult(
+        componentName: properties.name, type: properties.type, value: value, errors: []);
 
     return validationResult;
   }

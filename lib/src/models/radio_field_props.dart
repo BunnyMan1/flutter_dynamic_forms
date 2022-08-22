@@ -119,7 +119,7 @@ class RadioComponentProperties implements BaseModel {
   });
 
   @override
-  String get type => radioComponentName;
+  String get type => radioComponentTypeName;
 
   //Factory constructor.
   /// Creates a RadioComponentProperties object from given map.
@@ -127,8 +127,7 @@ class RadioComponentProperties implements BaseModel {
   /// Will throw error with specific message if any invalid value found for valid props.
   /// `name` is a mandatory props. Excluding it will lead to check failing.
   factory RadioComponentProperties.fromMap(Map<String, dynamic> map) {
-    var check =
-        RadioComponentProperties.radioFieldPropertiesChecker(map, isMap: true);
+    var check = RadioComponentProperties.radioFieldPropertiesChecker(map, isMap: true);
     if (check is String) throw check;
     return _$RadioComponentPropertiesFromJson(map);
   }
@@ -152,9 +151,9 @@ class RadioComponentProperties implements BaseModel {
     bool isMap = false,
   }) {
     if (!isMap && properties[_rfTypeKey] is! String ||
-        properties[_rfTypeKey] != radioComponentName) {
+        properties[_rfTypeKey] != radioComponentTypeName) {
       // If the type is not a string or is not a radio component type.
-      return 'bad value for "$_rfTypeKey".Expected "$radioComponentName" but got "${properties[_rfTypeKey]}".';
+      return 'bad value for "$_rfTypeKey".Expected "$radioComponentTypeName" but got "${properties[_rfTypeKey]}".';
     }
     if (properties[_rfNameKey] is! String) {
       // If the name is not a string.

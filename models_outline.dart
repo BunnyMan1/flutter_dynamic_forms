@@ -48,8 +48,7 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail":
-      "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -148,7 +147,7 @@ var text_field_props = {
 var radio_field_props = {
   // type
   "type": "radio",
-  
+
   // Title of the field
   "name": "",
 
@@ -158,7 +157,7 @@ var radio_field_props = {
   "legend": "",
 
   //TODO: Helper text maybe used as a description for the radio field section.
-  
+
   // Description of the field.
   "helperTextKey": "",
 
@@ -176,7 +175,7 @@ var radio_field_props = {
 
   // different values that radio can have, in order.
   "values": ["val1", "val2", "val3"],
-  
+
   // Primary color for this field, overwrites color from form options.
   "primary_color": "00ff00",
 
@@ -193,6 +192,16 @@ var radio_field_props = {
 
   // Custom Error text to show.
   "custom_error_text": "",
+};
+
+var slider_field_props = {
+  "min_value": 0.0,
+  "max_value": 0.0,
+  "divisions": 1,
+  "active_color": "000000",
+  "inactive_color": "00ff00",
+  "thumb_color": "0000ff",
+  "label": ""
 };
 
 /// `ValidationError`
