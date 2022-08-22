@@ -19,6 +19,7 @@ class RadioComponentProperties implements BaseModel {
   //!=======================================================//
   static const String _rfTypeKey = 'type';
   static const String _rfNameKey = 'name';
+  static const String _rfLegendKey = 'legend';
   static const String _rfHelperTextKey = 'helper_text';
   static const String _rfAlignmentKey = 'alignment';
   static const String _rfLabelsKey = 'labels';
@@ -41,6 +42,11 @@ class RadioComponentProperties implements BaseModel {
   @override
   @JsonKey(name: _rfNameKey)
   final String name;
+
+  /// Legend of the component. (The text that will be displayed above the component.)
+  /// Defaults to null.
+  @JsonKey(name: _rfLegendKey)
+  final String? legend;
 
   /// Description of the radio field.
   /// Defaults to empty string "".
@@ -104,6 +110,7 @@ class RadioComponentProperties implements BaseModel {
 
   RadioComponentProperties({
     required this.name,
+    this.legend,
     this.helperText = '',
     this.alignment = 'vertical',
     required this.labels,

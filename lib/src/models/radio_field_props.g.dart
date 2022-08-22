@@ -10,6 +10,7 @@ RadioComponentProperties _$RadioComponentPropertiesFromJson(
         Map<String, dynamic> json) =>
     RadioComponentProperties(
       name: json['name'] as String,
+      legend: json['legend'] as String?,
       helperText: json['helper_text'] as String? ?? '',
       alignment: json['alignment'] as String? ?? 'vertical',
       labels:
@@ -29,6 +30,7 @@ Map<String, dynamic> _$RadioComponentPropertiesToJson(
         RadioComponentProperties instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'legend': instance.legend,
       'helper_text': instance.helperText,
       'alignment': instance.alignment,
       'labels': instance.labels,

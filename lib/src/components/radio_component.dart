@@ -26,8 +26,8 @@ class RadioFieldComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Color c = hexStringToColorConverter(props.textColor);
     return ComponentWrapper(
+      title: properties.legend,
       description: properties.helperText,
       child: Column(
         mainAxisSize: MainAxisSize.min,

@@ -148,7 +148,7 @@ var text_field_props = {
 var radio_field_props = {
   // type
   "type": "radio",
-  
+
   // Title of the field
   "name": "",
 
@@ -158,7 +158,7 @@ var radio_field_props = {
   "legend": "",
 
   //TODO: Helper text maybe used as a description for the radio field section.
-  
+
   // Description of the field.
   "helperTextKey": "",
 
@@ -176,13 +176,61 @@ var radio_field_props = {
 
   // different values that radio can have, in order.
   "values": ["val1", "val2", "val3"],
-  
+
   // Primary color for this field, overwrites color from form options.
   "primary_color": "00ff00",
 
   // To show border for the text field or not.
   "show_border": true,
 
+  "border_color": "0000ff",
+
+  // If this field is required. (validation)
+  "required": true,
+
+  // To display errors. (overwrites the value from form options)
+  "show_error": true,
+
+  // Custom Error text to show.
+  "custom_error_text": "",
+};
+
+/// `CheckBoxFieldProps` is the model for the checkbox field.
+var checkbox_field_props = {
+  // type. String type
+  "type": "checkbox",
+
+  // Title of the field. String type
+  "name": "",
+
+  // Title of the widget. String type
+  "legend": "",
+
+  // Description of the field. String type
+  "helperTextKey": "",
+
+  // To align vertically or horizontally. String type
+  "alignment": ["enum `horizontal`, `vertical`"],
+
+  // Value of the field. List of dynamic
+  "values": ["val1", "val2", "val3"],
+
+  // Labels of the field. List of strings
+  "labels": ["label1", "label2", "label3"],
+
+  // label positioning for the checkbox field.
+  "label_position": ["enum containing  `left`, `right`"],
+
+  // checkbox can have 3 label styles "normal", "bold", "italic"
+  "label_style": ["enum containing  `normal`, `bold`, `italic`"],
+
+  // Primary color for this field, overwrites color from form options.
+  "primary_color": "00ff00",
+
+  // To show border for the text field or not.
+  "show_border": true,
+
+  // Border color of the checkbox field.
   "border_color": "0000ff",
 
   // If this field is required. (validation)

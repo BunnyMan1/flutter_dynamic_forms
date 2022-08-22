@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 {
                   'type': 'radio',
                   'name': 'gender',
+                  'legend': 'gas',
                   'labels': ['male', 'female'],
                   'values': [1, 2],
                   'required': true,
@@ -81,7 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
               //   name: 'Gender',
               //   labels: ['male', 'female'],
               //   values: ['value1', 'value2', 'value3'],
-              // )
+              // ),
+              CheckBoxComponentProperties.fromMap(
+                {
+                  'type': 'checkbox',
+                  'legend': 'Gender',
+                  'name': 'ender',
+                  'labels': ['male', 'female'],
+                  'values': [1, 2],
+                  'required': true,
+                },
+              ),
             ],
           ),
           onSubmit: (var map) {
