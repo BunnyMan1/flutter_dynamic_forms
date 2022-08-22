@@ -1,7 +1,6 @@
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
-
 import '../../flutter_dynamic_forms.dart';
+import '../constants/constants.dart';
+import '../models/base_model.dart';
 import '../models/validation_result.dart';
 
 ValidationResult componentValidator({

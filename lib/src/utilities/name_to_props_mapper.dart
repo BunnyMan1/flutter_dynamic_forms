@@ -1,6 +1,6 @@
 import '../constants/constants.dart';
 import '../models/base_model.dart';
-import '../models/checkbox_props.dart';
+import '../models/checkbox_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/text_field_props.dart';
 

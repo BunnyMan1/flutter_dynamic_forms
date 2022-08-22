@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../common/component_wrapper.dart';
-import '../models/checkbox_props.dart';
+import '../models/checkbox_field_props.dart';
 
 /// `CheckBoxFieldComponent` is a component that renders a radio field.
 class CheckBoxFieldComponent extends StatelessWidget {
@@ -39,24 +39,24 @@ class CheckBoxFieldComponent extends StatelessWidget {
           for (int i = 0; i < properties.labels.length; i++)
             Row(
               children: [
-                if (properties.labelPosition ==
-                    CheckBoxFieldLabelPosition.right)
+                if (properties.labelPosition == CheckBoxFieldLabelPosition.left)
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(properties.labels[i]),
                   ),
                 Checkbox(
-                  // value: value == properties.values[i],
-                  // value: !selectedValues.contains(value),
                   value: value.contains(properties.values[i]),
                   onChanged: (value) {
                     if (onChange != null) {
                       // onChange!(value!);
+                      // NOTE: Since value is a list, we need to add or remove the value from the list.
+                      //TODO: Cross check this logic
                       onChange!(properties.values[i]);
                     }
                   },
                 ),
-                if (properties.labelPosition == CheckBoxFieldLabelPosition.left)
+                if (properties.labelPosition ==
+                    CheckBoxFieldLabelPosition.right)
                   Text(properties.labels[i]),
               ],
             ),

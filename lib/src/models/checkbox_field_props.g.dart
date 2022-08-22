@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'checkbox_props.dart';
+part of 'checkbox_field_props.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

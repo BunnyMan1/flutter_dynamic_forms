@@ -12,11 +12,17 @@ RadioComponentProperties _$RadioComponentPropertiesFromJson(
       name: json['name'] as String,
       legend: json['legend'] as String?,
       helperText: json['helper_text'] as String? ?? '',
-      alignment: json['alignment'] as String? ?? 'vertical',
+      alignment: $enumDecodeNullable(
+              _$RadioFieldAlignmentEnumMap, json['alignment']) ??
+          RadioFieldAlignment.vertical,
       labels:
           (json['labels'] as List<dynamic>).map((e) => e as String).toList(),
-      labelPosition: json['label_position'] as String? ?? 'left',
-      labelStyle: json['label_style'] as String? ?? 'normal',
+      labelPosition: $enumDecodeNullable(
+              _$RadioFieldLabelPositionEnumMap, json['label_position']) ??
+          RadioFieldLabelPosition.left,
+      labelStyle: $enumDecodeNullable(
+              _$RadioFieldLabelStyleEnumMap, json['label_style']) ??
+          RadioFieldLabelStyle.normal,
       values: json['values'] as List<dynamic>,
       primaryColor: json['primary_color'] as String? ?? 'ffffff',
       showBorder: json['show_border'] as bool? ?? true,
@@ -32,10 +38,11 @@ Map<String, dynamic> _$RadioComponentPropertiesToJson(
       'name': instance.name,
       'legend': instance.legend,
       'helper_text': instance.helperText,
-      'alignment': instance.alignment,
+      'alignment': _$RadioFieldAlignmentEnumMap[instance.alignment]!,
       'labels': instance.labels,
-      'label_position': instance.labelPosition,
-      'label_style': instance.labelStyle,
+      'label_position':
+          _$RadioFieldLabelPositionEnumMap[instance.labelPosition]!,
+      'label_style': _$RadioFieldLabelStyleEnumMap[instance.labelStyle]!,
       'values': instance.values,
       'primary_color': instance.primaryColor,
       'show_border': instance.showBorder,
@@ -44,3 +51,19 @@ Map<String, dynamic> _$RadioComponentPropertiesToJson(
       'show_error': instance.showError,
       'custom_error_text': instance.customErrorText,
     };
+
+const _$RadioFieldAlignmentEnumMap = {
+  RadioFieldAlignment.horizontal: 'horizontal',
+  RadioFieldAlignment.vertical: 'vertical',
+};
+
+const _$RadioFieldLabelPositionEnumMap = {
+  RadioFieldLabelPosition.left: 'left',
+  RadioFieldLabelPosition.right: 'right',
+};
+
+const _$RadioFieldLabelStyleEnumMap = {
+  RadioFieldLabelStyle.normal: 'normal',
+  RadioFieldLabelStyle.bold: 'bold',
+  RadioFieldLabelStyle.italic: 'italic',
+};

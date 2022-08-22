@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../constants/constants.dart';
+import '../utilities/helpers.dart';
 import 'base_model.dart';
 
 part 'radio_field_props.g.dart';
@@ -56,7 +57,7 @@ class RadioComponentProperties implements BaseModel {
   /// To align vertically or horizontally.
   /// Defaults to `vertical`.
   @JsonKey(name: _rfAlignmentKey)
-  final String alignment;
+  final RadioFieldAlignment alignment;
 
   /// Different labels radio can have. (show be in order of and as many as values.)
   /// Defaults to empty list [].
@@ -66,12 +67,12 @@ class RadioComponentProperties implements BaseModel {
   /// label positioning for the radio field.
   /// Defaults to `left`.
   @JsonKey(name: _rfLabelPositionKey)
-  final String labelPosition;
+  final RadioFieldLabelPosition labelPosition;
 
   /// radio can have 3 label styles "normal", "bold", "italic"
   /// Defaults to `normal`.
   @JsonKey(name: _rfLabelStyleKey)
-  final String labelStyle;
+  final RadioFieldLabelStyle labelStyle;
 
   /// different values that radio can have, in order.
   /// Defaults to empty list [].
@@ -112,10 +113,10 @@ class RadioComponentProperties implements BaseModel {
     required this.name,
     this.legend,
     this.helperText = '',
-    this.alignment = 'vertical',
+    this.alignment = RadioFieldAlignment.vertical,
     required this.labels,
-    this.labelPosition = 'left',
-    this.labelStyle = 'normal',
+    this.labelPosition = RadioFieldLabelPosition.left,
+    this.labelStyle = RadioFieldLabelStyle.normal,
     required this.values,
     this.primaryColor = 'ffffff',
     this.showBorder = true,
@@ -214,6 +215,7 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfAlignmentKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a helper function to check whether it is a valid alignment type.
+        mapRadioFieldAlignment(properties[key]);
       }
 
       if (key == _rfLabelPositionKey) {
@@ -222,6 +224,7 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfLabelPositionKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a switch case for enums - left, right.
+        mapRadioFieldLabelPosition(properties[key]);
       }
 
       if (key == _rfLabelStyleKey) {
@@ -230,6 +233,7 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfLabelStyleKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a switch case for enums - normal, bold, italic.
+        mapRadioFieldLabelStyle(properties[key]);
       }
 
       if (key == _rfPrimaryColorKey) {
@@ -250,3 +254,24 @@ class RadioComponentProperties implements BaseModel {
     return true;
   }
 }
+
+// -- ENUMS --
+
+/// RadioFieldAlignment enum determines the alignment of the radio buttons and it's text.
+/// It can be either [horizontal] or [vertical]. Default is [horizontal].
+///
+/// If the alignment is horizontal, then the radio buttons will be displayed in a row.
+/// Else the radio buttons will be displayed in a column.
+enum RadioFieldAlignment { horizontal, vertical }
+
+/// RadioFieldLabelPosition enum determines the position of the label of the radio button.
+/// It can be either [left] or [right]. Default is [left].
+/// If the label position is left, then the label will be displayed to the left of the radio button.
+///
+/// If the label position is right, then the label will be displayed to the right of the radio button.
+enum RadioFieldLabelPosition { left, right }
+
+/// RadioFieldLabelStyle enum determines the style of the label of the radio button.
+/// It can be either [normal] or [bold]. Default is [normal].
+/// This will determine the font weight of the label.
+enum RadioFieldLabelStyle { normal, bold, italic }

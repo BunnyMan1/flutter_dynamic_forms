@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../constants/constants.dart';
 import 'base_model.dart';
 
-part 'checkbox_props.g.dart';
+part 'checkbox_field_props.g.dart';
 
 /// `CheckBoxComponentProperties` is a class that holds the properties of the
 /// `CheckBoxComponent`. It implements the `BaseModel` class.
