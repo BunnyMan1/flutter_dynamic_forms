@@ -36,6 +36,7 @@ var form_options = {
   // Locale of the whole form.
   "locale": "en",
 
+  // Label position of the field.
   "label_position": "left, right, top, bottom ",
 
   "label_alignment": "left, right",
@@ -148,22 +149,20 @@ var text_field_props = {
 var radio_field_props = {
   // type
   "type": "radio",
-  
+
   // Title of the field
   "name": "",
 
-  //TODO: Check this legend property once and add it to the radio field props
-
   // Title of the widget
-  "legend": "",
+  "legend": "String",
 
   //TODO: Helper text maybe used as a description for the radio field section.
-  
+
   // Description of the field.
   "helperTextKey": "",
 
   // To align vertically or horizontally.
-  "alignment": "horizontal", // can be `vertical`
+  "alignment": ["enum containing `horizontal`, `vertical`"],
 
   // Different labels radio can have. (show be in order of and as many as values.)
   "labels": ["label1", "label2", "label3"],
@@ -176,11 +175,11 @@ var radio_field_props = {
 
   // different values that radio can have, in order.
   "values": ["val1", "val2", "val3"],
-  
+
   // Primary color for this field, overwrites color from form options.
   "primary_color": "00ff00",
 
-  // To show border for the text field or not.
+  // To show border around the radio field or not.
   "show_border": true,
 
   "border_color": "0000ff",
@@ -196,9 +195,18 @@ var radio_field_props = {
 };
 
 /// `ValidationError`
-var validation_error = {
-  // Error message.
-  "message": "",
+var validation_result = {
+  // Name of the field that failed validation.
+  "name": "string",
+
+  // component type of the field that failed validation.
+  "type": "string",
+
+  // Error values
+  "value": "dynamic",
+
+  // List of error messages
+  "errors": ["error 1", "error 2"],
 };
 
 /*

@@ -61,15 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 {
                   'type': 'radio',
                   'name': 'gender',
+                  'legend': 'Gender',
                   'labels': ['male', 'female'],
                   'values': [1, 2],
+                  'label_position': "right",
                 },
               ),
-              // RadioComponentProperties(
-              //   name: 'Gender',
-              //   labels: ['male', 'female'],
-              //   values: ['value1', 'value2', 'value3'],
-              // )
+              RadioComponentProperties(
+                name: 'Gender',
+                legend: 'Gender',
+                labels: ['male', 'female'],
+                values: ['value1', 'value2', 'value3'],
+              )
             ],
           ),
           onSubmit: (var map) {
