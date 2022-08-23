@@ -195,12 +195,25 @@ var radio_field_props = {
 };
 
 var slider_field_props = {
+  // Minimum value of slider field. Default value: 0.0
   "min_value": 0.0,
-  "max_value": 0.0,
+
+  // Maximum value of slider field. Default value: 10.0
+  "max_value": 10.0,
+
+  // Number of divisions. Default value: null
   "divisions": 1,
+
+  // Active color. Default value: "000000"
   "active_color": "000000",
+
+  // Inactive color. Default value: "00ff00"
   "inactive_color": "00ff00",
+
+  // Thumb color. Default value: "0000ff"
   "thumb_color": "0000ff",
+
+  // Label of the widget. Default value: ""(empty string)
   "label": ""
 };
 

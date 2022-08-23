@@ -82,9 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
               //   labels: ['male', 'female'],
               //   values: ['value1', 'value2', 'value3'],
               // ),
-              SliderComponentProperties(
-                name: "my_slider",
-              ),
+              // SliderComponentProperties(
+              //   name: "my_slider",
+              // ),
+              SliderComponentProperties.fromMap({
+                'name': "my_slider",
+              }),
             ],
           ),
           onSubmit: (var map) {

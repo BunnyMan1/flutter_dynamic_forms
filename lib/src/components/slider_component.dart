@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
-import 'package:flutter_dynamic_forms/src/utilities/helpers.dart';
 
+import '../common/component_wrapper.dart';
 import '../models/slider_field_props.dart';
+import '../utilities/helpers.dart';
 
 class SliderComponent extends StatelessWidget {
   const SliderComponent({
@@ -26,7 +26,7 @@ class SliderComponent extends StatelessWidget {
         onChanged: onChange,
         min: properties.minValue,
         max: properties.maxValue,
-        // divisions: properties.divisions,
+        divisions: properties.divisions,
         activeColor: aColor,
         inactiveColor: iColor,
         thumbColor: tColor,

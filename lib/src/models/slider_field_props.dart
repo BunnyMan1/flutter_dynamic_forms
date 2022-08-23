@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../constants/constants.dart';
+import 'base_model.dart';
 
 part 'slider_field_props.g.dart';
 
@@ -80,7 +81,10 @@ class SliderComponentProperties extends BaseModel {
     return _$SliderComponentPropertiesToJson(object);
   }
 
-  static dynamic propertiesChecker(Map<String, dynamic> props, {bool isMap = false}) {
+  static dynamic propertiesChecker(
+    Map<String, dynamic> props, {
+    bool isMap = false,
+  }) {
     if (props[_sfNameKey] == null) {
       return "Bad value for $_sfNameKey. Expected a string but got ${props[_sfNameKey]}";
     }
@@ -99,7 +103,9 @@ class SliderComponentProperties extends BaseModel {
         }
       }
 
-      if (key == _sfActiveColorKey || key == _sfInactiveColorKey || key == _sfThumbColorKey) {
+      if (key == _sfActiveColorKey ||
+          key == _sfInactiveColorKey ||
+          key == _sfThumbColorKey) {
         if (props[key] is! String) {
           return "Bad value for $key. Expected a String of length 6 but got ${props[key]}";
         }
