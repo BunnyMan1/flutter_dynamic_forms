@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'title': 'Emp Name',
                 "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
                 "prefix_icon": 0xe491,
+                "input_type": "number",
               },
             ),
 
@@ -96,6 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
               'values': [1, 2, 3],
               'required': true,
               'label_position': "right",
+            }),
+            // SliderComponentProperties(
+            //   name: "my_slider",
+            // ),
+            SliderComponentProperties.fromMap({
+              'name': "my_slider",
             }),
           ],
         ),

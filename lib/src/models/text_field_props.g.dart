@@ -38,7 +38,7 @@ TextComponentProperties _$TextComponentPropertiesFromJson(
       regexMatch: json['regex_match'] as String?,
       prefixIcon: json['prefix_icon'] as int?,
       suffixIcon: json['suffix_icon'] as int?,
-      inputType: $enumDecodeNullable(_$InputTypeEnumMap, json['inputType']),
+      inputType: $enumDecodeNullable(_$InputTypeEnumMap, json['input_type']),
     );
 
 Map<String, dynamic> _$TextComponentPropertiesToJson(
@@ -73,7 +73,7 @@ Map<String, dynamic> _$TextComponentPropertiesToJson(
       'regex_match': instance.regexMatch,
       'prefix_icon': instance.prefixIcon,
       'suffix_icon': instance.suffixIcon,
-      'inputType': _$InputTypeEnumMap[instance.inputType],
+      'input_type': _$InputTypeEnumMap[instance.inputType],
     };
 
 const _$InputTypeEnumMap = {

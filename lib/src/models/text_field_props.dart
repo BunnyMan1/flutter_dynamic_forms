@@ -210,6 +210,7 @@ class TextComponentProperties implements BaseModel {
 
   /// Input type of the text field, Should be a value from pre-defined enum.
   /// defaults to "text".
+  @JsonKey(name: _tfInputTypeKey)
   final InputType? inputType;
 
   TextComponentProperties({
@@ -275,8 +276,8 @@ class TextComponentProperties implements BaseModel {
 
   static dynamic textFieldPropsChecker(Map<String, dynamic> props, {bool isMap = false}) {
     // print(" json to check : $json");
-    if (!isMap && props[_tfTypeKey] is! String || props[_tfTypeKey] != textComponentName) {
-      return "bad value for `$_tfTypeKey`.Expected $textComponentName but got `${props[_tfTypeKey]}`.";
+    if (!isMap && props[_tfTypeKey] is! String || props[_tfTypeKey] != textComponentTypeName) {
+      return "bad value for `$_tfTypeKey`.Expected $textComponentTypeName but got `${props[_tfTypeKey]}`.";
     }
     if (props[_tfNameKey] is! String) {
       return "bad value for `$_tfNameKey`.Expected a String but got `${props[_tfNameKey]}`.";
@@ -347,6 +348,9 @@ class TextComponentProperties implements BaseModel {
           return "bad value for $key: ${props[key]} expected an Int";
         }
       }
+      if (key == _tfInputTypeKey && (props[key] is! String)) {
+        return "bad value for $key: ${props[key]} expected a String";
+      }
     }
 
     return true;
@@ -355,7 +359,7 @@ class TextComponentProperties implements BaseModel {
   /// Type parameter for the dynamic component for internal use.
   /// This should be explicitly mentioned in the json if `TextComponentProperties.fromJson` is to be used.
   @override
-  String get type => textComponentName;
+  String get type => textComponentTypeName;
 }
 
 enum InputType {
