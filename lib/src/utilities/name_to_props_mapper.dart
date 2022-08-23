@@ -1,7 +1,7 @@
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/radio_field_props.dart';
-import '../models/slider_props.dart';
+import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 
 /// `nameToPropsMapper` is a function that maps the name of a component to its props.

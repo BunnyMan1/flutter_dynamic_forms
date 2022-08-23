@@ -4,7 +4,7 @@ import 'package:flutter_dynamic_forms/src/constants/constants.dart';
 import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'slider_props.g.dart';
+part 'slider_field_props.g.dart';
 
 @JsonSerializable()
 class SliderComponentProperties extends BaseModel {

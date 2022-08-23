@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'slider_props.dart';
+part of 'slider_field_props.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -12,7 +12,7 @@ SliderComponentProperties _$SliderComponentPropertiesFromJson(
       name: json['name'] as String,
       minValue: (json['min_value'] as num?)?.toDouble() ?? 0.0,
       maxValue: (json['max_value'] as num?)?.toDouble() ?? 10.0,
-      divisions: json['divisions'] as int? ?? 10,
+      divisions: json['divisions'] as int?,
       activeColor: json['active_color'] as String? ?? "2196F3",
       inActiveColor: json['inactive_color'] as String? ?? "808080",
       thumbColor: json['thumb_color'] as String? ?? "000000",

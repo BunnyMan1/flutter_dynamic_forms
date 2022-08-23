@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
 import 'package:flutter_dynamic_forms/src/utilities/helpers.dart';
 
-import '../models/slider_props.dart';
+import '../models/slider_field_props.dart';
 
 class SliderComponent extends StatelessWidget {
   const SliderComponent({

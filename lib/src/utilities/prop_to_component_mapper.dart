@@ -5,7 +5,7 @@ import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/radio_field_props.dart';
-import '../models/slider_props.dart';
+import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 import 'validator.dart';
 
