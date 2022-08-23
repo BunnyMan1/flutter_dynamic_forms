@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilities/string_utilities.dart';
+
 /// `ComponentWrapper` is a wrapper component that wraps the component with a title and description.
 class ComponentWrapper extends StatelessWidget {
   const ComponentWrapper({
@@ -17,7 +19,8 @@ class ComponentWrapper extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null) Text(title!),
+        // if (title != null) Text(title!),
+        if (title != null) Text(toTitleCase(title ?? '')),
         if (description != null) Text(description!),
         child,
       ],
