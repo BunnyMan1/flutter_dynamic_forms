@@ -97,10 +97,41 @@ ValidationResult componentValidator({
 
   if (properties.type == sliderComponentTypeName) {
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+        componentName: properties.name,
+        type: properties.type,
+        value: value,
+        errors: []);
 
     return validationResult;
   }
 
+  // Validation for dropdown component
+  if (properties.type == dropdownComponentTypeName) {
+    properties = properties as DropdownComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+    // if (properties.isRequired &&
+    //     ((value is List && value.isEmpty) || value == null)) {
+    //   validationResult.errors.add({"Required": "This is a required field."});
+    // }
+
+    if (properties.isRequired && (value == null || value == "")) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+  }
   throw 'Unknown component cannot be validated';
 }

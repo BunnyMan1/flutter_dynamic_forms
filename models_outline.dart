@@ -288,8 +288,14 @@ var dropdown_properties = {
 
   // Helper text describes the component.
   // Type: nullable string (String?)
-  // Default value: null
-  "helper_text": null,
+  // Default value: ''
+  "helper_text": '',
+
+  // Hint text will be displayed if nothing is selected in dropdown.
+  "hint_text": '',
+
+  // Alignment of the item_labels in the dropdown
+  "items_alignment": ["enum `left`, `center`, `right`"],
 
   // Item Labels are to be displayed in dropdown
   // Type: List<String>
@@ -323,13 +329,31 @@ var dropdown_properties = {
 
   // Maximum height for menu. Usually it takes up the height of it's content.
   // Nullable double
-  "menu_max_height": null,
+  "menu_max_height": 0.0,
 
   // If feedback is enabled then the user can feel any platform specific haptic gestures.
   "enable_feedback": false,
 
-  // Alignment of the item_labels in the dropdown
-  "alignment": ["enum `left`, `center`, `right`"],
+  // Is this component required to be filled or not
+  "is_required": true,
+
+  // Show error for the field or not.
+  "show_error": true,
+
+  // Use custom error text
+  "custom_error_text": "",
+
+  // Whether a border should be visible or not. Default is true
+  "show_border": true,
+
+  // Border radius, if show_border is applied
+  "border_radius": 8,
+
+  // Border width, if show_border is applied
+  "border_width": 1,
+
+  // Border color, defaults to black
+  "border_color": "000000",
 };
 
 /// `ValidationError`

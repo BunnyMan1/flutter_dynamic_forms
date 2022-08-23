@@ -74,35 +74,49 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               inputType: InputType.number,
             ),
+            //TODO: Uncomment these components
 
-            // Radio Field Component rendered as a widget from the map provided.
-            RadioComponentProperties.fromMap(
-              {
-                'type': 'radio',
-                'name': 'gender',
-                'legend': 'Gender',
-                'labels': ['male', 'female'],
-                'values': [1, 2],
-                'required': true,
-                'label_position': "right",
-              },
-            ),
+            // // Radio Field Component rendered as a widget from the map provided.
+            // RadioComponentProperties.fromMap(
+            //   {
+            //     'type': 'radio',
+            //     'name': 'gender',
+            //     'legend': 'Gender',
+            //     'labels': ['male', 'female'],
+            //     'values': [1, 2],
+            //     'required': true,
+            //     'label_position': "right",
+            //   },
+            // ),
 
-            // Checkbox
-            CheckBoxComponentProperties.fromMap({
-              'type': 'checkbox',
-              'name': 'hobbies',
-              'legend': 'Hobbies',
-              'labels': ['cricket', 'football', 'hockey'],
-              'values': [1, 2, 3],
-              'required': true,
-              'label_position': "right",
-            }),
+            // // Checkbox
+            // CheckBoxComponentProperties.fromMap({
+            //   'type': 'checkbox',
+            //   'name': 'hobbies',
+            //   'legend': 'Hobbies',
+            //   'labels': ['cricket', 'football', 'hockey'],
+            //   'values': [1, 2, 3],
+            //   'required': true,
+            //   'label_position': "right",
+            // }),
+
             // SliderComponentProperties(
             //   name: "my_slider",
             // ),
-            SliderComponentProperties.fromMap({
-              'name': "my_slider",
+            // SliderComponentProperties.fromMap({
+            //   'name': "my_slider",
+            // }),
+
+            DropdownComponentProperties.fromMap({
+              "type": "dropdown",
+              "name": "bus_number",
+              "legend": "asdfa",
+              "hint_text": "select a bus",
+              "item_labels": ['bus 1', 'bus 2', 'bus 3'],
+              "item_values": ['bus 1', 'bus 2', 'bus 3'],
+              "required": true,
+              // "show_border": false,
+              // "is_expanded": true,
             }),
           ],
         ),
