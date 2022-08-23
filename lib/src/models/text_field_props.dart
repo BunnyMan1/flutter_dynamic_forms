@@ -210,6 +210,7 @@ class TextComponentProperties implements BaseModel {
 
   /// Input type of the text field, Should be a value from pre-defined enum.
   /// defaults to "text".
+  @JsonKey(name: _tfInputTypeKey)
   final InputType? inputType;
 
   TextComponentProperties({
@@ -346,6 +347,9 @@ class TextComponentProperties implements BaseModel {
         if (props[key] is! int) {
           return "bad value for $key: ${props[key]} expected an Int";
         }
+      }
+      if (key == _tfInputTypeKey && (props[key] is! String)) {
+        return "bad value for $key: ${props[key]} expected a String";
       }
     }
 

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../../flutter_dynamic_forms.dart';
 import '../components/checkbox_component.dart';
 import '../components/radio_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
+import '../models/checkbox_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
