@@ -49,7 +49,8 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail":
+      "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -174,7 +175,7 @@ var radio_field_props = {
 
   // different values that radio can have, in order.
   "values": ["val1", "val2", "val3"],
-  
+
   // Primary color for this field, overwrites color from form options.
   "primary_color": "00ff00",
 
@@ -241,7 +242,20 @@ var checkbox_field_props = {
   "custom_error_text": "",
 };
 
+/// `SliderFieldProps` is the model for the slider props
 var slider_field_props = {
+  // Type of the component
+  "type": "slider",
+
+  // Label of the widget. Default value: ""(empty string)
+  "label": "",
+
+  // Name
+  "name": "",
+
+  // HelperText Default value: null (String Type)
+  "helper_text": null,
+
   // Minimum value of slider field. Default value: 0.0
   "min_value": 0.0,
 
@@ -259,9 +273,63 @@ var slider_field_props = {
 
   // Thumb color. Default value: "0000ff"
   "thumb_color": "0000ff",
+};
 
-  // Label of the widget. Default value: ""(empty string)
-  "label": ""
+/// `dropdown props` is the model for dropdown properties
+var dropdown_properties = {
+  // Type of the component
+  "type": "dropdown",
+
+  // Name of the component
+  "name": "",
+
+  // Legend is the title of the component to be displayed on screen
+  "legend": "",
+
+  // Helper text describes the component.
+  // Type: nullable string (String?)
+  // Default value: null
+  "helper_text": null,
+
+  // Item Labels are to be displayed in dropdown
+  // Type: List<String>
+  // Default: empty List
+  "item_labels": [],
+
+  // Item values are the corresponding values of item_labels
+  // Type: List<dynamic>
+  // Default: empty List
+  "item_values": [],
+
+  // Label color is applied to item_labels.
+  // Type: String
+  // Default: "000000"
+  "label_color": "000000",
+
+  // Dropdown color is applied to dropdown.
+  // Type: String
+  // Default: "ffffff"
+  "dropdown_color": "ffffff",
+
+  // Elevation of the dropdown widget.
+  "elevation": 0,
+
+  // is_dense applies padding around the dropdown button
+  "is_dense": false,
+
+  // is_expanded applies restricton of the drop down widget.
+  // If true then it takes the available width, else it it the width of it's content.
+  "is_expanded": false,
+
+  // Maximum height for menu. Usually it takes up the height of it's content.
+  // Nullable double
+  "menu_max_height": null,
+
+  // If feedback is enabled then the user can feel any platform specific haptic gestures.
+  "enable_feedback": false,
+
+  // Alignment of the item_labels in the dropdown
+  "alignment": ["enum `left`, `center`, `right`"],
 };
 
 /// `ValidationError`
