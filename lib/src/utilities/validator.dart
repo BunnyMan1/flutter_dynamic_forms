@@ -45,7 +45,9 @@ ValidationResult componentValidator({
       }
     }
 
-    if (properties.minLength != null && value != null && value.length < properties.minLength!) {
+    if (properties.minLength != null &&
+        value != null &&
+        value.length < properties.minLength!) {
       if (properties.customErrorText != null) {
         validationResult.errors.add({"MinLength": properties.customErrorText});
       } else {
@@ -64,9 +66,29 @@ ValidationResult componentValidator({
     // print(" radio's valuer : $value");
     properties = properties as RadioComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+        componentName: properties.name,
+        type: properties.type,
+        value: value,
+        errors: []);
 
     if (properties.required && value == null) {
+      validationResult.errors.add({"Required": "This is a required field."});
+    }
+
+    return validationResult;
+  }
+  // validation logic for checkbox component.
+  if (properties.type == checkBoxComponentName) {
+    properties = properties as CheckBoxComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+
+    if (properties.required &&
+        ((value is List && value.isEmpty) || value == null)) {
       validationResult.errors.add({"Required": "This is a required field."});
     }
 

@@ -129,12 +129,30 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
 
   /// This method will be called by the component when the value of a component is changed.
   /// This method will update the `_values` map with the new value.
-  void _setValues(var name, var value) {
+  void _setValues(var name, var value, {bool? isList}) {
     setState(() {
-      _values[name] = value;
+      // Check if the value to be stored in a list or not.
+      if (isList == true) {
+        // If the value is a list, check if the list is already present in the map.
+        if (_values[name] == null) {
+          // If not present create an empty list.
+          _values[name] = [];
+        }
+        if (_values[name].contains(value)) {
+          // If the list already contains the value, then remove it.
+          _values[name].remove(value);
+        } else {
+          // If not then add.
+          _values[name].add(value);
+        }
+      } else {
+        // directly assign the value to new key if the value need not to be added in a list.
+        _values[name] = value;
+      }
     });
   }
 
+  /// Set validatons for the components. Add validation message to the `_validations` map.
   void _setValidation(var name, var value) {
     setState(() {
       _validations[name] = value;

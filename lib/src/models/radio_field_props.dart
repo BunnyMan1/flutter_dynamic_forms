@@ -44,10 +44,10 @@ class RadioComponentProperties implements BaseModel {
   @JsonKey(name: _rfNameKey)
   final String name;
 
-  /// Title of the widget.
-  /// Mandatory parameter, throws error if not specified.
+  /// Legend of the component. (The text that will be displayed above the component.)
+  /// Defaults to null.
   @JsonKey(name: _rfLegendKey)
-  final String legend;
+  final String? legend;
 
   /// Description of the radio field.
   /// Defaults to empty string "".
@@ -111,7 +111,7 @@ class RadioComponentProperties implements BaseModel {
 
   RadioComponentProperties({
     required this.name,
-    this.legend = '',
+    this.legend,
     this.helperText = '',
     this.alignment = RadioFieldAlignment.vertical,
     required this.labels,

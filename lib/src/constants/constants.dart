@@ -5,3 +5,6 @@ const String textComponentName = 'text';
 
 /// RadioComponentName == `'radio'`
 const String radioComponentName = 'radio';
+
+/// CheckBoxComponentName == `'checkbox'`
+const String checkBoxComponentName = 'checkbox';

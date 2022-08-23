@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../common/component_wrapper.dart';
-import '../models/radio_field_props.dart';
+import '../models/checkbox_field_props.dart';
 
-/// `RadioFieldComponent` is a component that renders a radio field.
-class RadioFieldComponent extends StatelessWidget {
-  const RadioFieldComponent({
+/// `CheckBoxFieldComponent` is a component that renders a radio field.
+class CheckBoxFieldComponent extends StatelessWidget {
+  const CheckBoxFieldComponent({
     Key? key,
     required this.properties,
     required this.value,
+    // required this.selectedValues,
     this.error,
     this.onChange,
   }) : super(key: key);
 
-  /// `properties` is a [RadioComponentProperties] object that contains all the properties of the component.
-  final RadioComponentProperties properties;
+  /// `properties` is a [CheckBoxComponentProperties] object that contains all the properties of the component.
+  final CheckBoxComponentProperties properties;
 
-  /// `value` is the value of the radio field.
+  /// `value` is the value of the checkbox field.
   final dynamic value;
 
+  /// `selectedValues` are the selected values of the checkbox field.
+  // final List<dynamic> selectedValues;
   final String? error;
 
   /// `onChange` is a function that is called when the value of the radio field is changed.
@@ -36,22 +39,24 @@ class RadioFieldComponent extends StatelessWidget {
           for (int i = 0; i < properties.labels.length; i++)
             Row(
               children: [
-                if (properties.labelPosition == RadioFieldLabelPosition.left)
+                if (properties.labelPosition == CheckBoxFieldLabelPosition.left)
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(properties.labels[i]),
                   ),
-                Radio<dynamic>(
-                  value: properties.values[i],
-                  groupValue: value,
-                  // selected: value == properties.values[i],
+                Checkbox(
+                  value: value.contains(properties.values[i]),
                   onChanged: (value) {
                     if (onChange != null) {
-                      onChange!(value!);
+                      // onChange!(value!);
+                      // NOTE: Since value is a list, we need to add or remove the value from the list.
+                      //TODO: Cross check this logic
+                      onChange!(properties.values[i]);
                     }
                   },
                 ),
-                if (properties.labelPosition == RadioFieldLabelPosition.right)
+                if (properties.labelPosition ==
+                    CheckBoxFieldLabelPosition.right)
                   Text(properties.labels[i]),
               ],
             ),
@@ -66,7 +71,7 @@ class RadioFieldComponent extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-            )
+            ),
         ],
       ),
     );

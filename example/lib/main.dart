@@ -87,13 +87,16 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
-            // Radio Field Component rendered as a widget from the paramenters passed to this widget.
-            RadioComponentProperties(
-              name: 'Gender',
-              legend: 'Gender',
-              labels: ['male', 'female'],
-              values: ['value1', 'value2', 'value3'],
-            ),
+            // Checkbox
+            CheckBoxComponentProperties.fromMap({
+              'type': 'checkbox',
+              'name': 'hobbies',
+              'legend': 'Hobbies',
+              'labels': ['cricket', 'football', 'hockey'],
+              'values': [1, 2, 3],
+              'required': true,
+              'label_position': "right",
+            }),
           ],
         ),
         onSubmit: (var map) {
