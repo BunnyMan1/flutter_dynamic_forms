@@ -104,6 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
             SliderComponentProperties.fromMap({
               'name': "my_slider",
             }),
+
+            RangeSliderComponentProperties.fromMap({
+              'name': "range",
+              "min_value": 0.0,
+              "max_value": 10.0,
+            }),
           ],
         ),
         onSubmit: (var map) {

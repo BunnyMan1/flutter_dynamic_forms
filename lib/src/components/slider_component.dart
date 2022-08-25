@@ -17,9 +17,16 @@ class SliderComponent extends StatelessWidget {
   final SliderComponentProperties properties;
   @override
   Widget build(BuildContext context) {
-    Color aColor = hexStringToColorConverter(properties.activeColor);
-    Color iColor = hexStringToColorConverter(properties.inActiveColor);
-    Color tColor = hexStringToColorConverter(properties.thumbColor);
+    Color? aColor = properties.activeColor != null
+        ? hexStringToColorConverter(properties.activeColor!)
+        : null;
+    Color? iColor = properties.inActiveColor != null
+        ? hexStringToColorConverter(properties.inActiveColor!)
+        : null;
+    Color? tColor = properties.thumbColor != null
+        ? hexStringToColorConverter(properties.thumbColor!)
+        : null;
+
     return ComponentWrapper(
       child: Slider(
         value: value,

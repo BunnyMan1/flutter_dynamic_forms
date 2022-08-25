@@ -38,23 +38,26 @@ class SliderComponentProperties extends BaseModel {
   @JsonKey(name: 'divisions')
   final int? divisions;
 
+  /// Color for the active track of the slider. Defaults to material blue.
   @JsonKey(name: 'active_color')
-  final String activeColor;
+  final String? activeColor;
 
+  /// Color for the inactive track of the slider. Defaults to grey.
   @JsonKey(name: 'inactive_color')
-  final String inActiveColor;
+  final String? inActiveColor;
 
+  /// Color for the thumb of the slider. Defaults to material blue.
   @JsonKey(name: 'thumb_color')
-  final String thumbColor;
+  final String? thumbColor;
 
   SliderComponentProperties({
     required this.name,
     this.minValue = 0.0,
     this.maxValue = 10.0,
     this.divisions,
-    this.activeColor = "2196F3",
-    this.inActiveColor = "808080",
-    this.thumbColor = "000000",
+    this.activeColor,
+    this.inActiveColor,
+    this.thumbColor,
   });
 
   //Factory constructor.
@@ -103,9 +106,7 @@ class SliderComponentProperties extends BaseModel {
         }
       }
 
-      if (key == _sfActiveColorKey ||
-          key == _sfInactiveColorKey ||
-          key == _sfThumbColorKey) {
+      if (key == _sfActiveColorKey || key == _sfInactiveColorKey || key == _sfThumbColorKey) {
         if (props[key] is! String) {
           return "Bad value for $key. Expected a String of length 6 but got ${props[key]}";
         }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_forms/src/components/ranger_slider_component.dart';
+import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
 import '../components/checkbox_component.dart';
 import '../components/radio_component.dart';
 import '../components/slider_component.dart';
@@ -24,14 +26,14 @@ Widget propsToComponentMapper({
     var p = properties as TextComponentProperties;
     return TextFieldComponent(
       onChange: ((s) {
-        if (properties.trimWhiteSpace) {
+        if (p.trimWhiteSpace) {
           s = s.trim();
         }
 
         setValue(properties.name, s);
       }),
       onFocusLost: (s) {
-        if (properties.trimWhiteSpace) {
+        if (p.trimWhiteSpace) {
           s = s.trim();
         }
         var res = componentValidator(
@@ -51,8 +53,7 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection =
-            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -101,6 +102,20 @@ Widget propsToComponentMapper({
     );
   }
 
+  // Range Slider Component
+  else if (properties.type == rangeSliderComponentTypeName) {
+    // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
+    properties = properties as RangeSliderComponentProperties;
+    return RangeSliderComponent(
+      rangeValues:
+          values[properties.name] ?? RangeValues(properties.minValue, properties.maxValue),
+      onChange: ((RangeValues? r) {
+        setValue(properties.name, r);
+      }),
+      properties: properties,
+    );
+  }
+
   // If no proper component then throw this error.
-  throw 'Unknown component.';
+  throw 'Unknown component asked to be rendered.';
 }

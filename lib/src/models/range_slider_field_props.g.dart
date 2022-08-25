@@ -1,25 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'slider_field_props.dart';
+part of 'range_slider_field_props.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SliderComponentProperties _$SliderComponentPropertiesFromJson(
+RangeSliderComponentProperties _$RangeSliderComponentPropertiesFromJson(
         Map<String, dynamic> json) =>
-    SliderComponentProperties(
+    RangeSliderComponentProperties(
       name: json['name'] as String,
       minValue: (json['min_value'] as num?)?.toDouble() ?? 0.0,
       maxValue: (json['max_value'] as num?)?.toDouble() ?? 10.0,
       divisions: json['divisions'] as int?,
       activeColor: json['active_color'] as String?,
       inActiveColor: json['inactive_color'] as String?,
-      thumbColor: json['thumb_color'] as String?,
+      endLabel: json['end_label'] as String? ?? "",
+      startLabel: json['start_label'] as String? ?? "",
+      label: json['label'] as String? ?? "",
     );
 
-Map<String, dynamic> _$SliderComponentPropertiesToJson(
-        SliderComponentProperties instance) =>
+Map<String, dynamic> _$RangeSliderComponentPropertiesToJson(
+        RangeSliderComponentProperties instance) =>
     <String, dynamic>{
       'name': instance.name,
       'min_value': instance.minValue,
@@ -27,5 +29,7 @@ Map<String, dynamic> _$SliderComponentPropertiesToJson(
       'divisions': instance.divisions,
       'active_color': instance.activeColor,
       'inactive_color': instance.inActiveColor,
-      'thumb_color': instance.thumbColor,
+      'start_label': instance.startLabel,
+      'end_label': instance.endLabel,
+      'label': instance.label,
     };
