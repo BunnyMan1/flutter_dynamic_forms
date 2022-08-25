@@ -26,17 +26,22 @@ class SliderComponent extends StatelessWidget {
     Color? tColor = properties.thumbColor != null
         ? hexStringToColorConverter(properties.thumbColor!)
         : null;
-
     return ComponentWrapper(
-      child: Slider(
-        value: value,
-        onChanged: onChange,
-        min: properties.minValue,
-        max: properties.maxValue,
-        divisions: properties.divisions,
-        activeColor: aColor,
-        inactiveColor: iColor,
-        thumbColor: tColor,
+      child: SliderTheme(
+        data: const SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always
+        ),
+        child: Slider(
+          label: value.toString(),
+          value: value,
+          onChanged: onChange,
+          min: properties.minValue,
+          max: properties.maxValue,
+          divisions: properties.divisions,
+          activeColor: aColor,
+          inactiveColor: iColor,
+          thumbColor: tColor,
+        ),
       ),
     );
   }

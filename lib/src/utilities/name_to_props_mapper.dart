@@ -3,6 +3,7 @@ import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
@@ -61,6 +62,17 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
       throw check;
     }
     return RangeSliderComponentProperties.fromMap(map);
+  } else if (key == dropdownComponentTypeName) {
+    // If key is dropdown component, then check for dropdown properties validation.
+    var check = DropdownComponentProperties.dropdownFieldPropertiesChecker(map);
+    if (check is String) {
+      // If the check is string, then it is an error message.
+      // Throw the error message.
+      throw check;
+    }
+    // If the check is not string, then it is a valid map.
+    // Create a DropdownComponentProperties object from the map.
+    return DropdownComponentProperties.fromMap(map);
   }
   throw 'Unkown component with name $map.';
 }

@@ -25,15 +25,24 @@ class RangeSliderComponent extends StatelessWidget {
         ? hexStringToColorConverter(properties.inActiveColor!)
         : null;
     return ComponentWrapper(
-      child: RangeSlider(
-        values: rangeValues,
-        onChanged: onChange,
-        activeColor: aColor,
-        inactiveColor: iColor,
-        divisions: properties.divisions,
-        labels: RangeLabels(properties.startLabel, properties.endLabel),
-        min: properties.minValue,
-        max: properties.maxValue,
+      title: properties.label.isEmpty ? null : properties.label,
+      child: SliderTheme(
+        data: const SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always,
+        ),
+        child: RangeSlider(
+          values: rangeValues,
+          onChanged: onChange,
+          activeColor: aColor,
+          inactiveColor: iColor,
+          divisions: properties.divisions,
+          labels: RangeLabels(
+            rangeValues.start.toString(),
+            rangeValues.end.toString(),
+          ),
+          min: properties.minValue,
+          max: properties.maxValue,
+        ),
       ),
     );
   }

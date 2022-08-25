@@ -10,7 +10,7 @@ class ComponentWrapper extends StatelessWidget {
     this.description,
     this.title,
   }) : super(key: key);
-
+  
   final Widget child;
   final String? description;
   final String? title;
@@ -20,8 +20,19 @@ class ComponentWrapper extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // if (title != null) Text(title!),
-        if (title != null) Text(toTitleCase(title ?? '')),
-        if (description != null) Text(description!),
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 4,
+            ),
+            child: Text(toTitleCase(title ?? '')),
+          ),
+        if (description != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Text(description!),
+          ),
         child,
       ],
     );

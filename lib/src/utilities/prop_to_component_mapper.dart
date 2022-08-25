@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/components/ranger_slider_component.dart';
-import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
+
 import '../components/checkbox_component.dart';
+import '../components/dropdown_component.dart';
 import '../components/radio_component.dart';
+import '../components/ranger_slider_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
+import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 import 'validator.dart';
@@ -25,13 +28,13 @@ Widget propsToComponentMapper({
   if (properties.type == textComponentTypeName) {
     var p = properties as TextComponentProperties;
     return TextFieldComponent(
-      onChange: ((s) {
+      onChange: (s) {
         if (p.trimWhiteSpace) {
           s = s.trim();
         }
 
         setValue(properties.name, s);
-      }),
+      },
       onFocusLost: (s) {
         if (p.trimWhiteSpace) {
           s = s.trim();
@@ -53,7 +56,8 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -61,9 +65,9 @@ Widget propsToComponentMapper({
   else if (properties.type == radioComponentTypeName) {
     // If the property name is [radioComponentName] then return a [RadioFieldComponent]
     return RadioFieldComponent(
-      onChange: ((s) {
+      onChange: (s) {
         setValue(properties.name, s);
-      }),
+      },
       value: values[properties.name],
       error: validations[properties.name],
       properties: properties as RadioComponentProperties,
@@ -77,13 +81,13 @@ Widget propsToComponentMapper({
     }
 
     return CheckBoxFieldComponent(
-      onChange: ((s) {
+      onChange: (s) {
         setValue(
           properties.name,
           s,
           isList: true,
         );
-      }),
+      },
       value: values[properties.name],
       error: validations[properties.name],
       properties: properties as CheckBoxComponentProperties,
@@ -92,13 +96,17 @@ Widget propsToComponentMapper({
 
   // Slider Component
   else if (properties.type == sliderComponentTypeName) {
-    // If the property name is [sliderComponentTypeName] then return a [SliderComponent]
+    // If the property name is [SliderComponentTypeName] then return a [SliderComponent]
+    properties = properties as SliderComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] = properties.minValue;
+    }
     return SliderComponent(
-      value: values[properties.name] ?? (properties as SliderComponentProperties).minValue,
-      onChange: ((d) {
+      value: values[properties.name],
+      onChange: (d) {
         setValue(properties.name, d);
-      }),
-      properties: properties as SliderComponentProperties,
+      },
+      properties: properties,
     );
   }
 
@@ -106,13 +114,42 @@ Widget propsToComponentMapper({
   else if (properties.type == rangeSliderComponentTypeName) {
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] =
+          RangeValues(properties.minValue, properties.maxValue);
+    }
     return RangeSliderComponent(
-      rangeValues:
-          values[properties.name] ?? RangeValues(properties.minValue, properties.maxValue),
+      rangeValues: values[properties.name],
       onChange: ((RangeValues? r) {
         setValue(properties.name, r);
       }),
       properties: properties,
+    );
+  }
+
+  // Single Dropdown component
+  else if (properties.type == dropdownComponentTypeName) {
+    // If the property name is [DropdownComponentTypeName] then return a [DropdownComponent]
+    return DropdownFieldComponent(
+      properties: properties as DropdownComponentProperties,
+      onChange: (d) {
+        setValue(properties.name, d);
+        var res = componentValidator(
+          properties: properties,
+          value: d,
+        );
+
+        if (res.errors.isNotEmpty) {
+          setValidation(
+            properties.name,
+            res.errors.first.values.first.toString(),
+          );
+        } else {
+          setValidation(properties.name, null);
+        }
+      },
+      value: values[properties.name],
+      error: validations[properties.name],
     );
   }
 

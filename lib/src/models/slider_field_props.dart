@@ -14,6 +14,7 @@ class SliderComponentProperties extends BaseModel {
   //!=======================================================//
   static const String _sfTypeKey = "type";
   static const String _sfNameKey = "name";
+  static const String _sfHelperTextKey = "helper_text";
   static const String _sfLabelKey = "label";
   static const String _sfDivisionsKey = "divisions";
   static const String _sfMinValueKey = "min_value";
@@ -25,33 +26,47 @@ class SliderComponentProperties extends BaseModel {
   //!=======================================================//
   //!=======================================================//
 
+  /// Name of the widget.
   @override
-  @JsonKey(name: 'name')
+  @JsonKey(name: _sfNameKey)
   final String name;
 
-  @JsonKey(name: 'min_value')
+  /// Description of the slider. 
+  @JsonKey(name: _sfHelperTextKey)
+  final String? helperText;
+
+  /// Label of the the slider
+  @JsonKey(name: _sfLabelKey)
+  final String label;
+
+  /// Minimum value of the slider
+  @JsonKey(name: _sfMinValueKey)
   final double minValue;
 
-  @JsonKey(name: 'max_value')
+  /// Maximum value of the slider
+  @JsonKey(name: _sfMaxValueKey)
   final double maxValue;
 
-  @JsonKey(name: 'divisions')
+  /// Number of divisions in slider
+  @JsonKey(name: _sfDivisionsKey)
   final int? divisions;
 
   /// Color for the active track of the slider. Defaults to material blue.
-  @JsonKey(name: 'active_color')
+  @JsonKey(name: _sfActiveColorKey)
   final String? activeColor;
 
   /// Color for the inactive track of the slider. Defaults to grey.
-  @JsonKey(name: 'inactive_color')
+  @JsonKey(name: _sfInactiveColorKey)
   final String? inActiveColor;
 
   /// Color for the thumb of the slider. Defaults to material blue.
-  @JsonKey(name: 'thumb_color')
+  @JsonKey(name: _sfThumbColorKey)
   final String? thumbColor;
 
   SliderComponentProperties({
     required this.name,
+    this.helperText,
+    this.label = "",
     this.minValue = 0.0,
     this.maxValue = 10.0,
     this.divisions,
@@ -97,6 +112,19 @@ class SliderComponentProperties extends BaseModel {
     }
 
     for (var key in props.keys) {
+      if (key == _sfLabelKey) {
+        if (props[key] is! String) {
+          // If the helper text is same as the key in JSON but not a string, then throw error.
+          return 'bad value for "$key".Expected a String but got "${props[key]}".';
+        }
+      }
+      if (key == _sfHelperTextKey) {
+        if (props[key] is! String) {
+          // If the helper text is same as the key in JSON but not a string, then throw error.
+          return 'bad value for "$key".Expected a String but got "${props[key]}".';
+        }
+      }
+
       if (key == _sfDivisionsKey && props[key] is! int) {
         return "Bad value for $key. Expected int but got ${props[key]}";
       }
@@ -106,7 +134,9 @@ class SliderComponentProperties extends BaseModel {
         }
       }
 
-      if (key == _sfActiveColorKey || key == _sfInactiveColorKey || key == _sfThumbColorKey) {
+      if (key == _sfActiveColorKey ||
+          key == _sfInactiveColorKey ||
+          key == _sfThumbColorKey) {
         if (props[key] is! String) {
           return "Bad value for $key. Expected a String of length 6 but got ${props[key]}";
         }
