@@ -20,8 +20,16 @@ class ComponentWrapper extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // if (title != null) Text(title!),
-        if (title != null) Text(toTitleCase(title ?? '')),
-        if (description != null) Text(description!),
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Text(toTitleCase(title ?? '')),
+          ),
+        if (description != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Text(description!),
+          ),
         child,
       ],
     );

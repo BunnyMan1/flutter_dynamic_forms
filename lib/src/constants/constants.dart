@@ -11,3 +11,6 @@ const String checkBoxComponentName = 'checkbox';
 
 /// SliderComponentName == `'slider'`
 const String sliderComponentTypeName = 'slider';
+
+/// DropdownComponentName == `'dropdown`
+const String dropdownComponentTypeName = 'dropdown';
