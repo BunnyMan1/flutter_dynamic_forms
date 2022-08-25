@@ -53,8 +53,7 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection =
-            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -95,8 +94,7 @@ Widget propsToComponentMapper({
   else if (properties.type == sliderComponentTypeName) {
     // If the property name is [SliderComponentTypeName] then return a [SliderComponent]
     return SliderComponent(
-      value: values[properties.name] ??
-          (properties as SliderComponentProperties).minValue,
+      value: values[properties.name] ?? (properties as SliderComponentProperties).minValue,
       onChange: (d) {
         setValue(properties.name, d);
       },
@@ -111,6 +109,19 @@ Widget propsToComponentMapper({
       properties: properties as DropdownComponentProperties,
       onChange: (d) {
         setValue(properties.name, d);
+        var res = componentValidator(
+          properties: properties,
+          value: d,
+        );
+
+        if (res.errors.isNotEmpty) {
+          setValidation(
+            properties.name,
+            res.errors.first.values.first.toString(),
+          );
+        } else {
+          setValidation(properties.name, null);
+        }
       },
       value: values[properties.name],
       error: validations[properties.name],

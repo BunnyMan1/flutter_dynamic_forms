@@ -39,74 +39,78 @@ class DropdownFieldComponent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          DropdownButtonFormField<dynamic>(
-            decoration: InputDecoration(
-              helperText: properties.helperText,
-              errorText: error,
-              hintText: properties.hintText,
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 8,
-                horizontal: 8,
-              ),
-              errorStyle: const TextStyle(
-                fontSize: 12.0,
-                color: Colors.red,
-              ),
-              border: properties.showBorder
-                  ? OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        properties.borderRadius,
-                      ),
-                      borderSide: BorderSide(
-                        color: borderColor,
-                        width: properties.borderWidth,
-                      ),
-                    )
-                  : null,
-              enabledBorder: properties.showBorder
-                  ? OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        properties.borderRadius,
-                      ),
-                      borderSide: BorderSide(
-                        color: borderColor,
-                        width: properties.borderWidth,
-                      ),
-                    )
-                  : null,
-              focusedBorder: properties.showBorder
-                  ? OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        properties.borderRadius,
-                      ),
-                      borderSide: BorderSide(
-                        color: borderColor,
-                        width: properties.borderWidth,
-                      ),
-                    )
-                  : null,
-            ),
-            hint: properties.hintText != null
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text("${properties.hintText}"),
-                  )
-                : null,
-            value: value,
-            isDense: properties.isDense,
-            isExpanded: properties.isExpanded,
-            items: [
-              for (int i = 0; i < properties.itemLabels.length; i++)
-                DropdownMenuItem(
-                  value: properties.itemLabels[i],
-                  child: Text(properties.itemLabels[i]),
+          ButtonTheme(
+            padding: const EdgeInsets.all(0.0),
+            alignedDropdown: true,
+            child: DropdownButtonFormField<dynamic>(
+              decoration: InputDecoration(
+                helperText: properties.helperText,
+                errorText: error,
+                hintText: properties.hintText,
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 4,
                 ),
-            ],
-            onChanged: (value) {
-              if (onChange != null) {
-                onChange!(value!);
-              }
-            },
+                errorStyle: const TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.red,
+                ),
+                border: properties.showBorder
+                    ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          properties.borderRadius,
+                        ),
+                        borderSide: BorderSide(
+                          color: borderColor,
+                          width: properties.borderWidth,
+                        ),
+                      )
+                    : null,
+                enabledBorder: properties.showBorder
+                    ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          properties.borderRadius,
+                        ),
+                        borderSide: BorderSide(
+                          color: borderColor,
+                          width: properties.borderWidth,
+                        ),
+                      )
+                    : null,
+                focusedBorder: properties.showBorder
+                    ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          properties.borderRadius,
+                        ),
+                        borderSide: BorderSide(
+                          color: borderColor,
+                          width: properties.borderWidth,
+                        ),
+                      )
+                    : null,
+              ),
+              hint: properties.hintText != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text("${properties.hintText}"),
+                    )
+                  : null,
+              value: value,
+              isDense: properties.isDense,
+              isExpanded: properties.isExpanded,
+              items: [
+                for (int i = 0; i < properties.itemLabels.length; i++)
+                  DropdownMenuItem(
+                    value: properties.itemLabels[i],
+                    child: Text(properties.itemLabels[i]),
+                  ),
+              ],
+              onChanged: (value) {
+                if (onChange != null) {
+                  onChange!(value!);
+                }
+              },
+            ),
           ),
         ],
       ),

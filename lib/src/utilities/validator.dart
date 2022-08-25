@@ -14,10 +14,7 @@ ValidationResult componentValidator({
   if (properties.type == textComponentTypeName) {
     properties = properties as TextComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name,
-        type: properties.type,
-        value: value,
-        errors: []);
+        componentName: properties.name, type: properties.type, value: value, errors: []);
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null) {
         validationResult.errors.add(
@@ -45,16 +42,12 @@ ValidationResult componentValidator({
       }
     }
 
-    if (properties.minLength != null &&
-        value != null &&
-        value.length < properties.minLength!) {
+    if (properties.minLength != null && value != null && value.length < properties.minLength!) {
       if (properties.customErrorText != null) {
         validationResult.errors.add({"MinLength": properties.customErrorText});
       } else {
-        validationResult.errors.add({
-          "MinLength":
-              "Should be minimum ${properties.minLength} characters long."
-        });
+        validationResult.errors
+            .add({"MinLength": "Should be minimum ${properties.minLength} characters long."});
       }
     }
 
@@ -66,10 +59,7 @@ ValidationResult componentValidator({
     // print(" radio's valuer : $value");
     properties = properties as RadioComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name,
-        type: properties.type,
-        value: value,
-        errors: []);
+        componentName: properties.name, type: properties.type, value: value, errors: []);
 
     if (properties.required && value == null) {
       validationResult.errors.add({"Required": "This is a required field."});
@@ -87,8 +77,7 @@ ValidationResult componentValidator({
       errors: [],
     );
 
-    if (properties.required &&
-        ((value is List && value.isEmpty) || value == null)) {
+    if (properties.required && ((value is List && value.isEmpty) || value == null)) {
       validationResult.errors.add({"Required": "This is a required field."});
     }
 
@@ -97,10 +86,7 @@ ValidationResult componentValidator({
 
   if (properties.type == sliderComponentTypeName) {
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name,
-        type: properties.type,
-        value: value,
-        errors: []);
+        componentName: properties.name, type: properties.type, value: value, errors: []);
 
     return validationResult;
   }
@@ -120,8 +106,7 @@ ValidationResult componentValidator({
     // }
 
     if (properties.isRequired && (value == null || value == "")) {
-      if (properties.customErrorText != null &&
-          properties.customErrorText!.trim().isNotEmpty) {
+      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
         validationResult.errors.add(
           {"Required": properties.customErrorText},
         );
@@ -132,6 +117,7 @@ ValidationResult componentValidator({
       }
       return validationResult;
     }
+    return validationResult;
   }
   throw 'Unknown component cannot be validated';
 }

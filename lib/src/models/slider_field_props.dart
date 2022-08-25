@@ -30,14 +30,12 @@ class SliderComponentProperties extends BaseModel {
   @JsonKey(name: _sfNameKey)
   final String name;
 
-  @override
   @JsonKey(name: _sfHelperTextKey)
   final String? helperText;
 
   @JsonKey(name: _sfDivisionsKey)
   final int? divisions;
 
-  @override
   @JsonKey(name: _sfLabelKey)
   final String label;
 
@@ -127,9 +125,7 @@ class SliderComponentProperties extends BaseModel {
         }
       }
 
-      if (key == _sfActiveColorKey ||
-          key == _sfInactiveColorKey ||
-          key == _sfThumbColorKey) {
+      if (key == _sfActiveColorKey || key == _sfInactiveColorKey || key == _sfThumbColorKey) {
         if (props[key] is! String) {
           return "Bad value for $key. Expected a String of length 6 but got ${props[key]}";
         }
