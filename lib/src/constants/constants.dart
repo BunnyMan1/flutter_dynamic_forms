@@ -14,3 +14,6 @@ const String sliderComponentTypeName = 'slider';
 
 /// DropdownComponentName == `'dropdown`
 const String dropdownComponentTypeName = 'dropdown';
+
+/// DatePickerComponentName =  `'date_picker'`
+const String datePickerComponentTypeName = 'date_picker';

@@ -118,6 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
               // "show_border": false,
               // "is_expanded": true,
             }),
+
+            DatePickerComponentProperties.fromMap(
+              {
+                'name': 'date_picker',
+                'range_picker_mode': false,
+                'initial_date': "2022-08-09 00:00:00.000"
+              },
+            ),
           ],
         ),
         onSubmit: (var map) {
