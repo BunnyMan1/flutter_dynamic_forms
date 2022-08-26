@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../constants/constants.dart';
+import 'base_model.dart';
 
 part 'datepicker_field_props.g.dart';
 
@@ -14,19 +13,26 @@ class DatePickerComponentProperties implements BaseModel {
   //!=======================================================//
   //    Json Keys of the props used by DatePickerComponent
   //!=======================================================//
-  static const String _dpfTypeKey = 'type';
-  static const String _dpfNameKey = 'name';
-  static const String _dpfInitialDateKey = 'initial_date';
-  static const String _dpfRangePickerMode = 'range_picker_mode';
-  static const String _dpfFirstDateKey = 'first_date';
-  static const String _dpfLastDateKey = 'last_date';
-  static const String _dpfDatePickerEntryModeKey = 'date_picker_entry_mode';
-  static const String _dpfPickerHelpTextKey = 'picker_help_text';
-  static const String _dpfPickerCancelTextKey = 'picker_cancel_text';
-  static const String _dpfPickerSelectTextKey = 'picker_select_text';
-  static const String _dpfInitialDatePickerModeKey = 'initial_date_picker_mode';
-  static const String _dpfIsRequiredKey = 'is_required';
-  static const String _dpfCustomErrorTextKey = 'custom_error_text';
+  static const String _dpfTypeKey = "type";
+  static const String _dpfNameKey = "name";
+  static const String _dpfLabelKey = "label";
+  static const String _dpfHelperTextKey = "helper_text";
+  static const String _dpfPlaceHolderKey = "place_holder";
+  static const String _dpfInitialDateKey = "initial_date";
+  static const String _dpfFirstDateKey = "first_date";
+  static const String _dpfLastDateKey = "last_date";
+  static const String _dpfDatePickerEntryModeKey = "date_picker_entry_mode";
+  static const String _dpfPickerCancelTextKey = "picker_cancel_text";
+  static const String _dpfPickerSelectTextKey = "picker_select_text";
+  static const String _dpfIsRangePickerModeKey = "is_range_picker_mode";
+  static const String _dpfIsRequiredKey = "is_required";
+  static const String _dpfShowErrorKey = "show_error";
+  static const String _dpfCustomErrorTextKey = "custom_error_text";
+  static const String _dpfTextColorKey = "text_color";
+  static const String _dpfShowBorderKey = "show_border";
+  static const String _dpfBorderColorKey = "border_color";
+  static const String _dpfBorderWidthKey = "border_width";
+  static const String _dpfBorderRadiusKey = "border_radius";
 
   //!=======================================================//
   //!=======================================================//
@@ -37,7 +43,38 @@ class DatePickerComponentProperties implements BaseModel {
   @JsonKey(name: _dpfNameKey)
   final String name;
 
-  @JsonKey(name: _dpfRangePickerMode)
+  @JsonKey(name: _dpfLabelKey)
+  final String label;
+
+  @JsonKey(name: _dpfHelperTextKey)
+  final String helperText;
+
+  /// Color of the text in the text field.
+  /// defaults to "000000"
+  @JsonKey(name: _dpfTextColorKey)
+  final String textColor;
+
+  /// Boolean value determining whether the text field will have a border or not.
+  /// Defaults to true.
+  @JsonKey(name: _dpfShowBorderKey)
+  final bool showBorder;
+
+  /// Color of the border of the text field.
+  /// defaults to "000000"
+  @JsonKey(name: _dpfBorderColorKey)
+  final String borderColor;
+
+  /// Width of the border of the text field.
+  /// defaults to 1.0
+  @JsonKey(name: _dpfBorderWidthKey)
+  final double borderWidth;
+
+  /// Radius of the border of the text field.
+  /// defaults to 8.0
+  @JsonKey(name: _dpfBorderRadiusKey)
+  final double borderRadius;
+
+  @JsonKey(name: _dpfIsRangePickerModeKey)
   final bool rangePickerMode;
 
   @JsonKey(name: _dpfInitialDateKey)
@@ -52,8 +89,8 @@ class DatePickerComponentProperties implements BaseModel {
   @JsonKey(name: _dpfDatePickerEntryModeKey)
   final DatePickerEntryMode datePickerEntryMode;
 
-  @JsonKey(name: _dpfPickerHelpTextKey)
-  final String? pickerHelpText;
+  @JsonKey(name: _dpfPlaceHolderKey)
+  final String? placeHolderText;
 
   @JsonKey(name: _dpfPickerCancelTextKey)
   final String pickerCancelText;
@@ -61,24 +98,33 @@ class DatePickerComponentProperties implements BaseModel {
   @JsonKey(name: _dpfPickerSelectTextKey)
   final String pickerSelectText;
 
-  @JsonKey(name: _dpfInitialDatePickerModeKey)
-  final DatePickerMode initialDatePickerMode;
-
   @JsonKey(name: _dpfIsRequiredKey)
   final bool isRequired;
+
+  /// Boolean value determining whether the text field will have a border or not.
+  /// Defaults to true.
+  @JsonKey(name: _dpfShowErrorKey)
+  final bool showError;
 
   @JsonKey(name: _dpfCustomErrorTextKey)
   final String? customErrorText;
 
   DatePickerComponentProperties({
     required this.name,
+    this.label = "",
+    this.helperText = "",
+    this.textColor = "000000",
+    this.showBorder = true,
+    this.borderColor = "000000",
+    this.borderWidth = 1.0,
+    this.borderRadius = 8.0,
     this.rangePickerMode = false,
+    this.showError = true,
     this.customErrorText,
     this.datePickerEntryMode = DatePickerEntryMode.calendar,
-    this.initialDatePickerMode = DatePickerMode.day,
     this.isRequired = false,
     this.pickerCancelText = "cancel",
-    this.pickerHelpText,
+    this.placeHolderText,
     this.pickerSelectText = "select",
     this.firstDate,
     this.initialDate,
@@ -119,13 +165,14 @@ class DatePickerComponentProperties implements BaseModel {
     return _$DatePickerComponentPropertiesToJson(object);
   }
 
-  /// A method to check if the given map is a valid [DatepickerComponentProperties] object.
+  /// A method to check if the given map is a valid [DatePickerComponentProperties] object.
   static dynamic propertiesChecker(
     Map<String, dynamic> props, {
     bool isMap = false,
   }) {
     if (!isMap &&
-        (props[_dpfTypeKey] is! String || props[_dpfTypeKey] != datePickerComponentTypeName)) {
+        (props[_dpfTypeKey] is! String ||
+            props[_dpfTypeKey] != datePickerComponentTypeName)) {
       // If the type is not a string or is not a DatePicker component type.
       return 'Bad value for "$_dpfTypeKey".Expected "$datePickerComponentTypeName" but got "${props[_dpfTypeKey]}".';
     }
@@ -135,9 +182,39 @@ class DatePickerComponentProperties implements BaseModel {
       return 'bad value for "$_dpfNameKey".Expected String but got "${props[_dpfNameKey]}".';
     }
 
+    if (props.keys.contains(_dpfIsRangePickerModeKey) &&
+        props[_dpfIsRangePickerModeKey]) {
+      // if (!props.keys.contains(_dpfFirstDateKey) ||
+      //     !props.keys.contains(_dpfLastDateKey)) {
+      //   return '"$_dpfFirstDateKey" and "$_dpfLastDateKey" are required for daterange picker mode.';
+      // } else
+      if (props.keys.contains(_dpfFirstDateKey) &&
+          props.keys.contains(_dpfLastDateKey)) {
+        {
+          DateTime fd;
+          DateTime ld;
+          try {
+            fd = DateTime.parse(props[_dpfFirstDateKey]);
+          } catch (e) {
+            return 'bad value for "$_dpfFirstDateKey". Expected a valid DateTime String but got "${props[_dpfFirstDateKey]}".';
+          }
+          try {
+            ld = DateTime.parse(props[_dpfLastDateKey]);
+          } catch (e) {
+            return 'bad value for "$_dpfLastDateKey". Expected a valid DateTime String but got "${props[_dpfFirstDateKey]}".';
+          }
+          if (fd.isAfter(ld)) {
+            return '"$_dpfFirstDateKey" should be any date before "$_dpfLastDateKey"';
+          }
+        }
+      }
+    }
+
     for (var key in props.keys) {
       // Checks for datetime string props.
-      if (key == _dpfFirstDateKey || key == _dpfLastDateKey || key == _dpfInitialDateKey) {
+      if (key == _dpfFirstDateKey ||
+          key == _dpfLastDateKey ||
+          key == _dpfInitialDateKey) {
         if (props[key] is! String) {
           return 'bad value for "$key".Expected a valid DateTime String but got "${props[key]}".';
         }
@@ -148,7 +225,12 @@ class DatePickerComponentProperties implements BaseModel {
         }
       }
 
-      if ((key == _dpfPickerHelpTextKey ||
+      if ((key == _dpfBorderWidthKey || key == _dpfBorderRadiusKey) &&
+          (props[key] is! double)) {
+        return "bad value for $key: ${props[key]} expected a Double.";
+      }
+
+      if ((key == _dpfPlaceHolderKey ||
               key == _dpfPickerCancelTextKey ||
               key == _dpfPickerSelectTextKey ||
               key == _dpfCustomErrorTextKey) &&
@@ -156,7 +238,8 @@ class DatePickerComponentProperties implements BaseModel {
         return 'bad value for "$key".Expected a String but got "${props[key]}".';
       }
 
-      if ((key == _dpfIsRequiredKey || key == _dpfRangePickerMode) && props[key] is! bool) {
+      if ((key == _dpfIsRequiredKey || key == _dpfIsRangePickerModeKey) &&
+          props[key] is! bool) {
         return 'bad value for "$key".Expected a Boolean but got "${props[key]}".';
       }
     }

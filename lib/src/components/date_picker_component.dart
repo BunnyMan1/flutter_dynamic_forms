@@ -10,18 +10,27 @@ class DatePickerComponent extends StatelessWidget {
     required this.onChange,
     required this.properties,
     required this.value,
+    this.error,
   }) : super(key: key);
 
   final dynamic value;
   final Function(dynamic dt) onChange;
   final DatePickerComponentProperties properties;
 
+  /// `error` is a string that contains the error message to be displayed.
+  final String? error;
+
   @override
   Widget build(BuildContext context) {
-    print(" value: $value");
-    String dt = "Select Date";
+    String dt = properties.placeHolderText ?? "Select Date";
     DateTime firstDate;
     DateTime lastDate;
+
+    /// textColor field from the properties is converted from string to color.
+    Color textColor = hexStringToColorConverter(properties.textColor);
+
+    /// borderColor field from the properties is converted from string to color.
+    Color borderColor = hexStringToColorConverter(properties.borderColor);
 
     try {
       if (value != null && value is DateTime) {
@@ -39,40 +48,79 @@ class DatePickerComponent extends StatelessWidget {
       throw "Bad Date Format found $value : $e";
     }
     return ComponentWrapper(
-      child: Row(
-        children: [
-          InkWell(
-            onTap: () async {
-              if (properties.rangePickerMode) {
-                var dr = await showDateRangePicker(
-                  context: context,
-                  firstDate: firstDate,
-                  lastDate: lastDate,
-                );
-                onChange(dr);
-              } else {
-                DateTime initDate;
+      child: TextField(
+        readOnly: true,
+        controller: TextEditingController(text: dt),
+        onTap: () async {
+          if (properties.rangePickerMode) {
+            var dr = await showDateRangePicker(
+              context: context,
+              firstDate: firstDate,
+              lastDate: lastDate,
+            );
+            onChange(dr);
+          } else {
+            DateTime initDate;
 
-                try {
-                  initDate = DateTime.parse(
-                      properties.initialDate ?? DateTime.now().toIso8601String());
-                } catch (e) {
-                  throw "Bad Date Format found for initial_date: ${properties.initialDate}. Error s: $e";
-                }
-                var dt = await showDatePicker(
-                  context: context,
-                  initialDate: initDate,
-                  firstDate: firstDate,
-                  lastDate: lastDate,
-                );
-                onChange(dt);
-              }
-            },
-            child: Text(
-              dt,
+            try {
+              initDate = DateTime.parse(
+                  properties.initialDate ?? DateTime.now().toIso8601String());
+            } catch (e) {
+              throw "Bad Date Format found for initial_date: ${properties.initialDate}. Error s: $e";
+            }
+            var dt = await showDatePicker(
+              context: context,
+              initialDate: initDate,
+              firstDate: firstDate,
+              lastDate: lastDate,
+            );
+            onChange(dt);
+          }
+        },
+        decoration: InputDecoration(
+          prefixIcon: const Icon(
+            IconData(
+              0xf06bb,
+              fontFamily: 'MaterialIcons',
             ),
           ),
-        ],
+          helperText: properties.placeHolderText,
+          errorText: error,
+          hintText: properties.placeHolderText,
+          labelText: properties.label,
+          labelStyle: TextStyle(
+            color: textColor.withOpacity(0.8),
+          ),
+          border: properties.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(properties.borderRadius),
+                  borderSide: BorderSide(
+                    color: borderColor,
+                    width: properties.borderWidth,
+                  ),
+                )
+              : null,
+          enabledBorder: properties.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    properties.borderRadius,
+                  ),
+                  borderSide: BorderSide(
+                    color: borderColor,
+                    width: properties.borderWidth,
+                  ),
+                )
+              : null,
+          focusedBorder: properties.showBorder
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(properties.borderRadius),
+                  borderSide: BorderSide(
+                    color: borderColor,
+                    width: properties.borderWidth,
+                  ),
+                )
+              : null,
+        ),
       ),
     );
   }

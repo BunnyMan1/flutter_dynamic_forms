@@ -74,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               inputType: InputType.number,
             ),
-            //TODO: Uncomment these components
 
             // // Radio Field Component rendered as a widget from the map provided.
             // RadioComponentProperties.fromMap(
@@ -100,6 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
             //   'label_position': "right",
             // }),
 
+            // Slider
+
             // SliderComponentProperties(
             //   name: "my_slider",
             // ),
@@ -107,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //   'name': "my_slider",
             // }),
 
+            // Dropdown
             DropdownComponentProperties.fromMap({
               "type": "dropdown",
               "name": "bus_number",
@@ -119,11 +121,15 @@ class _MyHomePageState extends State<MyHomePage> {
               // "is_expanded": true,
             }),
 
+            // Date picker (Also includes date range picker)
             DatePickerComponentProperties.fromMap(
               {
                 'name': 'date_picker',
-                'range_picker_mode': false,
-                'initial_date': "2022-08-09 00:00:00.000"
+                'initial_date': "2022-08-09 00:00:00.000",
+                "picker_help_text": "New date",
+                "is_range_picker_mode": true,
+                'first_date': "2022-12-09 00:00:00.000",
+                // 'last_date': "2022-12-09 00:00:00.000",
               },
             ),
           ],
