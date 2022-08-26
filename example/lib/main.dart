@@ -100,13 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
             //   'label_position': "right",
             // }),
 
-            // SliderComponentProperties(
-            //   name: "my_slider",
-            // ),
-            // SliderComponentProperties.fromMap({
-            //   'name': "my_slider",
-            // }),
-
             DropdownComponentProperties.fromMap({
               "type": "dropdown",
               "name": "bus_number",
@@ -117,6 +110,20 @@ class _MyHomePageState extends State<MyHomePage> {
               "required": true,
               // "show_border": false,
               // "is_expanded": true,
+            }),
+
+            // SliderComponentProperties(
+            //   name: "my_slider",
+            // ),
+            SliderComponentProperties.fromMap({
+              'name': "my_slider",
+            }),
+
+            RangeSliderComponentProperties.fromMap({
+              'name': "range",
+              "label": "Range slider",
+              "min_value": 0.0,
+              "max_value": 10.0,
             }),
           ],
         ),

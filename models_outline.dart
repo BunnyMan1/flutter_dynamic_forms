@@ -156,8 +156,6 @@ var radio_field_props = {
   // Title of the widget
   "legend": "String",
 
-  //TODO: Helper text maybe used as a description for the radio field section.
-
   // Description of the field.
   "helperTextKey": "",
 
@@ -273,6 +271,42 @@ var slider_field_props = {
 
   // Thumb color. Default value: "0000ff"
   "thumb_color": "0000ff",
+};
+
+/// Range slider properties
+var range_slider_props = {
+  // Type of the component
+  "type": "slider",
+
+  // Label of the widget. Default value: ""(empty string)
+  "label": "",
+
+  // Name
+  "name": "",
+
+  // HelperText Default value: null (String Type)
+  "helper_text": null,
+
+  // Minimum value of slider field. Default value: 0.0
+  "min_value": 0.0,
+
+  // Maximum value of slider field. Default value: 10.0
+  "max_value": 10.0,
+
+  // Number of divisions. Default value: null
+  "divisions": 1,
+
+  // Active color. Default value: "000000"
+  "active_color": "000000",
+
+  // Inactive color. Default value: "00ff00"
+  "inactive_color": "00ff00",
+
+  // Label to be displayed when slider's starting thumb is pressed.
+  "start_label": "",
+
+  // Label to be displayed when slider's ending thumb is pressed.
+  "end_label": ""
 };
 
 /// `dropdown props` is the model for dropdown properties
