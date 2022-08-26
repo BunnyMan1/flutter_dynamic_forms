@@ -33,96 +33,111 @@ class MyHomePage extends StatefulWidget {
 
 /// `_MyHomePageState` is the state of the home page.
 class _MyHomePageState extends State<MyHomePage> {
+  var val;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FlutterDynamicForm(
-        formData: FlutterDynamicFormData(
-          props: FormProps(
-            showResetButton: true,
+      body: Column(
+        children: [
+          MultiSelectDropdown(
+            error: null,
+            onChange: (s) {
+              setState(() {
+                val = s;
+              });
+            },
+            value: val,
           ),
-          components: [
-            // Text Field Component rendered as a widget from the map provided.
-            TextComponentProperties.fromMap(
-              {
-                'type': 'text',
-                'name': 'employee_name',
-                'title': 'Emp Name',
-                "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
-                "prefix_icon": 0xe491,
-                "input_type": "number",
-              },
-            ),
-
-            // Text Field Component rendered as a widget from the paramenters passed to this widget.
-            TextComponentProperties(
-              name: 'employee_email',
-              // name: "Emp Email",
-              label: "Employee Email",
-              isRequired: true,
-              placeholder: "Enter employee's name",
-              maxLength: 100,
-              showTextCounter: true,
-              customErrorText: "Invalid Value",
-              regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
-              prefixIconWidget: const Icon(
-                Icons.email,
+          FlutterDynamicForm(
+            formData: FlutterDynamicFormData(
+              props: FormProps(
+                showResetButton: true,
               ),
-              suffixIconWidget: const Icon(
-                Icons.alternate_email,
-              ),
-              inputType: InputType.number,
+              components: [
+                // Text Field Component rendered as a widget from the map provided.
+                TextComponentProperties.fromMap(
+                  {
+                    'type': 'text',
+                    'name': 'employee_name',
+                    'title': 'Emp Name',
+                    "regex_match": r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                    "prefix_icon": 0xe491,
+                    "input_type": "number",
+                  },
+                ),
+
+                // Text Field Component rendered as a widget from the paramenters passed to this widget.
+                TextComponentProperties(
+                  name: 'employee_email',
+                  // name: "Emp Email",
+                  label: "Employee Email",
+                  isRequired: true,
+                  placeholder: "Enter employee's name",
+                  maxLength: 100,
+                  showTextCounter: true,
+                  customErrorText: "Invalid Value",
+                  regexMatch: r"[a-z0-9]+@[a-z]+\.[a-z]{2,3}",
+                  prefixIconWidget: const Icon(
+                    Icons.email,
+                  ),
+                  suffixIconWidget: const Icon(
+                    Icons.alternate_email,
+                  ),
+                  inputType: InputType.number,
+                ),
+                //TODO: Uncomment these components
+
+                // // Radio Field Component rendered as a widget from the map provided.
+                // RadioComponentProperties.fromMap(
+                //   {
+                //     'type': 'radio',
+                //     'name': 'gender',
+                //     'legend': 'Gender',
+                //     'labels': ['male', 'female'],
+                //     'values': [1, 2],
+                //     'required': true,
+                //     'label_position': "right",
+                //   },
+                // ),
+
+                // // Checkbox
+                // CheckBoxComponentProperties.fromMap({
+                //   'type': 'checkbox',
+                //   'name': 'hobbies',
+                //   'legend': 'Hobbies',
+                //   'labels': ['cricket', 'football', 'hockey'],
+                //   'values': [1, 2, 3],
+                //   'required': true,
+                //   'label_position': "right",
+                // }),
+
+                // SliderComponentProperties(
+                //   name: "my_slider",
+                // ),
+                // SliderComponentProperties.fromMap({
+                //   'name': "my_slider",
+                // }),
+
+                DropdownComponentProperties.fromMap({
+                  "type": "dropdown",
+                  "name": "bus_number",
+                  "legend": "asdfa",
+                  "hint_text": "select a bus",
+                  "item_labels": ['bus 1', 'bus 2', 'bus 3'],
+                  "item_values": ['bus 1', 'bus 2', 'bus 3'],
+                  "required": true,
+                  // "show_border": false,
+                  // "is_expanded": true,
+                }),
+              ],
             ),
-            //TODO: Uncomment these components
-
-            // // Radio Field Component rendered as a widget from the map provided.
-            // RadioComponentProperties.fromMap(
-            //   {
-            //     'type': 'radio',
-            //     'name': 'gender',
-            //     'legend': 'Gender',
-            //     'labels': ['male', 'female'],
-            //     'values': [1, 2],
-            //     'required': true,
-            //     'label_position': "right",
-            //   },
-            // ),
-
-            // // Checkbox
-            // CheckBoxComponentProperties.fromMap({
-            //   'type': 'checkbox',
-            //   'name': 'hobbies',
-            //   'legend': 'Hobbies',
-            //   'labels': ['cricket', 'football', 'hockey'],
-            //   'values': [1, 2, 3],
-            //   'required': true,
-            //   'label_position': "right",
-            // }),
-
-            // SliderComponentProperties(
-            //   name: "my_slider",
-            // ),
-            // SliderComponentProperties.fromMap({
-            //   'name': "my_slider",
-            // }),
-
-            DropdownComponentProperties.fromMap({
-              "type": "dropdown",
-              "name": "bus_number",
-              "legend": "asdfa",
-              "hint_text": "select a bus",
-              "item_labels": ['bus 1', 'bus 2', 'bus 3'],
-              "item_values": ['bus 1', 'bus 2', 'bus 3'],
-              "required": true,
-              // "show_border": false,
-              // "is_expanded": true,
-            }),
-          ],
-        ),
-        onSubmit: (var map) {
-          debugPrint(map.toString());
-        },
+            onSubmit: (var map) {
+              debugPrint(map.toString());
+            },
+          ),
+        ],
       ),
     );
   }
