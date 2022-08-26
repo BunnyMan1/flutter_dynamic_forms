@@ -4,6 +4,7 @@ import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
 import '../components/dropdown_component.dart';
 import '../components/radio_component.dart';
+import '../components/ranger_slider_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
 import '../constants/constants.dart';
@@ -12,6 +13,7 @@ import '../models/checkbox_field_props.dart';
 import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
+import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 import 'validator.dart';
@@ -56,7 +58,8 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -96,12 +99,33 @@ Widget propsToComponentMapper({
   // Slider Component
   else if (properties.type == sliderComponentTypeName) {
     // If the property name is [SliderComponentTypeName] then return a [SliderComponent]
+    properties = properties as SliderComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] = properties.minValue;
+    }
     return SliderComponent(
-      value: values[properties.name] ?? (properties as SliderComponentProperties).minValue,
+      value: values[properties.name],
       onChange: (d) {
         setValue(properties.name, d);
       },
-      properties: properties as SliderComponentProperties,
+      properties: properties,
+    );
+  }
+
+  // Range Slider Component
+  else if (properties.type == rangeSliderComponentTypeName) {
+    // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
+    properties = properties as RangeSliderComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] =
+          RangeValues(properties.minValue, properties.maxValue);
+    }
+    return RangeSliderComponent(
+      rangeValues: values[properties.name],
+      onChange: ((RangeValues? r) {
+        setValue(properties.name, r);
+      }),
+      properties: properties,
     );
   }
 
@@ -145,5 +169,5 @@ Widget propsToComponentMapper({
   }
 
   // If no proper component then throw this error.
-  throw 'Unknown component.';
+  throw 'Unknown component asked to be rendered.';
 }

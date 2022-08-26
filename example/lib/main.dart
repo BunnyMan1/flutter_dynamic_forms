@@ -121,6 +121,14 @@ class _MyHomePageState extends State<MyHomePage> {
               // "is_expanded": true,
             }),
 
+            // Range slider
+            RangeSliderComponentProperties.fromMap({
+              'name': "range",
+              "label": "Range slider",
+              "min_value": 0.0,
+              "max_value": 10.0,
+            }),
+
             // Date picker (Also includes date range picker)
             DatePickerComponentProperties.fromMap(
               {

@@ -1,3 +1,5 @@
+import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
+
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -53,6 +55,14 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     // If the check is not string, then it is a valid map.
     // Create a SliderComponentProperties object from the map.
     return SliderComponentProperties.fromMap(map);
+  } else if (key == rangeSliderComponentTypeName) {
+    var check = RangeSliderComponentProperties.propertiesChecker(map);
+    if (check is String) {
+      // If the check is string, then it is an error message.
+      // Throw the error message.
+      throw check;
+    }
+    return RangeSliderComponentProperties.fromMap(map);
   } else if (key == dropdownComponentTypeName) {
     // If key is dropdown component, then check for dropdown properties validation.
     var check = DropdownComponentProperties.dropdownFieldPropertiesChecker(map);

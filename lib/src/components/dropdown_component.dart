@@ -1,5 +1,3 @@
-//TODO: Remove 'component' from the file names under components folder
-
 import 'package:flutter/material.dart';
 
 import '../common/component_wrapper.dart';
