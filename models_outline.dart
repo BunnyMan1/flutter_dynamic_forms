@@ -390,6 +390,68 @@ var dropdown_properties = {
   "border_color": "000000",
 };
 
+/// Date picker
+var date_picker = {
+  // Date picker type widget
+  "type": "date_picker",
+
+  // Date picker name
+  "name": "",
+
+  // Date picker label
+  "label": "",
+
+  // Description of the component
+  "helper_text": '',
+
+  // Place holder, gets displayed when there is no value to display.
+  "place_holder": "",
+
+  // Initial date
+  "initial_date": "formatted date string",
+
+  // First date
+  "first_date": "formatted_date_string",
+
+  // If date picker is in range mode then Last date is required.
+  "last_date": "formatted_date_string",
+
+  // Initial date picker mode
+  "date_picker_entry_mode": "DatePickerEntryMode.calendar",
+
+  // Text to be displayed on cancel option of picker
+  "picker_cancel_text": "cancel",
+
+  // Text to be displayed on yes option of picker
+  "picker_select_text": "select",
+
+  // Whether the to show date range picker or not
+  "is_range_picker_mode": false,
+
+  // Is this field required
+  "is_required": false,
+
+  // Show error or not
+  "show_error": true,
+
+  // Custom error text is nullable string.
+  "custom_error_text": null,
+
+  "text_color": "000000",
+
+  // To show border for the text field or not.
+  "show_border": true,
+
+  // Border color for the text field.
+  "border_color": "0000ff",
+
+  // Border width for the text field.
+  "border_width": 1,
+
+  // Border radius for the text field.
+  "border_radius": 1,
+};
+
 /// `ValidationError`
 var validation_result = {
   // Name of the field that failed validation.

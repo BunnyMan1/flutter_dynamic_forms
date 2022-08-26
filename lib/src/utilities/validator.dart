@@ -1,6 +1,7 @@
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/text_field_props.dart';
@@ -20,7 +21,7 @@ ValidationResult componentValidator({
         componentName: properties.name,
         type: properties.type,
         value: value,
-        errors: []);
+        errors: [],);
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null) {
         validationResult.errors.add(
@@ -72,7 +73,7 @@ ValidationResult componentValidator({
         componentName: properties.name,
         type: properties.type,
         value: value,
-        errors: []);
+        errors: [],);
 
     if (properties.required && value == null) {
       validationResult.errors.add({"Required": "This is a required field."});
@@ -132,6 +133,32 @@ ValidationResult componentValidator({
     //     ((value is List && value.isEmpty) || value == null)) {
     //   validationResult.errors.add({"Required": "This is a required field."});
     // }
+
+    if (properties.isRequired && (value == null || value == "")) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+    return validationResult;
+  }
+
+  // Date picker component type name.
+  if (properties.type == datePickerComponentTypeName) {
+    properties = properties as DatePickerComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
 
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null &&

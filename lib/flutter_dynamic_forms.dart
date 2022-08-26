@@ -9,6 +9,7 @@ export 'src/models/slider_field_props.dart';
 export 'src/models/checkbox_field_props.dart';
 export 'src/models/dropdown_field_props.dart';
 export 'src/models/range_slider_field_props.dart';
+export 'src/models/datepicker_field_props.dart';
 
 // Widgets
 export 'src/form/form_widget.dart';

@@ -17,6 +17,9 @@ dependencies:
   # To create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
+  # For date formatting and other intl uses.
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

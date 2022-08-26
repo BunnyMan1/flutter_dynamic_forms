@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../flutter_dynamic_forms.dart';
 
@@ -14,6 +15,11 @@ Color hexStringToColorConverter(String s) {
   buffer.write(s.replaceFirst('#', ''));
 
   return Color(int.parse(buffer.toString(), radix: 16));
+}
+
+///
+String formattedDate(DateTime dt) {
+  return DateFormat('d MMM yyyy').format(dt);
 }
 
 // ------- Enum Mappers -------------

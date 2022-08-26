@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/checkbox_component.dart';
+import '../components/date_picker_component.dart';
 import '../components/dropdown_component.dart';
 import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
@@ -9,6 +10,7 @@ import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
@@ -150,6 +152,19 @@ Widget propsToComponentMapper({
       },
       value: values[properties.name],
       error: validations[properties.name],
+    );
+  }
+
+  // Datepicker Component
+  else if (properties.type == datePickerComponentTypeName) {
+    // If the property name is [datePickerComponentTypeName] then return a [DatePickerComponent]
+    properties = properties as DatePickerComponentProperties;
+    return DatePickerComponent(
+      onChange: ((dt) {
+        setValue(properties.name, dt);
+      }),
+      properties: properties,
+      value: values[properties.name],
     );
   }
 
