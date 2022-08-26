@@ -1,6 +1,7 @@
 // import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
+import 'package:flutter_dynamic_forms/src/common/read_only_text_widget.dart';
 
 class MultiSelectDropdown extends StatelessWidget {
   const MultiSelectDropdown({
@@ -25,35 +26,44 @@ class MultiSelectDropdown extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ButtonTheme(
-            padding: const EdgeInsets.all(0.0),
-            alignedDropdown: true,
-            child: DropdownButtonFormField<dynamic>(
-              onTap: () {
-                print("ontap");
-              },
-              iconDisabledColor: Colors.black,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 4,
-                ),
-                errorStyle: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.red,
-                ),
-              ),
-              value: value,
-              items: [
-                for (int i = 0; i < 5; i++)
-                  DropdownMenuItem(
-                    value: "item $i",
-                    child: Text("item $i"),
-                  ),
-              ],
-              onChanged: null,
-            ),
-          ),
+          // ReadOnlyTextFieldWidget(
+          //   borderColor: borderColor,
+          //   borderRadius: borderRadius,
+          //   borderWidth: borderWidth,
+          //   onTap: onTap,
+          //   showBorder: showBorder,
+          //   text: text,
+          //   textColor: textColor,
+          // ),
+          // ButtonTheme(
+          //   padding: const EdgeInsets.all(0.0),
+          //   alignedDropdown: true,
+          //   child: DropdownButtonFormField<dynamic>(
+          //     onTap: () {
+          //       print("ontap");
+          //     },
+          //     iconDisabledColor: Colors.black,
+          //     decoration: const InputDecoration(
+          //       contentPadding: EdgeInsets.symmetric(
+          //         vertical: 8,
+          //         horizontal: 4,
+          //       ),
+          //       errorStyle: TextStyle(
+          //         fontSize: 12.0,
+          //         color: Colors.red,
+          //       ),
+          //     ),
+          //     value: value,
+          //     items: [
+          //       for (int i = 0; i < 5; i++)
+          //         DropdownMenuItem(
+          //           value: "item $i",
+          //           child: Text("item $i"),
+          //         ),
+          //     ],
+          //     onChanged: null,
+          //   ),
+          // ),
         ],
       ),
     );

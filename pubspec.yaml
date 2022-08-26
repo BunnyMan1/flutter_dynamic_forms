@@ -19,6 +19,9 @@ dependencies:
 
   dropdown_search: ^5.0.2
 
+  # For date formatting and other intl uses.
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

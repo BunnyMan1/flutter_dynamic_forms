@@ -1,6 +1,10 @@
-import '../../flutter_dynamic_forms.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
+import '../models/checkbox_field_props.dart';
+import '../models/datepicker_field_props.dart';
+import '../models/dropdown_field_props.dart';
+import '../models/radio_field_props.dart';
+import '../models/text_field_props.dart';
 import '../models/validation_result.dart';
 
 ValidationResult componentValidator({
@@ -14,7 +18,11 @@ ValidationResult componentValidator({
   if (properties.type == textComponentTypeName) {
     properties = properties as TextComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null) {
         validationResult.errors.add(
@@ -59,7 +67,11 @@ ValidationResult componentValidator({
     // print(" radio's valuer : $value");
     properties = properties as RadioComponentProperties;
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
 
     if (properties.required && value == null) {
       validationResult.errors.add({"Required": "This is a required field."});
@@ -86,7 +98,21 @@ ValidationResult componentValidator({
 
   if (properties.type == sliderComponentTypeName) {
     ValidationResult validationResult = ValidationResult(
-        componentName: properties.name, type: properties.type, value: value, errors: []);
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+
+    return validationResult;
+  }
+  if (properties.type == rangeSliderComponentTypeName) {
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
 
     return validationResult;
   }
@@ -104,6 +130,31 @@ ValidationResult componentValidator({
     //     ((value is List && value.isEmpty) || value == null)) {
     //   validationResult.errors.add({"Required": "This is a required field."});
     // }
+
+    if (properties.isRequired && (value == null || value == "")) {
+      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+    return validationResult;
+  }
+
+  // Date picker component type name.
+  if (properties.type == datePickerComponentTypeName) {
+    properties = properties as DatePickerComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
 
     if (properties.isRequired && (value == null || value == "")) {
       if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {

@@ -26,33 +26,42 @@ class SliderComponentProperties extends BaseModel {
   //!=======================================================//
   //!=======================================================//
 
+  /// Name of the widget.
   @override
   @JsonKey(name: _sfNameKey)
   final String name;
 
+  /// Description of the slider. 
   @JsonKey(name: _sfHelperTextKey)
   final String? helperText;
 
-  @JsonKey(name: _sfDivisionsKey)
-  final int? divisions;
-
+  /// Label of the the slider
   @JsonKey(name: _sfLabelKey)
   final String label;
 
+  /// Minimum value of the slider
   @JsonKey(name: _sfMinValueKey)
   final double minValue;
 
+  /// Maximum value of the slider
   @JsonKey(name: _sfMaxValueKey)
   final double maxValue;
 
+  /// Number of divisions in slider
+  @JsonKey(name: _sfDivisionsKey)
+  final int? divisions;
+
+  /// Color for the active track of the slider. Defaults to material blue.
   @JsonKey(name: _sfActiveColorKey)
-  final String activeColor;
+  final String? activeColor;
 
+  /// Color for the inactive track of the slider. Defaults to grey.
   @JsonKey(name: _sfInactiveColorKey)
-  final String inActiveColor;
+  final String? inActiveColor;
 
+  /// Color for the thumb of the slider. Defaults to material blue.
   @JsonKey(name: _sfThumbColorKey)
-  final String thumbColor;
+  final String? thumbColor;
 
   SliderComponentProperties({
     required this.name,
@@ -61,9 +70,9 @@ class SliderComponentProperties extends BaseModel {
     this.minValue = 0.0,
     this.maxValue = 10.0,
     this.divisions,
-    this.activeColor = "2196F3",
-    this.inActiveColor = "808080",
-    this.thumbColor = "000000",
+    this.activeColor,
+    this.inActiveColor,
+    this.thumbColor,
   });
 
   //Factory constructor.
@@ -125,7 +134,9 @@ class SliderComponentProperties extends BaseModel {
         }
       }
 
-      if (key == _sfActiveColorKey || key == _sfInactiveColorKey || key == _sfThumbColorKey) {
+      if (key == _sfActiveColorKey ||
+          key == _sfInactiveColorKey ||
+          key == _sfThumbColorKey) {
         if (props[key] is! String) {
           return "Bad value for $key. Expected a String of length 6 but got ${props[key]}";
         }

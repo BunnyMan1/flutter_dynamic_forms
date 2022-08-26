@@ -131,6 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   // "show_border": false,
                   // "is_expanded": true,
                 }),
+
+                DatePickerComponentProperties.fromMap({
+                  'name': "date_picker",
+                  'is_required': true,
+                }),
               ],
             ),
             onSubmit: (var map) {

@@ -155,8 +155,6 @@ var radio_field_props = {
   // Title of the widget
   "legend": "String",
 
-  //TODO: Helper text maybe used as a description for the radio field section.
-
   // Description of the field.
   "helperTextKey": "",
 
@@ -274,6 +272,42 @@ var slider_field_props = {
   "thumb_color": "0000ff",
 };
 
+/// Range slider properties
+var range_slider_props = {
+  // Type of the component
+  "type": "slider",
+
+  // Label of the widget. Default value: ""(empty string)
+  "label": "",
+
+  // Name
+  "name": "",
+
+  // HelperText Default value: null (String Type)
+  "helper_text": null,
+
+  // Minimum value of slider field. Default value: 0.0
+  "min_value": 0.0,
+
+  // Maximum value of slider field. Default value: 10.0
+  "max_value": 10.0,
+
+  // Number of divisions. Default value: null
+  "divisions": 1,
+
+  // Active color. Default value: "000000"
+  "active_color": "000000",
+
+  // Inactive color. Default value: "00ff00"
+  "inactive_color": "00ff00",
+
+  // Label to be displayed when slider's starting thumb is pressed.
+  "start_label": "",
+
+  // Label to be displayed when slider's ending thumb is pressed.
+  "end_label": ""
+};
+
 /// `dropdown props` is the model for dropdown properties
 var dropdown_properties = {
   // Type of the component
@@ -353,6 +387,68 @@ var dropdown_properties = {
 
   // Border color, defaults to black
   "border_color": "000000",
+};
+
+/// Date picker
+var date_picker = {
+  // Date picker type widget
+  "type": "date_picker",
+
+  // Date picker name
+  "name": "",
+
+  // Date picker label
+  "label": "",
+
+  // Description of the component
+  "helper_text": '',
+
+  // Place holder, gets displayed when there is no value to display.
+  "place_holder": "",
+
+  // Initial date
+  "initial_date": "formatted date string",
+
+  // First date
+  "first_date": "formatted_date_string",
+
+  // If date picker is in range mode then Last date is required.
+  "last_date": "formatted_date_string",
+
+  // Initial date picker mode
+  "date_picker_entry_mode": "DatePickerEntryMode.calendar",
+
+  // Text to be displayed on cancel option of picker
+  "picker_cancel_text": "cancel",
+
+  // Text to be displayed on yes option of picker
+  "picker_select_text": "select",
+
+  // Whether the to show date range picker or not
+  "is_range_picker_mode": false,
+
+  // Is this field required
+  "is_required": false,
+
+  // Show error or not
+  "show_error": true,
+
+  // Custom error text is nullable string.
+  "custom_error_text": null,
+
+  "text_color": "000000",
+
+  // To show border for the text field or not.
+  "show_border": true,
+
+  // Border color for the text field.
+  "border_color": "0000ff",
+
+  // Border width for the text field.
+  "border_width": 1,
+
+  // Border radius for the text field.
+  "border_radius": 1,
 };
 
 /// `ValidationError`
