@@ -49,8 +49,7 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail":
-      "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -389,3 +388,7 @@ Include dio
   
   > Example: We should mention that we are using inbuilt h1 style for title, h2 for description, etc.
 */
+
+var multi_select_dropdown = {
+  
+};

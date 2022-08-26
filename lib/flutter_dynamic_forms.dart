@@ -11,3 +11,6 @@ export 'src/models/dropdown_field_props.dart';
 
 // Widgets
 export 'src/form/form_widget.dart';
+
+//TODO: remove this export
+export 'src/components/multiselect_dropdown_component.dart';

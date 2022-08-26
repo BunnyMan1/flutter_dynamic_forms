@@ -17,6 +17,8 @@ dependencies:
   # To create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
+  dropdown_search: ^5.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
