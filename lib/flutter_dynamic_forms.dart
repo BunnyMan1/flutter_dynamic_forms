@@ -10,9 +10,7 @@ export 'src/models/checkbox_field_props.dart';
 export 'src/models/dropdown_field_props.dart';
 export 'src/models/range_slider_field_props.dart';
 export 'src/models/datepicker_field_props.dart';
+export 'src/models/multiselect_dropdown_field_props.dart';
 
 // Widgets
 export 'src/form/form_widget.dart';
-
-//TODO: remove this export
-export 'src/components/multiselect_dropdown_component.dart';

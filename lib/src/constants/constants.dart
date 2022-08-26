@@ -20,3 +20,6 @@ const String dropdownComponentTypeName = 'dropdown';
 
 /// DatePickerComponentName =  `'date_picker'`
 const String datePickerComponentTypeName = 'date_picker';
+
+// MultiselectDropdownComponentName = `'multiselect_dropdown'`
+const String multiselectDropdownComponentTypeName = 'multiselect_dropdown';
