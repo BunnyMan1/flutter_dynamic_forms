@@ -25,10 +25,10 @@ Map<String, dynamic> _$SliderComponentPropertiesToJson(
     <String, dynamic>{
       'name': instance.name,
       'helper_text': instance.helperText,
-      'divisions': instance.divisions,
       'label': instance.label,
       'min_value': instance.minValue,
       'max_value': instance.maxValue,
+      'divisions': instance.divisions,
       'active_color': instance.activeColor,
       'inactive_color': instance.inActiveColor,
       'thumb_color': instance.thumbColor,

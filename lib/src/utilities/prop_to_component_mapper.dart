@@ -58,8 +58,7 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection =
-            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -117,8 +116,7 @@ Widget propsToComponentMapper({
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
     if (values[properties.name] == null) {
-      values[properties.name] =
-          RangeValues(properties.minValue, properties.maxValue);
+      values[properties.name] = RangeValues(properties.minValue, properties.maxValue);
     }
     return RangeSliderComponent(
       rangeValues: values[properties.name],
@@ -165,6 +163,7 @@ Widget propsToComponentMapper({
       }),
       properties: properties,
       value: values[properties.name],
+      error: validations[properties.name],
     );
   }
 

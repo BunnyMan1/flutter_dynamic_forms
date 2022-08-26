@@ -133,10 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
             DatePickerComponentProperties.fromMap(
               {
                 'name': 'date_picker',
-                'initial_date': "2022-08-09 00:00:00.000",
+                'initial_date': "2022-12-09 00:00:00.000",
                 "picker_help_text": "New date",
-                "is_range_picker_mode": true,
+                "is_range_picker_mode": false,
                 'first_date': "2022-12-09 00:00:00.000",
+                'is_required': true,
                 // 'last_date': "2022-12-09 00:00:00.000",
               },
             ),

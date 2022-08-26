@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
+import 'package:flutter_dynamic_forms/src/common/read_only_text_widget.dart';
 import 'package:flutter_dynamic_forms/src/utilities/helpers.dart';
 
 import '../models/datepicker_field_props.dart';
@@ -48,9 +49,7 @@ class DatePickerComponent extends StatelessWidget {
       throw "Bad Date Format found $value : $e";
     }
     return ComponentWrapper(
-      child: TextField(
-        readOnly: true,
-        controller: TextEditingController(text: dt),
+      child: ReadOnlyTextFieldWidget(
         onTap: () async {
           if (properties.rangePickerMode) {
             var dr = await showDateRangePicker(
@@ -63,8 +62,8 @@ class DatePickerComponent extends StatelessWidget {
             DateTime initDate;
 
             try {
-              initDate = DateTime.parse(
-                  properties.initialDate ?? DateTime.now().toIso8601String());
+              initDate =
+                  DateTime.parse(properties.initialDate ?? DateTime.now().toIso8601String());
             } catch (e) {
               throw "Bad Date Format found for initial_date: ${properties.initialDate}. Error s: $e";
             }
@@ -77,51 +76,95 @@ class DatePickerComponent extends StatelessWidget {
             onChange(dt);
           }
         },
-        decoration: InputDecoration(
-          prefixIcon: const Icon(
-            IconData(
-              0xf06bb,
-              fontFamily: 'MaterialIcons',
-            ),
-          ),
-          helperText: properties.placeHolderText,
-          errorText: error,
-          hintText: properties.placeHolderText,
-          labelText: properties.label,
-          labelStyle: TextStyle(
-            color: textColor.withOpacity(0.8),
-          ),
-          border: properties.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(properties.borderRadius),
-                  borderSide: BorderSide(
-                    color: borderColor,
-                    width: properties.borderWidth,
-                  ),
-                )
-              : null,
-          enabledBorder: properties.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    properties.borderRadius,
-                  ),
-                  borderSide: BorderSide(
-                    color: borderColor,
-                    width: properties.borderWidth,
-                  ),
-                )
-              : null,
-          focusedBorder: properties.showBorder
-              ? OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(properties.borderRadius),
-                  borderSide: BorderSide(
-                    color: borderColor,
-                    width: properties.borderWidth,
-                  ),
-                )
-              : null,
+        borderColor: borderColor,
+        borderRadius: properties.borderRadius,
+        borderWidth: properties.borderWidth,
+        showBorder: properties.showBorder,
+        text: dt,
+        textColor: textColor,
+        labelText: properties.label,
+        hintText: properties.placeHolderText,
+        errorText: error,
+        helperText: properties.helperText,
+        iconData: const IconData(
+          0xf06bb,
+          fontFamily: 'MaterialIcons',
         ),
       ),
+      //  TextField(
+      //   readOnly: true,
+      //   controller: TextEditingController(text: dt),
+      //   onTap: () async {
+      //     if (properties.rangePickerMode) {
+      //       var dr = await showDateRangePicker(
+      //         context: context,
+      //         firstDate: firstDate,
+      //         lastDate: lastDate,
+      //       );
+      //       onChange(dr);
+      //     } else {
+      //       DateTime initDate;
+
+      //       try {
+      //         initDate = DateTime.parse(
+      //             properties.initialDate ?? DateTime.now().toIso8601String());
+      //       } catch (e) {
+      //         throw "Bad Date Format found for initial_date: ${properties.initialDate}. Error s: $e";
+      //       }
+      //       var dt = await showDatePicker(
+      //         context: context,
+      //         initialDate: initDate,
+      //         firstDate: firstDate,
+      //         lastDate: lastDate,
+      //       );
+      //       onChange(dt);
+      //     }
+      //   },
+      //   decoration: InputDecoration(
+      //     prefixIcon: const Icon(
+      //       IconData(
+      //         0xf06bb,
+      //         fontFamily: 'MaterialIcons',
+      //       ),
+      //     ),
+      //     helperText: properties.placeHolderText,
+      //     errorText: error,
+      //     hintText: properties.placeHolderText,
+      //     labelText: properties.label,
+      //     labelStyle: TextStyle(
+      //       color: textColor.withOpacity(0.8),
+      //     ),
+      //     border: properties.showBorder
+      //         ? OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(properties.borderRadius),
+      //             borderSide: BorderSide(
+      //               color: borderColor,
+      //               width: properties.borderWidth,
+      //             ),
+      //           )
+      //         : null,
+      //     enabledBorder: properties.showBorder
+      //         ? OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(
+      //               properties.borderRadius,
+      //             ),
+      //             borderSide: BorderSide(
+      //               color: borderColor,
+      //               width: properties.borderWidth,
+      //             ),
+      //           )
+      //         : null,
+      //     focusedBorder: properties.showBorder
+      //         ? OutlineInputBorder(
+      //             borderRadius: BorderRadius.circular(properties.borderRadius),
+      //             borderSide: BorderSide(
+      //               color: borderColor,
+      //               width: properties.borderWidth,
+      //             ),
+      //           )
+      //         : null,
+      //   ),
+      // ),
     );
   }
 }
