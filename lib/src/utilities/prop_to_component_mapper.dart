@@ -175,7 +175,7 @@ Widget propsToComponentMapper({
 
     return MultiSelectDropdownComponent(
       properties: properties,
-      value: values[properties.name],
+      value: values[properties.name] ?? [],
       error: validations[properties.name],
       onChange: ((s) {
         // print("s is : $s");

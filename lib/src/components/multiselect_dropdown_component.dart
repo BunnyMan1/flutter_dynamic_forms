@@ -86,6 +86,11 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
 
   final TextEditingController _searchController = TextEditingController();
 
+  // @override
+  // bool operator ==(Object o) => identical(this, o) || widget.value.toString() == o.toString();
+
+  // @override
+  // int get hashCode => widget.value.hashCode;
   @override
   void initState() {
     _selected = widget.value ?? [];
@@ -143,15 +148,19 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
         for (var i = 0; i < labels.length; i++)
           GestureDetector(
             onTap: () {
-              print("value : ${values[i]}");
-              if (widget.onChange != null) {
-                widget.onChange!(values[i]);
-              }
-              setState(() {
-                _selected.contains(values[i])
-                    ? _selected.remove(values[i])
-                    : _selected.add(values[i]);
-              });
+              // print("value : ${values[i]}");
+              // if (widget.onChange != null) {
+              //   widget.onChange!(values[i]);
+              // }
+              // bool contains = false;
+              // for (var i in _selected) {
+              //   print(" i : $i and v[i] = ${values[i]}");
+              //   if (i == values[i]) contains = true;
+              // }
+
+              // setState(() {
+              //   contains ? _selected.remove(values[i]) : _selected.add(values[i]);
+              // });
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -165,19 +174,33 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
                     onChanged: ((_) {
                       if (widget.onChange != null) {
                         widget.onChange!(values[i]);
+                        setState(() {});
                       }
-                      print("value : ${values[i]} - ${_selected.contains(values[i])}");
-                      if (_selected.contains(values[i])) {
-                        print("removing : ${values[i]}");
-                        setState(() {
-                          _selected.remove(values[i]);
-                        });
-                      } else {
-                        print("adding : ${values[i]}");
-                        setState(() {
-                          _selected.add(values[i]);
-                        });
+                      print("value : ${values[i]}");
+                      if (widget.onChange != null) {
+                        widget.onChange!(values[i]);
                       }
+                      bool contains = false;
+                      for (var s in _selected) {
+                        print(" i : $s and v[i] = ${values[i]}");
+                        if (s == values[i]) contains = true;
+                      }
+
+                      setState(() {
+                        contains ? _selected.remove(values[i]) : _selected.add(values[i]);
+                      });
+                      // print("value : ${values[i]} - ${_selected.contains(values[i])}");
+                      // if (_selected.contains(values[i])) {
+                      //   print("removing : ${values[i]}");
+                      //   setState(() {
+                      //     _selected.remove(values[i]);
+                      //   });
+                      // } else {
+                      //   print("adding : ${values[i]}");
+                      //   setState(() {
+                      //     _selected.add(values[i]);
+                      //   });
+                      // }
                     }),
                   ),
                   Expanded(
