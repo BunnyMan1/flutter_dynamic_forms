@@ -49,7 +49,8 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail":
+      "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -389,6 +390,60 @@ var dropdown_properties = {
   "border_color": "000000",
 };
 
+/// Multi select dropdown
+var multi_select_dropdown = {
+  // Type of the component
+  "type": "multi_select_dropdown",
+
+  // Name of the component
+  "name": "",
+
+  // Legend is label of the component
+  "legend": "",
+
+  // Helper_text is the description of the component
+  "helper_text": "",
+
+  // Hint text is the placeholder of the component
+  "hint_text": "",
+
+  // Item labels
+  "item_labels": [],
+
+  // Item values
+  "item_values": [],
+
+  // Label color
+  "label_color": "",
+
+  // Dropdown color
+  "dropdown_color": "",
+
+  // Is dense
+  "is_dense": false,
+
+  // Determines whether the component required to be filled by the user or not
+  "is_required": false,
+
+  // Whether to show the error or not.
+  "show_error": true,
+
+  // Custom error text to be displayed
+  "custom_error_text": "",
+
+  // Determines whether the border should be displayed or not.
+  "show_border": true,
+
+  // Border radius determines the curvature of the edges for the component.
+  "border_radius": 1.0,
+
+  // Border width.
+  "border_width": 4.0,
+
+  // Color of the border
+  "border_color": "000000",
+};
+
 /// Date picker
 var date_picker = {
   // Date picker type widget
@@ -484,7 +539,3 @@ Include dio
   
   > Example: We should mention that we are using inbuilt h1 style for title, h2 for description, etc.
 */
-
-var multi_select_dropdown = {
-  
-};
