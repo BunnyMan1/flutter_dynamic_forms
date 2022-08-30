@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_forms/src/models/timepicker_field_props.dart';
 
 import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
@@ -7,6 +8,7 @@ import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
+import '../components/time_picker_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -158,6 +160,20 @@ Widget propsToComponentMapper({
     // If the property name is [datePickerComponentTypeName] then return a [DatePickerComponent]
     properties = properties as DatePickerComponentProperties;
     return DatePickerComponent(
+      onChange: ((dt) {
+        setValue(properties.name, dt);
+      }),
+      properties: properties,
+      value: values[properties.name],
+      error: validations[properties.name],
+    );
+  }
+
+  // Timepicker Component
+  else if (properties.type == timePickerComponentTypeName) {
+    // If the property name is  timePickerComponentTypeName] then return a  TimePickerComponent]
+    properties = properties as TimePickerComponentProperties;
+    return TimePickerComponent(
       onChange: ((dt) {
         setValue(properties.name, dt);
       }),

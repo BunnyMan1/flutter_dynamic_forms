@@ -141,6 +141,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 // 'last_date': "2022-12-09 00:00:00.000",
               },
             ),
+
+            //TimePicker
+            TimePickerComponentProperties.fromMap(
+              {
+                'name': 'time_picker',
+                'initial_time': "16:00",
+                "picker_help_text": "New Time",
+                'is_required': true,
+              },
+            ),
           ],
         ),
         onSubmit: (var map) {
