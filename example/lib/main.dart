@@ -130,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MultiSelectDropdownComponentProperties.fromMap({
                     'name': "multi_dropdown",
                     "legend": "mutli buses",
+                    'is_required': true,
                     "item_labels": [
                       'bus 1',
                       'bus 2',
@@ -140,13 +141,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       'bus 7'
                     ],
                     "item_values": [
-                      'bus 1',
-                      'bus 2',
-                      'bus 3',
-                      'bus 4',
-                      'bus5',
-                      'bus 6',
-                      'bus 7'
+                      'val 1',
+                      'val 2',
+                      'val 3',
+                      'val 4',
+                      'val 5',
+                      'val 6',
+                      'val 7'
                     ],
                   }),
                 ],
