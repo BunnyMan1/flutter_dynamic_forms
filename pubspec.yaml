@@ -1,28 +1,29 @@
 name: flutter_dynamic_forms
 
-description: A new Flutter package to create dynamic forms.
+description: A new flutter package to provide a solution for Server Driven forms in your Flutter application.
 
 version: 0.0.1
 
-homepage:
+homepage: null
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
+  # Flutter SDK
   flutter:
     sdk: flutter
-
-  # To create code for JSON serialization and deserialization.
-  json_annotation: ^4.6.0
 
   # For date formatting and other intl uses.
   intl: ^0.17.0
 
+  # To create code for JSON serialization and deserialization.
+  json_annotation: ^4.6.0
+
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  # To generate files.
+  build_runner: ^2.2.0
 
   # To generate api documentation for the package to be published.
   dartdoc: ^6.0.1
@@ -30,8 +31,9 @@ dev_dependencies:
   # Flutter linting
   flutter_lints: ^2.0.0
 
+  # Flutter Testing SDK
+  flutter_test:
+    sdk: flutter
+
   # Dev dependencies for json_annotation
   json_serializable: ^6.3.1
-
-  # To generate files.
-  build_runner: ^2.2.0

@@ -8,6 +8,7 @@ import 'base_model.dart';
 
 part 'timepicker_field_props.g.dart';
 
+/// Json Keys of the props used by TimePickerComponent
 @JsonSerializable()
 class TimePickerComponentProperties implements BaseModel {
   //!=======================================================//
@@ -18,6 +19,8 @@ class TimePickerComponentProperties implements BaseModel {
   static const String _tpfLabelKey = "label";
   static const String _tpfHelperTextKey = "helper_text";
   static const String _tpfPlaceHolderKey = "place_holder";
+  static const String _tpfHourLabelTextKey = "hour_label_text";
+  static const String _tpfMinuteabelTextKey = "minute_label_text";
   static const String _tpfInitialTimeKey = "initial_time";
   static const String _tpfTimePickerEntryModeKey = "time_picker_entry_mode";
   static const String _tpfPickerCancelTextKey = "picker_cancel_text";
@@ -30,8 +33,6 @@ class TimePickerComponentProperties implements BaseModel {
   static const String _tpfBorderColorKey = "border_color";
   static const String _tpfBorderWidthKey = "border_width";
   static const String _tpfBorderRadiusKey = "border_radius";
-  static const String _tpfHourLabelTextKey = "hour_label_text";
-  static const String _tpfMinuteabelTextKey = "minute_label_text";
 
   //!=======================================================//
   //!=======================================================//
@@ -166,7 +167,8 @@ class TimePickerComponentProperties implements BaseModel {
     bool isMap = false,
   }) {
     if (!isMap &&
-        (props[_tpfTypeKey] is! String || props[_tpfTypeKey] != datePickerComponentTypeName)) {
+        (props[_tpfTypeKey] is! String ||
+            props[_tpfTypeKey] != datePickerComponentTypeName)) {
       // If the type is not a string or is not a DatePicker component type.
       return 'Bad value for "$_tpfTypeKey".Expected "$datePickerComponentTypeName" but got "${props[_tpfTypeKey]}".';
     }
@@ -184,7 +186,10 @@ class TimePickerComponentProperties implements BaseModel {
         }
         try {
           String s = props[key];
-          TimeOfDay(hour: int.parse(s.split(":")[0]), minute: int.parse(s.split(":")[1]));
+          TimeOfDay(
+            hour: int.parse(s.split(":")[0]),
+            minute: int.parse(s.split(":")[1]),
+          );
         } catch (e) {
           return 'bad value for "$key". Expected a valid Time String (HH:MM) but got "${props[key]}".';
         }

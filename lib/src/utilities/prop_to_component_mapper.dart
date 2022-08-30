@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/models/timepicker_field_props.dart';
 
 import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
@@ -18,6 +17,7 @@ import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
+import '../models/timepicker_field_props.dart';
 import 'validator.dart';
 
 /// Takes a data class that extends [BaseModel] and returns a corresponding [Widget].
@@ -60,7 +60,8 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -118,7 +119,8 @@ Widget propsToComponentMapper({
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
     if (values[properties.name] == null) {
-      values[properties.name] = RangeValues(properties.minValue, properties.maxValue);
+      values[properties.name] =
+          RangeValues(properties.minValue, properties.maxValue);
     }
     return RangeSliderComponent(
       rangeValues: values[properties.name],

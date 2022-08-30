@@ -49,7 +49,8 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail":
+      "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -468,8 +469,17 @@ var time_picker = {
   // Place holder, gets displayed when there is no value to display.
   "place_holder": "",
 
+  // Label text for HH
+  "hour_label_text": "",
+
+  // Label text for MM
+  "minute_label_text": "",
+
   // Initial time
   "initial_time": "formatted time string (HH:MM) ",
+
+  //
+  "time_picker_entry_mode": "",
 
   // Text to be displayed on cancel option of picker
   "picker_cancel_text": "cancel",
@@ -482,12 +492,6 @@ var time_picker = {
 
   // Show error or not
   "show_error": true,
-
-  // Label text for HH
-  "hour_label_text": "",
-
-  // Label text for MM
-  "minute_label_text": "",
 
   // Custom error text is nullable string.
   "custom_error_text": null,
