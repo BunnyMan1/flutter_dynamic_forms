@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../common/component_wrapper.dart';
 import '../models/data_item.dart';
 import '../models/multiselect_dropdown_field_props.dart';
+import '../utilities/helpers.dart';
+import '../utilities/string_utilities.dart';
 
 class MultiSelectDropdownComponent extends StatelessWidget {
   const MultiSelectDropdownComponent({
@@ -28,7 +30,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComponentWrapper(
-      title: properties.legend,
+      // title: properties.legend,
       child: SizedBox(
         child: InputDecorator(
           decoration: InputDecoration(
@@ -39,7 +41,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
             helperText: properties.helperText,
             errorText: error,
             hintText: properties.hintText,
-            labelText: properties.legend,
+            labelText: toTitleCase(properties.legend ?? ''),
             suffixIcon: IconButton(
               onPressed: () {
                 showDialog(
@@ -59,8 +61,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
             ),
             border: properties.showBorder
                 ? OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(properties.borderRadius),
+                    borderRadius: BorderRadius.circular(properties.borderRadius),
                     borderSide: BorderSide(
                       color: Colors.black,
                       width: properties.borderWidth,
@@ -80,7 +81,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 12),
                           child: Chip(
-                            label: Text(properties.itemLabels[i].toString()),
+                            label: Text((value[i] as DataItem).key),
                             labelPadding: const EdgeInsets.symmetric(
                               vertical: 2,
                               horizontal: 8,
@@ -88,11 +89,10 @@ class MultiSelectDropdownComponent extends StatelessWidget {
                             deleteIcon: const Icon(Icons.close),
                             onDeleted: () {
                               if (onChange != null) {
-                                onChange!(value[i]);
+                                onChange!(DataItem(key: value[i].key, value: value[i].value));
                               }
                             },
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                         )
                     ],
@@ -124,7 +124,7 @@ class MultiDropdownPopup extends StatefulWidget {
 }
 
 class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
-  late List _selected;
+  late List _selected = [];
 
   late List<String> _origLabels;
   late List<String> labels;
@@ -136,7 +136,7 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
   bool _isSearching = false;
   @override
   void initState() {
-    _selected = widget.value ?? <DataItem>[];
+    _selected = [...widget.value ?? <DataItem>[]];
     _origLabels = widget.properties.itemLabels;
     labels = _origLabels;
     _origValues = widget.properties.itemValues;
@@ -197,68 +197,60 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
           const SizedBox(
             height: 8,
           ),
-          for (var i = 0; i < labels.length; i++)
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 4.0,
-                vertical: 4.0,
-              ),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: _selected.contains(
-                      DataItem(
-                        key: labels[i],
-                        value: values[i],
+          Column(
+            children: labels.mapIndexed((l, i) {
+              bool contains = false;
+              for (var s in _selected) {
+                if (s.value == values[i]) {
+                  contains = true;
+                  break;
+                }
+              }
+              // print(" contains: $l : $contains");
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 4.0,
+                  vertical: 4.0,
+                ),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: contains,
+                      onChanged: ((_) {
+                        if (widget.onChange != null) {
+                          widget.onChange!(
+                            DataItem(key: labels[i], value: values[i]),
+                          );
+                        }
+
+                        setState(() {
+                          if (contains) {
+                            print('removing from selected');
+
+                            _selected.remove(
+                              DataItem(key: l, value: values[i]),
+                            );
+                          } else {
+                            print('adding to` selected');
+                            _selected.add(
+                              DataItem(key: l, value: values[i]),
+                            );
+                          }
+                        });
+                      }),
+                    ),
+                    Expanded(
+                      child: Text(
+                        labels[i],
                       ),
                     ),
-                    onChanged: ((_) {
-                      if (widget.onChange != null) {
-                        widget.onChange!(
-                          DataItem(key: labels[i], value: values[i]),
-                        );
-                        setState(() {});
-                      }
-                      // if (widget.onChange != null) {
-                      //   widget.onChange!(values[i]);
-                      // }
-                      bool contains = false;
-                      for (var s in _selected) {
-                        print(" i : ${s.value} and v[i] = ${values[i]}");
-                        if (s.value == values[i]) contains = true;
-                      }
-
-                      setState(() {
-                        contains
-                            ? _selected.remove(
-                                DataItem(key: labels[i], value: values[i]),
-                              )
-                            : _selected.add(
-                                DataItem(key: labels[i], value: values[i]),
-                              );
-                      });
-                    }),
-                  ),
-                  Expanded(
-                    child: Text(
-                      labels[i],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            }).toList(),
+          )
         ],
       ),
     );
   }
-}
-
-bool checkForExistence(
-    dynamic newDataItemValue, List<DataItem> listOfDataItems) {
-  for (int i = 0; i < listOfDataItems.length; i++) {
-    if (newDataItemValue == listOfDataItems[i].value) {
-      return true;
-    }
-  }
-  return false;
 }

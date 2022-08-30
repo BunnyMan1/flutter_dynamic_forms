@@ -146,6 +146,7 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
           _values[name].add(value);
         }
       } else {
+        print('directlty assigning val');
         // directly assign the value to new key if the value need not to be added in a list.
         _values[name] = value;
       }

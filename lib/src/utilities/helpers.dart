@@ -22,6 +22,13 @@ String formattedDate(DateTime dt) {
   return DateFormat('d MMM yyyy').format(dt);
 }
 
+extension IndexedIterable<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
+    var i = 0;
+    return map((e) => f(e, i++));
+  }
+}
+
 // ------- Enum Mappers -------------
 
 /// Map string values to [RadioFieldAlignment] enum.
