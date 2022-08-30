@@ -28,6 +28,9 @@ MultiSelectDropdownComponentProperties
           borderRadius: (json['border_radius'] as num?)?.toDouble() ?? 8,
           borderWidth: (json['border_width'] as num?)?.toDouble() ?? 1,
           borderColor: json['border_color'] as String? ?? "000000",
+          chipColor: json['chipColor'] as String? ?? "000000",
+          chipIconColor: json['chipIconColor'] as String? ?? "ffffff",
+          chipTextColor: json['chipTextColor'] as String? ?? "ffffff",
         );
 
 Map<String, dynamic> _$MultiSelectDropdownComponentPropertiesToJson(
@@ -49,4 +52,7 @@ Map<String, dynamic> _$MultiSelectDropdownComponentPropertiesToJson(
       'border_radius': instance.borderRadius,
       'border_width': instance.borderWidth,
       'border_color': instance.borderColor,
+      'chipColor': instance.chipColor,
+      'chipTextColor': instance.chipTextColor,
+      'chipIconColor': instance.chipIconColor,
     };

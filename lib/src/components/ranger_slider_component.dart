@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
-import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
 
+import '../common/component_wrapper.dart';
+import '../models/range_slider_field_props.dart';
 import '../utilities/helpers.dart';
 
+/// `DatePickerComponent` is a custom component which renders a range slider field in the form.
 class RangeSliderComponent extends StatelessWidget {
   const RangeSliderComponent({
     Key? key,
@@ -12,7 +13,10 @@ class RangeSliderComponent extends StatelessWidget {
     required this.properties,
   }) : super(key: key);
 
+  /// Range values are considered from the range selected in the slider.
   final RangeValues rangeValues;
+
+  /// callback to 
   final Function(RangeValues? d) onChange;
   final RangeSliderComponentProperties properties;
 

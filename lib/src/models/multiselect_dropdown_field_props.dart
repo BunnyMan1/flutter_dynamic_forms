@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter_dynamic_forms/src/constants/constants.dart';
-import 'package:flutter_dynamic_forms/src/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../constants/constants.dart';
+import 'base_model.dart';
 
 part 'multiselect_dropdown_field_props.g.dart';
 
@@ -28,6 +29,9 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
   static const String _mddfBorderRadiusKey = 'border_radius';
   static const String _mddfBorderWidthKey = 'border_width';
   static const String _mddfBorderColorKey = 'border_color';
+  static const String _mddfChipColorKey = 'chip_color';
+  static const String _mddfChipTextColorKey = 'chip_text_color';
+  static const String _mddfChipIconColorKey = 'chip_icon_color';
 
   //!=======================================================//
   //!=======================================================//
@@ -112,6 +116,18 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
   @JsonKey(name: _mddfBorderColorKey)
   final String borderColor;
 
+  /// Chip color
+  /// Default value is `000000`
+  final String chipColor;
+
+  /// Chip text color
+  /// Default value is `ffffff`
+  final String chipTextColor;
+
+  /// Chip icon color
+  /// Default value is `ffffff`
+  final String chipIconColor;
+
   MultiSelectDropdownComponentProperties({
     required this.name,
     this.legend,
@@ -129,6 +145,9 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
     this.borderRadius = 8,
     this.borderWidth = 1,
     this.borderColor = "000000",
+    this.chipColor = "000000",
+    this.chipIconColor = "ffffff",
+    this.chipTextColor = "ffffff",
   });
 
   //Factory constructor.
@@ -136,7 +155,8 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
   /// Checks the given map with `MultiSelectDropdownComponentProperties.propertiesChecker` before creating object.
   /// Will throw error with specific message if any invalid value found for valid props.
   /// `name` is a mandatory props. Excluding it will lead to check failing.
-  factory MultiSelectDropdownComponentProperties.fromMap(Map<String, dynamic> map) {
+  factory MultiSelectDropdownComponentProperties.fromMap(
+      Map<String, dynamic> map) {
     var check = MultiSelectDropdownComponentProperties.propertiesChecker(
       map,
       isMap: true,
@@ -148,7 +168,8 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
   /// Factory constructor to convert the Dropdown properties JSON object to a map.
   factory MultiSelectDropdownComponentProperties.fromJson(String json) {
     Map<String, dynamic> parsed = jsonDecode(json);
-    var check = MultiSelectDropdownComponentProperties.propertiesChecker(parsed);
+    var check =
+        MultiSelectDropdownComponentProperties.propertiesChecker(parsed);
     if (check is String) throw check;
     return _$MultiSelectDropdownComponentPropertiesFromJson(parsed);
   }

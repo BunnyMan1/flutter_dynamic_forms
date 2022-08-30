@@ -442,6 +442,9 @@ var multi_select_dropdown = {
 
   // Color of the border
   "border_color": "000000",
+
+  // Color of the chip to be displayed in the text field
+  "chip_color": "000000"
 };
 
 /// Date picker

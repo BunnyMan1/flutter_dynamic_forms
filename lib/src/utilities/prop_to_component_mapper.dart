@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
 import '../components/dropdown_component.dart';
@@ -10,6 +11,7 @@ import '../components/text_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/data_item.dart';
 import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
 import '../models/multiselect_dropdown_field_props.dart';
@@ -59,7 +61,8 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -117,7 +120,8 @@ Widget propsToComponentMapper({
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
     if (values[properties.name] == null) {
-      values[properties.name] = RangeValues(properties.minValue, properties.maxValue);
+      values[properties.name] =
+          RangeValues(properties.minValue, properties.maxValue);
     }
     return RangeSliderComponent(
       rangeValues: values[properties.name],
@@ -154,6 +158,23 @@ Widget propsToComponentMapper({
     );
   }
 
+  // MultiSelectDropdown Component
+  else if (properties.type == multiselectDropdownComponentTypeName) {
+    // If the property name is [multiselectDropdownComponentTypeName] then return a [MultiSelectDropdownComponentProperties]
+    properties = properties as MultiSelectDropdownComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] = <DataItem>[];
+    }
+    return MultiSelectDropdownComponent(
+      properties: properties,
+      value: values[properties.name],
+      error: validations[properties.name],
+      onChange: ((s) {
+        setValue(properties.name, s, isList: true);
+      }),
+    );
+  }
+
   // Datepicker Component
   else if (properties.type == datePickerComponentTypeName) {
     // If the property name is [datePickerComponentTypeName] then return a [DatePickerComponent]
@@ -165,22 +186,6 @@ Widget propsToComponentMapper({
       properties: properties,
       value: values[properties.name],
       error: validations[properties.name],
-    );
-  }
-
-  // MultiSelectDropdown Component
-  else if (properties.type == multiselectDropdownComponentTypeName) {
-    // If the property name is [multiselectDropdownComponentTypeName] then return a [MultiSelectDropdownComponentProperties]
-    properties = properties as MultiSelectDropdownComponentProperties;
-
-    return MultiSelectDropdownComponent(
-      properties: properties,
-      value: values[properties.name] ?? [],
-      error: validations[properties.name],
-      onChange: ((s) {
-        // print("s is : $s");
-        setValue(properties.name, s, isList: true);
-      }),
     );
   }
 

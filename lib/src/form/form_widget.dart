@@ -129,7 +129,7 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
 
   /// This method will be called by the component when the value of a component is changed.
   /// This method will update the `_values` map with the new value.
-  void _setValues(var name, var value, {bool? isList}) {
+  void _setValues(dynamic name, dynamic value, {bool? isList}) {
     setState(() {
       // Check if the value to be stored in a list or not.
       if (isList == true) {

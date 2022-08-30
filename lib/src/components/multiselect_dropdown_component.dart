@@ -1,9 +1,7 @@
-// import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_forms/src/common/component_wrapper.dart';
-import 'package:flutter_dynamic_forms/src/common/read_only_text_widget.dart';
-import 'package:flutter_dynamic_forms/src/utilities/helpers.dart';
 
+import '../common/component_wrapper.dart';
+import '../models/data_item.dart';
 import '../models/multiselect_dropdown_field_props.dart';
 
 class MultiSelectDropdownComponent extends StatelessWidget {
@@ -15,6 +13,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
     required this.properties,
   }) : super(key: key);
 
+  /// Properties of multiselect dropdown components
   final MultiSelectDropdownComponentProperties properties;
 
   /// `value` is the value of the dropdown field.
@@ -25,35 +24,84 @@ class MultiSelectDropdownComponent extends StatelessWidget {
 
   /// `onChange` is a function that is called when the value of the dropdown field is changed.
   final Function(dynamic s)? onChange;
+
   @override
   Widget build(BuildContext context) {
     return ComponentWrapper(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ReadOnlyTextFieldWidget(
-            borderColor: hexStringToColorConverter(properties.borderColor),
-            borderRadius: properties.borderRadius,
-            borderWidth: properties.borderWidth,
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: ((context) {
-                  return MultiDropdownPopup(
-                      properties: properties, value: value, onChange: onChange);
-                }),
-              );
-            },
-            suffixIconData: const IconData(
-              0xee8a,
-              fontFamily: 'MaterialIcons',
+      title: properties.legend,
+      child: SizedBox(
+        child: InputDecorator(
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 30,
+              horizontal: 16,
             ),
-            showBorder: properties.showBorder,
-            text: "$value",
-            textColor: hexStringToColorConverter(properties.labelColor),
+            helperText: properties.helperText,
+            errorText: error,
+            hintText: properties.hintText,
+            labelText: properties.legend,
+            suffixIcon: IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return MultiDropdownPopup(
+                      properties: properties,
+                      value: value,
+                      onChange: onChange,
+                    );
+                  },
+                );
+              },
+              icon: const Icon(
+                Icons.arrow_drop_down,
+              ),
+            ),
+            border: properties.showBorder
+                ? OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(properties.borderRadius),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: properties.borderWidth,
+                    ),
+                  )
+                : null,
           ),
-        ],
+          child: Row(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < value.length; i++)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Chip(
+                            label: Text(properties.itemLabels[i].toString()),
+                            labelPadding: const EdgeInsets.symmetric(
+                              vertical: 2,
+                              horizontal: 8,
+                            ),
+                            deleteIcon: const Icon(Icons.close),
+                            onDeleted: () {
+                              if (onChange != null) {
+                                onChange!(value[i]);
+                              }
+                            },
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                          ),
+                        )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -85,15 +133,10 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
   late List values;
 
   final TextEditingController _searchController = TextEditingController();
-
-  // @override
-  // bool operator ==(Object o) => identical(this, o) || widget.value.toString() == o.toString();
-
-  // @override
-  // int get hashCode => widget.value.hashCode;
+  bool _isSearching = false;
   @override
   void initState() {
-    _selected = widget.value ?? [];
+    _selected = widget.value ?? <DataItem>[];
     _origLabels = widget.properties.itemLabels;
     labels = _origLabels;
     _origValues = widget.properties.itemValues;
@@ -103,104 +146,97 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
 
   @override
   Widget build(BuildContext context) {
-    print(_selected);
     return AlertDialog(
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _searchController,
-                onChanged: ((query) {
-                  if (query == "") {
-                    labels = [..._origLabels];
-                    values = [..._origValues];
-                    setState(() {});
-                    return;
-                  }
-                  labels = [];
-                  values = [];
-                  for (int i = 0; i < _origLabels.length; i++) {
-                    if (_origLabels[i].contains(query.toLowerCase())) {
-                      labels.add(_origLabels[i]);
-                      values.add(_origValues[i]);
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: ((query) {
+                    if (query == "") {
+                      labels = [..._origLabels];
+                      values = [..._origValues];
+                      _isSearching = false;
+                      setState(() {});
+                      return;
+                    } else {
+                      _isSearching = true;
                     }
-                  }
-                  setState(() {});
-                }),
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _searchController.clear();
-                      setState(() {
-                        labels = [..._origLabels];
-                        values = [..._origValues];
-                      });
-                    },
-                    icon: const Icon(Icons.close),
+                    labels = [];
+                    values = [];
+                    for (int i = 0; i < _origLabels.length; i++) {
+                      if (_origLabels[i].contains(query.toLowerCase())) {
+                        labels.add(_origLabels[i]);
+                        values.add(_origValues[i]);
+                      }
+                    }
+                    setState(() {});
+                  }),
+                  decoration: InputDecoration(
+                    hintText: "Search",
+                    suffixIcon: _isSearching
+                        ? IconButton(
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() {
+                                labels = [..._origLabels];
+                                values = [..._origValues];
+                              });
+                            },
+                            icon: const Icon(Icons.close),
+                          )
+                        : const Icon(Icons.search),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-        for (var i = 0; i < labels.length; i++)
-          GestureDetector(
-            onTap: () {
-              // print("value : ${values[i]}");
-              // if (widget.onChange != null) {
-              //   widget.onChange!(values[i]);
-              // }
-              // bool contains = false;
-              // for (var i in _selected) {
-              //   print(" i : $i and v[i] = ${values[i]}");
-              //   if (i == values[i]) contains = true;
-              // }
-
-              // setState(() {
-              //   contains ? _selected.remove(values[i]) : _selected.add(values[i]);
-              // });
-            },
-            child: Container(
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          for (var i = 0; i < labels.length; i++)
+            Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 4.0,
-                vertical: 8.0,
+                vertical: 4.0,
               ),
               child: Row(
                 children: [
                   Checkbox(
-                    value: _selected.contains(values[i]),
+                    value: _selected.contains(
+                      DataItem(
+                        key: labels[i],
+                        value: values[i],
+                      ),
+                    ),
                     onChanged: ((_) {
                       if (widget.onChange != null) {
-                        widget.onChange!(values[i]);
+                        widget.onChange!(
+                          DataItem(key: labels[i], value: values[i]),
+                        );
                         setState(() {});
                       }
-                      print("value : ${values[i]}");
-                      if (widget.onChange != null) {
-                        widget.onChange!(values[i]);
-                      }
+                      // if (widget.onChange != null) {
+                      //   widget.onChange!(values[i]);
+                      // }
                       bool contains = false;
                       for (var s in _selected) {
-                        print(" i : $s and v[i] = ${values[i]}");
-                        if (s == values[i]) contains = true;
+                        print(" i : ${s.value} and v[i] = ${values[i]}");
+                        if (s.value == values[i]) contains = true;
                       }
 
                       setState(() {
-                        contains ? _selected.remove(values[i]) : _selected.add(values[i]);
+                        contains
+                            ? _selected.remove(
+                                DataItem(key: labels[i], value: values[i]),
+                              )
+                            : _selected.add(
+                                DataItem(key: labels[i], value: values[i]),
+                              );
                       });
-                      // print("value : ${values[i]} - ${_selected.contains(values[i])}");
-                      // if (_selected.contains(values[i])) {
-                      //   print("removing : ${values[i]}");
-                      //   setState(() {
-                      //     _selected.remove(values[i]);
-                      //   });
-                      // } else {
-                      //   print("adding : ${values[i]}");
-                      //   setState(() {
-                      //     _selected.add(values[i]);
-                      //   });
-                      // }
                     }),
                   ),
                   Expanded(
@@ -211,8 +247,18 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
                 ],
               ),
             ),
-          ),
-      ]),
+        ],
+      ),
     );
   }
+}
+
+bool checkForExistence(
+    dynamic newDataItemValue, List<DataItem> listOfDataItems) {
+  for (int i = 0; i < listOfDataItems.length; i++) {
+    if (newDataItemValue == listOfDataItems[i].value) {
+      return true;
+    }
+  }
+  return false;
 }

@@ -1,4 +1,3 @@
-import 'package:flutter_dynamic_forms/src/models/range_slider_field_props.dart';
 
 import '../constants/constants.dart';
 import '../models/base_model.dart';
@@ -7,6 +6,7 @@ import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
 import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
+import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 
