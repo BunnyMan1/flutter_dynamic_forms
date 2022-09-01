@@ -19,6 +19,7 @@ class RadioFieldComponent extends StatelessWidget {
   /// `value` is the value of the radio field.
   final dynamic value;
 
+  /// `error` to be displayed below the component.
   final String? error;
 
   /// `onChange` is a function that is called when the value of the radio field is changed.

@@ -4,6 +4,7 @@ import '../common/component_wrapper.dart';
 import '../models/slider_field_props.dart';
 import '../utilities/helpers.dart';
 
+/// `SliderComponent` is a custom component which renders a slider field in the form.
 class SliderComponent extends StatelessWidget {
   const SliderComponent({
     Key? key,
@@ -12,9 +13,15 @@ class SliderComponent extends StatelessWidget {
     required this.properties,
   }) : super(key: key);
 
+  /// This holds the value of the component and must be double
   final double value;
+
+  /// A callback function whent the value of the component changes
   final Function(double? d) onChange;
+
+  /// Properties of the component.
   final SliderComponentProperties properties;
+
   @override
   Widget build(BuildContext context) {
     Color? aColor = properties.activeColor != null

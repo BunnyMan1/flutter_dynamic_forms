@@ -9,7 +9,6 @@ class CheckBoxFieldComponent extends StatelessWidget {
     Key? key,
     required this.properties,
     required this.value,
-    // required this.selectedValues,
     this.error,
     this.onChange,
   }) : super(key: key);
@@ -20,8 +19,7 @@ class CheckBoxFieldComponent extends StatelessWidget {
   /// `value` is the value of the checkbox field.
   final dynamic value;
 
-  /// `selectedValues` are the selected values of the checkbox field.
-  // final List<dynamic> selectedValues;
+  /// `error` to be displayed below the component.
   final String? error;
 
   /// `onChange` is a function that is called when the value of the radio field is changed.

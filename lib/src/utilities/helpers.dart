@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../flutter_dynamic_forms.dart';
+import '../models/radio_field_props.dart';
 
 /// `hexStringToColorConverter` converts a hex string to a color.
 Color hexStringToColorConverter(String s) {
@@ -17,7 +17,8 @@ Color hexStringToColorConverter(String s) {
   return Color(int.parse(buffer.toString(), radix: 16));
 }
 
-///
+/// Formats the given DateTime object as into a String.
+/// `d MMM yyyy` format.
 String formattedDate(DateTime dt) {
   return DateFormat('d MMM yyyy').format(dt);
 }
@@ -45,7 +46,7 @@ RadioFieldAlignment mapRadioFieldAlignment(String value) {
   }
 }
 
-/// Map string values to [RadioLabelPosition] enum.
+/// Map string values to [RadioFieldLabelPosition] enum.
 RadioFieldLabelPosition mapRadioFieldLabelPosition(String value) {
   switch (value.toLowerCase().trim()) {
     case "left":
@@ -59,8 +60,8 @@ RadioFieldLabelPosition mapRadioFieldLabelPosition(String value) {
   }
 }
 
-/// Map string values to [RadioLabelStyle] enum.
-/// This will determine the font weight of the label.
+/// Map string values to [RadioFieldLabelStyle] enum.
+/// This will determine the font weight of the label in radio
 RadioFieldLabelStyle mapRadioFieldLabelStyle(String value) {
   switch (value.toLowerCase().trim()) {
     case "normal":

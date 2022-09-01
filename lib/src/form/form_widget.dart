@@ -6,18 +6,24 @@ import '../utilities/validator.dart';
 
 /// Flutter dynamic form. This is the main form widget of this package.
 class FlutterDynamicForm extends StatefulWidget {
-  final FlutterDynamicFormData formData;
-  final void Function(Map<String, dynamic>)? onSubmit;
+  // Constructor
   const FlutterDynamicForm({
     Key? key,
     required this.formData,
     this.onSubmit,
   }) : super(key: key);
 
+  /// Form Data
+  final FlutterDynamicFormData formData;
+
+  /// A callback function when the form is submitted
+  final void Function(Map<String, dynamic>)? onSubmit;
+
   @override
   State<FlutterDynamicForm> createState() => _FlutterDynamicFormState();
 }
 
+/// The state of [FlutterDynamicForm]
 class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
   @override
   void initState() {
@@ -42,8 +48,10 @@ class _FlutterDynamicFormState extends State<FlutterDynamicForm> {
     }
   }
 
+  /// Values of the components in the form
   final Map<String, dynamic> _values = {};
 
+  /// Validations of the components in the form
   final Map<String, dynamic> _validations = {};
 
   @override
