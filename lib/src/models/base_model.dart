@@ -6,5 +6,5 @@ abstract class BaseModel {
   /// Name of the component.
   String get name;
 
-  //TODO: Add properties checker function in the base model and override in other classes.
+  //TODO: Add common properties of all components here in base model.
 }

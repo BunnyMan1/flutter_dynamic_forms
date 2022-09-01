@@ -6,6 +6,7 @@ import '../models/multiselect_dropdown_field_props.dart';
 import '../utilities/helpers.dart';
 import '../utilities/string_utilities.dart';
 
+/// MultiSelectDropdownComponent is a component that renders a multi select dropdown widget.
 class MultiSelectDropdownComponent extends StatelessWidget {
   const MultiSelectDropdownComponent({
     Key? key,
@@ -30,76 +31,79 @@ class MultiSelectDropdownComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ComponentWrapper(
-      // title: properties.legend,
       child: SizedBox(
-        child: InputDecorator(
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 30,
-              horizontal: 16,
-            ),
-            helperText: properties.helperText,
-            errorText: error,
-            hintText: properties.hintText,
-            labelText: toTitleCase(properties.legend ?? ''),
-            suffixIcon: IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return MultiDropdownPopup(
-                      properties: properties,
-                      value: value,
-                      onChange: onChange,
-                    );
-                  },
+        child: InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return MultiDropdownPopup(
+                  properties: properties,
+                  value: value,
+                  onChange: onChange,
                 );
               },
-              icon: const Icon(
+            );
+          },
+          child: InputDecorator(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 30,
+                horizontal: 16,
+              ),
+              helperText: properties.helperText,
+              errorText: error,
+              hintText: properties.hintText,
+              labelText: toTitleCase(properties.legend ?? ''),
+              suffixIcon: const Icon(
                 Icons.arrow_drop_down,
               ),
+              border: properties.showBorder
+                  ? OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(properties.borderRadius),
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                        width: properties.borderWidth,
+                      ),
+                    )
+                  : null,
             ),
-            border: properties.showBorder
-                ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(properties.borderRadius),
-                    borderSide: BorderSide(
-                      color: Colors.black,
-                      width: properties.borderWidth,
-                    ),
-                  )
-                : null,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      for (int i = 0; i < value.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Chip(
-                            label: Text((value[i] as DataItem).key),
-                            labelPadding: const EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: 8,
+            child: Row(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < value.length; i++)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Chip(
+                              label: Text((value[i] as DataItem).key),
+                              labelPadding: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              deleteIcon: const Icon(Icons.close),
+                              onDeleted: () {
+                                if (onChange != null) {
+                                  onChange!(DataItem(
+                                      key: value[i].key,
+                                      value: value[i].value));
+                                }
+                              },
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                             ),
-                            deleteIcon: const Icon(Icons.close),
-                            onDeleted: () {
-                              if (onChange != null) {
-                                onChange!(DataItem(key: value[i].key, value: value[i].value));
-                              }
-                            },
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                        )
-                    ],
+                          )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -107,6 +111,7 @@ class MultiSelectDropdownComponent extends StatelessWidget {
   }
 }
 
+/// A multi select options widget to be displayed on multidropdown popup.
 class MultiDropdownPopup extends StatefulWidget {
   const MultiDropdownPopup({
     Key? key,
@@ -115,32 +120,49 @@ class MultiDropdownPopup extends StatefulWidget {
     required this.onChange,
   }) : super(key: key);
 
+  /// `MultiSelectDropdownComponentProperties` properties
   final MultiSelectDropdownComponentProperties properties;
+
+  /// Value of the component
   final dynamic value;
+
+  /// A callback when the component is changed.
   final Function(dynamic s)? onChange;
 
   @override
   State<MultiDropdownPopup> createState() => _MultiDropdownPopupState();
 }
 
+/// Defines the state of [MultiDropdownPopup]
 class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
+  /// List of selected values
   late List _selected = [];
 
+  /// List of original labels
   late List<String> _origLabels;
+
+  /// List of labels
   late List<String> labels;
 
+  /// List of original values
   late List _origValues;
+
+  /// List of values
   late List values;
 
+  /// A text editing controller for search field in the dropdown menu.
   final TextEditingController _searchController = TextEditingController();
+
+  /// Determines searching is in progress or not.
   bool _isSearching = false;
+
   @override
   void initState() {
     _selected = [...widget.value ?? <DataItem>[]];
     _origLabels = widget.properties.itemLabels;
-    labels = _origLabels;
+    labels = [..._origLabels];
     _origValues = widget.properties.itemValues;
-    values = _origValues;
+    values = [..._origValues];
     super.initState();
   }
 
@@ -206,45 +228,48 @@ class _MultiDropdownPopupState extends State<MultiDropdownPopup> {
                   break;
                 }
               }
-              // print(" contains: $l : $contains");
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 4.0,
-                  vertical: 4.0,
-                ),
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: contains,
-                      onChanged: ((_) {
-                        if (widget.onChange != null) {
-                          widget.onChange!(
-                            DataItem(key: labels[i], value: values[i]),
-                          );
-                        }
 
-                        setState(() {
-                          if (contains) {
-                            print('removing from selected');
+              /// When an item from the multiselect drop down is selected or unselected
+              void onTapped() {
+                if (widget.onChange != null) {
+                  widget.onChange!(
+                    DataItem(key: l, value: values[i]),
+                  );
+                }
 
-                            _selected.remove(
-                              DataItem(key: l, value: values[i]),
-                            );
-                          } else {
-                            print('adding to` selected');
-                            _selected.add(
-                              DataItem(key: l, value: values[i]),
-                            );
-                          }
-                        });
-                      }),
-                    ),
-                    Expanded(
-                      child: Text(
-                        labels[i],
+                setState(() {
+                  if (contains) {
+                    _selected.remove(
+                      DataItem(key: l, value: values[i]),
+                    );
+                  } else {
+                    _selected.add(
+                      DataItem(key: l, value: values[i]),
+                    );
+                  }
+                });
+              }
+
+              return InkWell(
+                onTap: onTapped,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                    vertical: 4.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: contains,
+                        onChanged: (_) => onTapped(),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Text(
+                          l,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }).toList(),

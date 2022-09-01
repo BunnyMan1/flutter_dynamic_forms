@@ -77,8 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     inputType: InputType.number,
                   ),
-                  //TODO: Uncomment these components
-
+                  
                   // // Radio Field Component rendered as a widget from the map provided.
                   // RadioComponentProperties.fromMap(
                   //   {
