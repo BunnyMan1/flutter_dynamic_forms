@@ -154,7 +154,7 @@ class TimePickerComponent extends StatelessWidget {
         hintText: properties.placeHolderText,
         errorText: error,
         helperText: properties.helperText,
-        iconData: const IconData(
+        prefixIconData: const IconData(
           0xe6cf,
           fontFamily: 'MaterialIcons',
         ),

@@ -10,10 +10,16 @@ class ComponentWrapper extends StatelessWidget {
     this.description,
     this.title,
   }) : super(key: key);
-  
+
+  /// Component as child.
   final Widget child;
+
+  /// Description of the component.
   final String? description;
+
+  /// Title of the component
   final String? title;
+
   @override
   Widget build(BuildContext context) {
     return Column(

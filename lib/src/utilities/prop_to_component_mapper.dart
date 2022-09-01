@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
 import '../components/dropdown_component.dart';
+import '../components/multiselect_dropdown_component.dart';
 import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
 import '../components/slider_component.dart';
@@ -11,8 +12,10 @@ import '../components/time_picker_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
+import '../models/data_item.dart';
 import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
+import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
@@ -154,6 +157,42 @@ Widget propsToComponentMapper({
       },
       value: values[properties.name],
       error: validations[properties.name],
+    );
+  }
+
+  // MultiSelectDropdown Component
+  else if (properties.type == multiselectDropdownComponentTypeName) {
+    // If the property name is [multiselectDropdownComponentTypeName] then return a [MultiSelectDropdownComponentProperties]
+    properties = properties as MultiSelectDropdownComponentProperties;
+    if (values[properties.name] == null) {
+      values[properties.name] = <DataItem>[];
+    }
+    return MultiSelectDropdownComponent(
+      properties: properties,
+      value: values[properties.name],
+      error: validations[properties.name],
+      onChange: ((s) {
+
+        //!NOTE: Added value equality 
+
+        // List vals = values[properties.name];
+
+        // print(" current vals : ${vals.length} : $vals");
+        // int containsAtIndex = -1;
+        // for (var i = 0; i < vals.length; i++) {
+        //   if ((vals[i] as DataItem).value == (s as DataItem).value) {
+        //     containsAtIndex = i;
+        //     break;
+        //   }
+        // }
+        // print("contains at index: $containsAtIndex");
+        // if (containsAtIndex >= 0) {
+        //   vals.removeAt(containsAtIndex);
+        // } else {
+        //   vals.add(s);
+        // }
+        setValue(properties.name, s, isList: true);
+      }),
     );
   }
 

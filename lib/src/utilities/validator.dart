@@ -1,21 +1,19 @@
-import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
-
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
 import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
+import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/text_field_props.dart';
+import '../models/timepicker_field_props.dart';
 import '../models/validation_result.dart';
 
+/// Validates the component.
 ValidationResult componentValidator({
   required BaseModel properties,
   required dynamic value,
 }) {
-  // print(
-  // " #######################  \n  To validate comp : ${properties.type}  \n ##########################");
-
   // Validation logic for text component.
   if (properties.type == textComponentTypeName) {
     properties = properties as TextComponentProperties;
@@ -52,12 +50,16 @@ ValidationResult componentValidator({
       }
     }
 
-    if (properties.minLength != null && value != null && value.length < properties.minLength!) {
+    if (properties.minLength != null &&
+        value != null &&
+        value.length < properties.minLength!) {
       if (properties.customErrorText != null) {
         validationResult.errors.add({"MinLength": properties.customErrorText});
       } else {
-        validationResult.errors
-            .add({"MinLength": "Should be minimum ${properties.minLength} characters long."});
+        validationResult.errors.add({
+          "MinLength":
+              "Should be minimum ${properties.minLength} characters long."
+        });
       }
     }
 
@@ -91,13 +93,14 @@ ValidationResult componentValidator({
       errors: [],
     );
 
-    if (properties.required && ((value is List && value.isEmpty) || value == null)) {
+    if (properties.required &&
+        ((value is List && value.isEmpty) || value == null)) {
       validationResult.errors.add({"Required": "This is a required field."});
     }
 
     return validationResult;
   }
-
+  // validation logic for slider component.
   if (properties.type == sliderComponentTypeName) {
     ValidationResult validationResult = ValidationResult(
       componentName: properties.name,
@@ -108,6 +111,8 @@ ValidationResult componentValidator({
 
     return validationResult;
   }
+
+  // validation logic for range slider component.
   if (properties.type == rangeSliderComponentTypeName) {
     ValidationResult validationResult = ValidationResult(
       componentName: properties.name,
@@ -134,7 +139,8 @@ ValidationResult componentValidator({
     // }
 
     if (properties.isRequired && (value == null || value == "")) {
-      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
         validationResult.errors.add(
           {"Required": properties.customErrorText},
         );
@@ -148,7 +154,34 @@ ValidationResult componentValidator({
     return validationResult;
   }
 
-  // Date picker component type name.
+  // Validation for multiselect dropdown component
+  if (properties.type == multiselectDropdownComponentTypeName) {
+    properties = properties as MultiSelectDropdownComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+
+    if (properties.isRequired &&
+        (value == null || value.isEmpty || value == "")) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+    return validationResult;
+  }
+
+  // Validation for date picker component
   if (properties.type == datePickerComponentTypeName) {
     properties = properties as DatePickerComponentProperties;
     ValidationResult validationResult = ValidationResult(
@@ -159,7 +192,8 @@ ValidationResult componentValidator({
     );
 
     if (properties.isRequired && (value == null || value == "")) {
-      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
         validationResult.errors.add(
           {"Required": properties.customErrorText},
         );
@@ -173,7 +207,7 @@ ValidationResult componentValidator({
     return validationResult;
   }
 
-  // Time picker component type name.
+  // Validation for time picker component
   if (properties.type == timePickerComponentTypeName) {
     properties = properties as TimePickerComponentProperties;
     ValidationResult validationResult = ValidationResult(
@@ -184,7 +218,8 @@ ValidationResult componentValidator({
     );
 
     if (properties.isRequired && (value == null || value == "")) {
-      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
         validationResult.errors.add(
           {"Required": properties.customErrorText},
         );
