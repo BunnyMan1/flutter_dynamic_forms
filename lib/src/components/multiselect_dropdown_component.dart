@@ -30,6 +30,15 @@ class MultiSelectDropdownComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Chip color is applied to background of the chip widget.
+    Color chipColor = hexStringToColorConverter(properties.chipColor);
+
+    /// Chip text color is applied to the text displayed on the chip widget.
+    Color chipTextColor = hexStringToColorConverter(properties.chipTextColor);
+
+    /// Chip icon color is applied to the cross icon on chip.
+    Color chipIconColor = hexStringToColorConverter(properties.chipTextColor);
+
     return ComponentWrapper(
       child: SizedBox(
         child: InkWell(
@@ -81,7 +90,14 @@ class MultiSelectDropdownComponent extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 12),
                             child: Chip(
-                              label: Text((value[i] as DataItem).key),
+                              backgroundColor: chipColor,
+                              deleteIconColor: chipIconColor,
+                              label: Text(
+                                (value[i] as DataItem).key,
+                                style: TextStyle(
+                                  color: chipTextColor,
+                                ),
+                              ),
                               labelPadding: const EdgeInsets.symmetric(
                                 vertical: 2,
                                 horizontal: 8,

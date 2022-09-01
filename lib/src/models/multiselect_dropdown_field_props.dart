@@ -118,14 +118,17 @@ class MultiSelectDropdownComponentProperties implements BaseModel {
 
   /// Chip color
   /// Default value is `000000`
+  @JsonKey(name: _mddfChipColorKey)
   final String chipColor;
 
   /// Chip text color
   /// Default value is `ffffff`
+  @JsonKey(name: _mddfChipTextColorKey)
   final String chipTextColor;
 
   /// Chip icon color
   /// Default value is `ffffff`
+  @JsonKey(name: _mddfChipIconColorKey)
   final String chipIconColor;
 
   MultiSelectDropdownComponentProperties({
