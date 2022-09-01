@@ -8,6 +8,7 @@ import '../models/dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
+import '../models/timepicker_field_props.dart';
 
 /// `nameToPropsMapper` is a function that maps the name of a component to its props.
 BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
@@ -88,6 +89,20 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     // If the check is not string, then it is a valid map.
     // Create a DatePickerComponentProperties object from the map.
     return DatePickerComponentProperties.fromMap(map);
+  }
+
+  // TimePicker Component
+  else if (key == timePickerComponentTypeName) {
+    // If key is timepicker component, then check for timepicker properties validation.
+    var check = TimePickerComponentProperties.propertiesChecker(map, isMap: true);
+    if (check is String) {
+      // If the check is string, then it is an error message.
+      // Throw the error message.
+      throw check;
+    }
+    // If the check is not string, then it is a valid map.
+    // Create a TimePickerComponentProperties object from the map.
+    return TimePickerComponentProperties.fromMap(map);
   }
   throw 'Unkown component with name $map.';
 }

@@ -7,6 +7,7 @@ import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
+import '../components/time_picker_component.dart';
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -16,6 +17,7 @@ import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
+import '../models/timepicker_field_props.dart';
 import 'validator.dart';
 
 /// Takes a data class that extends [BaseModel] and returns a corresponding [Widget].
@@ -58,7 +60,8 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection =
+            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -116,7 +119,8 @@ Widget propsToComponentMapper({
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
     if (values[properties.name] == null) {
-      values[properties.name] = RangeValues(properties.minValue, properties.maxValue);
+      values[properties.name] =
+          RangeValues(properties.minValue, properties.maxValue);
     }
     return RangeSliderComponent(
       rangeValues: values[properties.name],
@@ -158,6 +162,20 @@ Widget propsToComponentMapper({
     // If the property name is [datePickerComponentTypeName] then return a [DatePickerComponent]
     properties = properties as DatePickerComponentProperties;
     return DatePickerComponent(
+      onChange: ((dt) {
+        setValue(properties.name, dt);
+      }),
+      properties: properties,
+      value: values[properties.name],
+      error: validations[properties.name],
+    );
+  }
+
+  // Timepicker Component
+  else if (properties.type == timePickerComponentTypeName) {
+    // If the property name is  timePickerComponentTypeName] then return a  TimePickerComponent]
+    properties = properties as TimePickerComponentProperties;
+    return TimePickerComponent(
       onChange: ((dt) {
         setValue(properties.name, dt);
       }),

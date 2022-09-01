@@ -452,6 +452,65 @@ var date_picker = {
   "border_radius": 1,
 };
 
+/// Time picker
+var time_picker = {
+  // Time picker type widget
+  "type": "time_picker",
+
+  // Time picker name
+  "name": "",
+
+  // Time picker label
+  "label": "",
+
+  // Description of the component
+  "helper_text": '',
+
+  // Place holder, gets displayed when there is no value to display.
+  "place_holder": "",
+
+  // Label text for HH
+  "hour_label_text": "",
+
+  // Label text for MM
+  "minute_label_text": "",
+
+  // Initial time
+  "initial_time": "formatted time string (HH:MM) ",
+
+  //
+  "time_picker_entry_mode": "",
+
+  // Text to be displayed on cancel option of picker
+  "picker_cancel_text": "cancel",
+
+  // Text to be displayed on yes option of picker
+  "picker_select_text": "select",
+
+  // Is this field required
+  "is_required": false,
+
+  // Show error or not
+  "show_error": true,
+
+  // Custom error text is nullable string.
+  "custom_error_text": null,
+
+  "text_color": "000000",
+
+  // To show border for the text field or not.
+  "show_border": true,
+
+  // Border color for the text field.
+  "border_color": "0000ff",
+
+  // Border width for the text field.
+  "border_width": 1,
+
+  // Border radius for the text field.
+  "border_radius": 1,
+};
+
 /// `ValidationError`
 var validation_result = {
   // Name of the field that failed validation.

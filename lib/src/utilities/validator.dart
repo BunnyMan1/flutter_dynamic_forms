@@ -1,3 +1,5 @@
+import 'package:flutter_dynamic_forms/flutter_dynamic_forms.dart';
+
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -170,5 +172,31 @@ ValidationResult componentValidator({
     }
     return validationResult;
   }
+
+  // Time picker component type name.
+  if (properties.type == timePickerComponentTypeName) {
+    properties = properties as TimePickerComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+
+    if (properties.isRequired && (value == null || value == "")) {
+      if (properties.customErrorText != null && properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+    return validationResult;
+  }
+
   throw 'Unknown component cannot be validated';
 }
