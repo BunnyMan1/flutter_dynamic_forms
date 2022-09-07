@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../constants/constants.dart';
-import '../utilities/helpers.dart';
 import 'base_model.dart';
 
 part 'radio_field_props.g.dart';
@@ -214,7 +213,6 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfAlignmentKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a helper function to check whether it is a valid alignment type.
-        mapRadioFieldAlignment(properties[key]);
       }
 
       if (key == _rfLabelPositionKey) {
@@ -223,7 +221,6 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfLabelPositionKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a switch case for enums - left, right.
-        mapRadioFieldLabelPosition(properties[key]);
       }
 
       if (key == _rfLabelStyleKey) {
@@ -232,7 +229,6 @@ class RadioComponentProperties implements BaseModel {
           return 'bad value for $_rfLabelStyleKey: "${properties[key]}" expected a String.';
         }
         //TODO: Add a switch case for enums - normal, bold, italic.
-        mapRadioFieldLabelStyle(properties[key]);
       }
 
       if (key == _rfPrimaryColorKey) {

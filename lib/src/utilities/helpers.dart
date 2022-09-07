@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/radio_field_props.dart';
-
 /// `hexStringToColorConverter` converts a hex string to a color.
 Color hexStringToColorConverter(String s) {
   if (s.length != 6) {
@@ -27,52 +25,5 @@ extension IndexedIterable<E> on Iterable<E> {
   Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
     var i = 0;
     return map((e) => f(e, i++));
-  }
-}
-
-// ------- Enum Mappers -------------
-
-/// Map string values to [RadioFieldAlignment] enum.
-RadioFieldAlignment mapRadioFieldAlignment(String value) {
-  switch (value.toLowerCase().trim()) {
-    case "horizontal":
-      return RadioFieldAlignment.horizontal;
-    case "vertical":
-      return RadioFieldAlignment.vertical;
-    // default:
-    //   return RadioFieldAlignment.horizontal;
-    default:
-      throw "Invalid value for RadioFieldAlignment. Expected 'horizontal' or 'vertical' but got '$value'.";
-  }
-}
-
-/// Map string values to [RadioFieldLabelPosition] enum.
-RadioFieldLabelPosition mapRadioFieldLabelPosition(String value) {
-  switch (value.toLowerCase().trim()) {
-    case "left":
-      return RadioFieldLabelPosition.left;
-    case "right":
-      return RadioFieldLabelPosition.right;
-    // default:
-    //   return RadioLabelPosition.left;
-    default:
-      throw "Invalid value for RadioLabelPosition. Expected 'left' or 'right' but got '$value'.";
-  }
-}
-
-/// Map string values to [RadioFieldLabelStyle] enum.
-/// This will determine the font weight of the label in radio
-RadioFieldLabelStyle mapRadioFieldLabelStyle(String value) {
-  switch (value.toLowerCase().trim()) {
-    case "normal":
-      return RadioFieldLabelStyle.normal;
-    case "bold":
-      return RadioFieldLabelStyle.bold;
-    case "italic":
-      return RadioFieldLabelStyle.italic;
-    // default:
-    //   return RadioLabelStyle.normal;
-    default:
-      throw "Invalid value for RadioLabelStyle. Expected 'normal', 'bold' or 'italic' but got '$value'.";
   }
 }
