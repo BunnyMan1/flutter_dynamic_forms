@@ -189,6 +189,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       'is_required': true,
                     },
                   ),
+
+                  RichTextComponentProperties.fromMap({
+                    'type': "rich_text",
+                    'name': "rich text",
+                    "hint_text": "This is hint...",
+                  }),
                 ],
               ),
               onSubmit: (var map) {

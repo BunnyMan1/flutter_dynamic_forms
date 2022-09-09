@@ -21,6 +21,9 @@ dependencies:
   # To create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
+  # To create a rich text field in the form.
+  html_editor_enhanced: ^2.5.0
+
 dev_dependencies:
   # Generate files (JSON serialization & deserialization)
   build_runner: ^2.2.0

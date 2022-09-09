@@ -6,6 +6,7 @@ import '../models/dropdown_field_props.dart';
 import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
+import '../models/rich_text_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 import '../models/timepicker_field_props.dart';
@@ -136,6 +137,20 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     // If the check is not string, then it is a valid map.
     // Create a TimePickerComponentProperties object from the map.
     return TimePickerComponentProperties.fromMap(map);
+  }
+
+  // RICH TEXT COMPONENT
+  else if (key == richTextComponentTypeName) {
+    // If key is richtext component, then check for richtext properties validation.
+    var check = RichTextComponentProperties.propertiesChecker(map, isMap: true);
+    if (check is String) {
+      // If the check is string, then it is an error message.
+      // Throw the error message.
+      throw check;
+    }
+    // If the check is not string, then it is a valid map.
+    // Create a RichTextComponentProperties object from the map.
+    return RichTextComponentProperties.fromMap(map);
   }
   throw 'Unkown component with name $map.';
 }

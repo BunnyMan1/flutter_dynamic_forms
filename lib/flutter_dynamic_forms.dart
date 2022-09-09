@@ -12,6 +12,7 @@ export 'src/models/form_props.dart';
 export 'src/models/multiselect_dropdown_field_props.dart';
 export 'src/models/radio_field_props.dart';
 export 'src/models/range_slider_field_props.dart';
+export 'src/models/rich_text_field_props.dart';
 export 'src/models/slider_field_props.dart';
 export 'src/models/text_field_props.dart';
 export 'src/models/timepicker_field_props.dart';

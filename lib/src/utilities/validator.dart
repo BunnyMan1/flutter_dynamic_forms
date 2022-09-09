@@ -1,3 +1,5 @@
+import 'package:flutter_dynamic_forms/src/models/rich_text_field_props.dart';
+
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -210,6 +212,32 @@ ValidationResult componentValidator({
   // Validation for time picker component
   if (properties.type == timePickerComponentTypeName) {
     properties = properties as TimePickerComponentProperties;
+    ValidationResult validationResult = ValidationResult(
+      componentName: properties.name,
+      type: properties.type,
+      value: value,
+      errors: [],
+    );
+
+    if (properties.isRequired && (value == null || value == "")) {
+      if (properties.customErrorText != null &&
+          properties.customErrorText!.trim().isNotEmpty) {
+        validationResult.errors.add(
+          {"Required": properties.customErrorText},
+        );
+      } else {
+        validationResult.errors.add(
+          {"Required": "This field is required."},
+        );
+      }
+      return validationResult;
+    }
+    return validationResult;
+  }
+
+  // Validation for rich text component
+  if (properties.type == richTextComponentTypeName) {
+    properties = properties as RichTextComponentProperties;
     ValidationResult validationResult = ValidationResult(
       componentName: properties.name,
       type: properties.type,

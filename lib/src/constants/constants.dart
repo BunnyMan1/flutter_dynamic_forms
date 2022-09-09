@@ -26,3 +26,6 @@ const String textComponentTypeName = 'text';
 
 /// TimePickerComponentName =  `'time_picker'`
 const String timePickerComponentTypeName = 'time_picker';
+
+/// RichTextComponentName = `'rich_text_field'`
+const String richTextComponentTypeName = 'rich_text';

@@ -6,6 +6,7 @@ import '../components/dropdown_component.dart';
 import '../components/multiselect_dropdown_component.dart';
 import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
+import '../components/rich_text_component.dart';
 import '../components/slider_component.dart';
 import '../components/text_component.dart';
 import '../components/time_picker_component.dart';
@@ -18,6 +19,7 @@ import '../models/dropdown_field_props.dart';
 import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
+import '../models/rich_text_field_props.dart';
 import '../models/slider_field_props.dart';
 import '../models/text_field_props.dart';
 import '../models/timepicker_field_props.dart';
@@ -172,8 +174,7 @@ Widget propsToComponentMapper({
       value: values[properties.name],
       error: validations[properties.name],
       onChange: ((s) {
-
-        //!NOTE: Added value equality 
+        //!NOTE: Added value equality
 
         // List vals = values[properties.name];
 
@@ -215,6 +216,20 @@ Widget propsToComponentMapper({
     // If the property name is  timePickerComponentTypeName] then return a  TimePickerComponent]
     properties = properties as TimePickerComponentProperties;
     return TimePickerComponent(
+      onChange: ((dt) {
+        setValue(properties.name, dt);
+      }),
+      properties: properties,
+      value: values[properties.name],
+      error: validations[properties.name],
+    );
+  }
+
+  // Timepicker Component
+  else if (properties.type == richTextComponentTypeName) {
+    // If the property name is  timePickerComponentTypeName] then return a  TimePickerComponent]
+    properties = properties as RichTextComponentProperties;
+    return RichTextFieldComponent(
       onChange: ((dt) {
         setValue(properties.name, dt);
       }),

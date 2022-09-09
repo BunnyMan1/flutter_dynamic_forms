@@ -601,3 +601,46 @@ Include dio
   
   > Example: We should mention that we are using inbuilt h1 style for title, h2 for description, etc.
 */
+
+var rich_text_field_props = {
+  // Type of the component
+  "type": "rich_text",
+
+  // Name of the component
+  "name": "",
+
+  // Description of the component
+  "helper_text": "",
+
+  // Hint text of the component
+  "hint_text": "",
+
+  // Label of the component
+  "label": "",
+
+  // Dark mode
+  "is_dark_mode": true,
+
+  // Spell Check
+  "enable_spell_check": true,
+
+  // Specifies whether the widget should scroll to reveal the HTML editor
+  // when it is focused or the text content is changed.
+  // Your editor must be in a Scrollable type widget (e.g. ListView, SingleChildScrollView, etc.) for this to work. Otherwise, nothing will happen
+  "should_ensure_visible": true,
+
+  // Determines whether the widget should be user interactive or not.
+  "is_disabled": true,
+
+  // Character limit
+  "character_limit": 10,
+
+  // Is this field required
+  "is_required": false,
+
+  // Show error or not
+  "show_error": true,
+
+  // Custom error text is nullable string.
+  "custom_error_text": null,
+};
