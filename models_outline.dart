@@ -49,8 +49,7 @@ var form_options = {
 
   "on_submit": "void Function onSubmit(Map<String,dynamic> values)",
 
-  "on_validation_fail":
-      "Function onValidationFail(List<ValidationError> failedValidations)"
+  "on_validation_fail": "Function onValidationFail(List<ValidationError> failedValidations)"
 };
 
 var text_field_props = {
@@ -560,6 +559,63 @@ var time_picker = {
 
   // Border color for the text field.
   "border_color": "0000ff",
+
+  // Border width for the text field.
+  "border_width": 1,
+
+  // Border radius for the text field.
+  "border_radius": 1,
+};
+
+/// File picker
+var file_picker = {
+  // Time picker type widget
+  "type": "file_picker",
+
+  // File picker name
+  "name": "",
+
+  // File picker label
+  "label": "",
+
+  // Description of the component
+  "helper_text": '',
+
+  // Place holder, gets displayed when there is no value to display.
+  "place_holder": "",
+
+  // URL where file should be uploaded. Url should accept formData and return a url !
+  "file_upload_url": "",
+
+  // Picker dialog's title.
+  'dialog_title': "",
+
+  // File Type
+  "file_type": "<FileType Enum>",
+
+  // List of extensions allowed.
+  "allowed_extensions": [""],
+
+  // MultiPicker mode.
+  "allow_multiple"
+
+      // Is this field required
+      "is_required": false,
+
+  // Show error or not
+  "show_error": true,
+
+  // Custom error text is nullable string.
+  "custom_error_text": null,
+
+  "text_color": "000000",
+
+  // To show border for the text field or not.
+  "show_border": true,
+  ''
+
+      // Border color for the text field.
+      "border_color": "0000ff",
 
   // Border width for the text field.
   "border_width": 1,

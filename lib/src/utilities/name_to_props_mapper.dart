@@ -1,3 +1,5 @@
+import 'package:flutter_dynamic_forms/src/models/filepicker_field_props.dart';
+
 import '../constants/constants.dart';
 import '../models/base_model.dart';
 import '../models/checkbox_field_props.dart';
@@ -96,8 +98,7 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
   // MULTI-SELECT DROPDOWN COMPONENT
   else if (key == multiselectDropdownComponentTypeName) {
     // If key is multi dropdown component, then check for multi dropdown properties validation.
-    var check = MultiSelectDropdownComponentProperties.propertiesChecker(map,
-        isMap: true);
+    var check = MultiSelectDropdownComponentProperties.propertiesChecker(map, isMap: true);
     if (check is String) {
       // If the check is string, then it is an error message.
       // Throw the error message.
@@ -111,8 +112,7 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
   // DATE PICKER COMPONENT
   else if (key == datePickerComponentTypeName) {
     // If key is datepicker component, then check for datepicker properties validation.
-    var check =
-        DatePickerComponentProperties.propertiesChecker(map, isMap: true);
+    var check = DatePickerComponentProperties.propertiesChecker(map, isMap: true);
     if (check is String) {
       // If the check is string, then it is an error message.
       // Throw the error message.
@@ -126,8 +126,7 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
   // TIMER PICKER COMPONENT
   else if (key == timePickerComponentTypeName) {
     // If key is timepicker component, then check for timepicker properties validation.
-    var check =
-        TimePickerComponentProperties.propertiesChecker(map, isMap: true);
+    var check = TimePickerComponentProperties.propertiesChecker(map, isMap: true);
     if (check is String) {
       // If the check is string, then it is an error message.
       // Throw the error message.
@@ -137,5 +136,21 @@ BaseModel nameToPropsMapper(String key, Map<String, dynamic> map) {
     // Create a TimePickerComponentProperties object from the map.
     return TimePickerComponentProperties.fromMap(map);
   }
-  throw 'Unkown component with name $map.';
+
+  // FILE PICKER COMPONENT
+  else if (key == filePickerComponentTypeName) {
+    // If key is filePicker component, then check for filePicker properties validation.
+    var check = FilePickerComponentProperties.propertiesChecker(map, isMap: true);
+    if (check is String) {
+      // If the check is string, then it is an error message.
+      // Throw the error message.
+      throw check;
+    }
+    // If the check is not string, then it is a valid map.
+    // Create a FilePickerComponentProperties object from the map.
+    return FilePickerComponentProperties.fromMap(map);
+  }
+
+
+  throw 'Unknown component with name $map.';
 }

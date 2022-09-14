@@ -189,6 +189,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       'is_required': true,
                     },
                   ),
+
+                  //FilePicker
+                  FilePickerComponentProperties(
+                    name: 'file_picker',
+                    fileUploadUrl: "",
+                  ),
                 ],
               ),
               onSubmit: (var map) {

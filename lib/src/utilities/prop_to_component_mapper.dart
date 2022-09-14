@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/checkbox_component.dart';
 import '../components/date_picker_component.dart';
 import '../components/dropdown_component.dart';
+import '../components/file_picker_component.dart';
 import '../components/multiselect_dropdown_component.dart';
 import '../components/radio_component.dart';
 import '../components/ranger_slider_component.dart';
@@ -15,6 +16,7 @@ import '../models/checkbox_field_props.dart';
 import '../models/data_item.dart';
 import '../models/datepicker_field_props.dart';
 import '../models/dropdown_field_props.dart';
+import '../models/filepicker_field_props.dart';
 import '../models/multiselect_dropdown_field_props.dart';
 import '../models/radio_field_props.dart';
 import '../models/range_slider_field_props.dart';
@@ -63,8 +65,7 @@ Widget propsToComponentMapper({
       error: validations[p.name],
       props: p,
       controller: TextEditingController(text: values[p.name] ?? "")
-        ..selection =
-            TextSelection.collapsed(offset: (values[p.name] ?? "").length),
+        ..selection = TextSelection.collapsed(offset: (values[p.name] ?? "").length),
     );
   }
 
@@ -122,8 +123,7 @@ Widget propsToComponentMapper({
     // If the property name is [rangeSliderComponentTypeName] then return a [RangeSliderComponent]
     properties = properties as RangeSliderComponentProperties;
     if (values[properties.name] == null) {
-      values[properties.name] =
-          RangeValues(properties.minValue, properties.maxValue);
+      values[properties.name] = RangeValues(properties.minValue, properties.maxValue);
     }
     return RangeSliderComponent(
       rangeValues: values[properties.name],
@@ -172,8 +172,7 @@ Widget propsToComponentMapper({
       value: values[properties.name],
       error: validations[properties.name],
       onChange: ((s) {
-
-        //!NOTE: Added value equality 
+        //!NOTE: Added value equality
 
         // List vals = values[properties.name];
 
@@ -221,6 +220,15 @@ Widget propsToComponentMapper({
       properties: properties,
       value: values[properties.name],
       error: validations[properties.name],
+    );
+  }
+
+  // Filepicker Component
+  else if (properties.type == filePickerComponentTypeName) {
+    // If the property name is  filePickerComponentTypeName] then return a  filePickerComponent]
+    properties = properties as FilePickerComponentProperties;
+    return FilePickerComponent(
+      properties: properties,
     );
   }
 

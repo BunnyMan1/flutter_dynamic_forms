@@ -21,6 +21,9 @@ dependencies:
   # To create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
+  # To pick files when using file-picker component.
+  file_picker: ^5.0.1
+
 dev_dependencies:
   # Generate files (JSON serialization & deserialization)
   build_runner: ^2.2.0

@@ -26,3 +26,6 @@ const String textComponentTypeName = 'text';
 
 /// TimePickerComponentName =  `'time_picker'`
 const String timePickerComponentTypeName = 'time_picker';
+
+/// FilePickerComponentName =  `'file_picker'`
+const String filePickerComponentTypeName = 'file_picker';
