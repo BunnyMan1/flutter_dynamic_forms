@@ -191,10 +191,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   //FilePicker
-                  FilePickerComponentProperties(
-                    name: 'file_picker',
-                    fileUploadUrl: "",
+
+                  FilePickerComponentProperties.fromMap(
+                    {
+                      'name': 'file_picker',
+                      'file_upload_url': 'https://localhost',
+                      'allow_multiple': true,
+                    },
                   ),
+
+                  // FilePickerComponentProperties(
+                  //   name: 'file_picker',
+                  //   fileUploadUrl: "",
+                  //   fileType: FileType.image,
+                  //   allowMultiple: true,
+                  //   allowedExtensions: ['png', 'jpg'],
+                  // ),
                 ],
               ),
               onSubmit: (var map) {

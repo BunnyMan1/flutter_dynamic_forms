@@ -16,3 +16,4 @@ export 'src/models/slider_field_props.dart';
 export 'src/models/text_field_props.dart';
 export 'src/models/timepicker_field_props.dart';
 export 'src/models/filepicker_field_props.dart';
+export 'package:file_picker/file_picker.dart';

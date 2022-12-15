@@ -229,6 +229,10 @@ Widget propsToComponentMapper({
     properties = properties as FilePickerComponentProperties;
     return FilePickerComponent(
       properties: properties,
+      onChange: ((file) {
+        setValue(properties.name, file);
+      }),
+      value: values[properties.name],
     );
   }
 

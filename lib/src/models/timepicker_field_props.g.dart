@@ -58,4 +58,6 @@ Map<String, dynamic> _$TimePickerComponentPropertiesToJson(
 const _$TimePickerEntryModeEnumMap = {
   TimePickerEntryMode.dial: 'dial',
   TimePickerEntryMode.input: 'input',
+  TimePickerEntryMode.dialOnly: 'dialOnly',
+  TimePickerEntryMode.inputOnly: 'inputOnly',
 };
